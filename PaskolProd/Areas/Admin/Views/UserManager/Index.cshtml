@@ -1,0 +1,167 @@
+﻿@using Model.Users;
+@using Model.Helper;
+@using PagedList.Mvc;
+@using PaskolProd.Models.Helper;
+@using PaskolProd.Views.Helpers;
+
+@model PagedList.IPagedList<PaskolUser>
+
+@{
+    ViewBag.Title = "ניהול משתמשים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>צפיה במשתמשים</h2>
+
+@if (User.IsInRole("SystemAdmin"))
+{
+    <p>
+        @Html.ActionLink("צור משתמש חדש", "CreateArtist", null, new { @class = "btn btn-primary" })
+    </p>
+}
+ 
+          
+<div class="row" style="margin-bottom:10px">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="well">
+            <form action="~/Admin/UserManager/Index" class="input-group" style="direction:ltr;" method="get">
+                <div class="col-lg-1">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">חפש!</button>
+                    </span>
+                </div>
+                <div class="col-lg-4">
+                    @Html.TextBox("searchName", ViewBag.searchName as string, new { @class = "form-control", placeholder = "הקלד שם לחיפוש" })
+                </div>
+                <div class="col-lg-4">
+                    @Html.TextBox("searchContactManName", ViewBag.searchContactManName as string, new { @class = "form-control", placeholder = "הקלד איש קשר לחיפוש" })
+                </div>
+                <div class="col-lg-3">
+                   
+                    <select name="ddlRole" id="ddlRole" class="form-control">
+                        @foreach (var role in ViewBag.Roles)
+                        {
+                            if (User.IsInRole("SystemAdmin") || role.Key == "Artist")
+                            {
+                                <option @(role.Key == ViewBag.SelectedRole ? "selected='selected'" : "") value="@role.Key">@role.Value</option>
+                            }
+                        }
+                    </select>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+     
+<table class="table table-striped">
+        <tr>
+            <th>@Html.ActionLink("שם", "Index",
+               new {
+                   sortOrder = ViewBag.NameSortParm,
+                   searchName = ViewBag.searchName,
+                   searchContactManName = ViewBag.searchContactManName,
+                   ddlRole = ViewBag.SelectedRole  
+               })</th>
+            <th>סוג</th>
+            <th>@Html.ActionLink("תאריך הרשמה", "Index",
+               new {
+                   sortOrder = ViewBag.DateSortParm,
+                   searchName = ViewBag.searchName,
+                   searchContactManName = ViewBag.searchContactManName,
+                   ddlRole = ViewBag.SelectedRole
+               }) </th>
+            <th>מסמכים</th>
+            <th>דוחות</th>
+            <th>סטאטוס</th>
+            <th>הערה</th>
+            <th colspan="2">פעולות</th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="8" class="text-center">אין משתמשים</td>
+            </tr>
+        }
+        else
+        {
+            foreach (PaskolUser user in Model)
+            {
+                <tr>
+                    <td>@StringHelper.TruncateWithEllipsis(user.UserName)</td>
+                    <td>@user.UserType.ToDescription()</td>
+                    <td style="direction:ltr">@user.RegisteredDate</td>
+                    <td>
+                        <a href="/Admin/Documents/GetDocumnets?Id=@user.Id" class="btn btn-default">מסמכים</a>
+                    </td>
+                    <td>
+                        @if (user.UserType == UserType.Customer)
+                        {
+                            <a href="/Admin/Reports/UserReport?Id=@user.Id" class="btn btn-default">דוחות</a>
+                        }
+                       
+                    </td>
+                    <td>
+                        @if (user.Status == UserStatus.WaitingEditedArtist && user.UserType == UserType.Artist)
+                        {
+                            <a href="/Admin/Confirmation/EditedArtist?Id=@user.Id" class="btn btn-default">@user.Status.ToDescription()</a>
+                        }
+                        else if(user.Status == UserStatus.WaitingNewArtist && user.UserType == UserType.Artist)
+                        {
+                            <a href="/Admin/Confirmation/NewArtist?Id=@user.Id" class="btn btn-default">@user.Status.ToDescription()</a>
+                        }
+                        else
+                        {
+                            @user.Status.ToDescription() 
+                        }
+                                    
+                    </td>
+                    <td>@user.Note</td>
+                    <td>
+                        @if (user.UserType == UserType.Artist)
+                        {
+                            <a href="/Admin/UserManager/EditArtist?Id=@user.Id" class="btn btn-default"> פרטים\ ערוך</a>
+                        }
+                        else if (user.UserType == UserType.Customer)
+                        {
+                            <a href="/Admin/UserManager/EditCustomer?Id=@user.Id" class="btn btn-default"> פרטים\ ערוך</a>
+                        }
+                        else if (user.UserType == UserType.ArtistAgent)
+                        {
+                            <a href="/Admin/UserManager/EditArtistAgent?Id=@user.Id" class="btn btn-default"> פרטים\ ערוך</a>
+                        }
+                    </td>
+                    <td>
+                    @if (User.IsInRole("SystemAdmin"))
+                    {
+                        if (user.Status == UserStatus.Active)
+                        {
+                            <a href="/Admin/UserManager/GetBlockActive?Id=@user.Id" class="btn btn-default"> חסום</a>
+
+                        }
+                        else if (user.Status == UserStatus.Blocked)
+                        {
+                            <a href="/Admin/UserManager/GetBlockActive?Id=@user.Id" class="btn btn-default">אחזר</a>
+                        } 
+                    }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+                
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page,
+    sortOrder = ViewBag.CurrentSort,
+    searchName = ViewBag.searchName,
+    searchContactManName = ViewBag.searchContactManName,
+    ddlRole = ViewBag.SelectedRole
+}))
+                   
+עמוד @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) מתוך @Model.PageCount
+                 
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/PaskolManager")
+}
+    

@@ -1,0 +1,47 @@
+﻿@model PaskolProd.Models.MusicReportViewModel
+@{
+    ViewBag.Title = "דוחות - סך יצירות";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "יצירות";
+    ViewBag.SubCat = "סך יצירות";
+    var disableDates = Model.Type == PaskolProd.Models.MusicReportType.All ? "disabled=\"disabled\"" : "";
+}
+
+<div class="row well" style="margin-top:10px; direction: ltr;">
+    @using (Html.BeginForm("Musics", "Reports", FormMethod.Get))
+    {
+        <div class="col-lg-1 col-lg-offset-1">
+            <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+        </div>
+        <div class="col-lg-2">
+            <div class="col-lg-11">
+                @Html.EnumDropDownListFor(m => m.Type, new { @class = "form-control select-music-type-report" })
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="input-group">
+                <input id="StartDate" name="StartDate" format="dd/MM/yyyy" type="date" class="form-control" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("yyyy-MM-dd") : "")" @disableDates>
+                <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                <input id="EndDate" name="EndDate" type="date" class="form-control" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "")" @disableDates>
+            </div>
+        </div>
+    }
+    <div class="col-lg-1 col-lg-offset-1">
+        <button id="WeekDate" name="WeekDate" class="btn btn-default" @disableDates>שבוע אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="MonthDate" name="MonthDate" class="btn btn-default" @disableDates>חודש אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="YearDate" name="YearDate" class="btn btn-default" @disableDates>שנה אחרונה</button>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top:20px; margin-bottom:300px">
+    <div class="col-lg-3 col-lg-offset-3">
+        <div class="alert alert-info" role="alert">
+            <h2><strong>סך יצירות:</strong>@(Model.Count)</h2>
+        </div>
+    </div>
+</div>

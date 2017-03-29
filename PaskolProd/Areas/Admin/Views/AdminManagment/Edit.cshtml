@@ -1,0 +1,87 @@
+﻿@model PaskolProd.Models.ManagersEditView
+@using Model.Users
+@using Model.Helper
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "עריכת מנהל";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>עריכת מנהל</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.UserID)
+                <input autocomplete="off" type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                @if (User.Identity.GetUserId() != Model.UserID)
+                {
+                    
+                <div class="form-group admin-managmant-role-container">
+                    @foreach (EnumKeyVal role in ViewBag.Roles)
+                    {
+                        <div class="col-md-10">
+                            <div class="input-group" style="direction: ltr;text-align:left">
+                                <input autocomplete="off" type="text" class="form-control" disabled placeholder="@role.Value">
+                                <span class="input-group-addon">
+                                    <input autocomplete="off" class="admin-managmant-role-checkbox" type="checkbox" name="Roles" @(Model.Roles.Contains((string)role.Key) ? "checked='checked'" : "") value="@role.Key">
+                                </span>
+                            </div>
+                        </div>
+                    }
+                    @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                }
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input autocomplete="off" type="submit" value="שמור" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            <a href="/Admin/AdminManagment/" class="btn btn-default">חזרה לרשימה</a>
+        </div>
+    </div>
+</div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

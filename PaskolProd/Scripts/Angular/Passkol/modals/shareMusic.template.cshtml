@@ -1,0 +1,19 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="shareMusic.template">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()">&times;</button>
+            <h4 class="modal-title">שיתוף יצירה</h4>
+        </div>
+        <div class="modal-body padding36">
+            <h4>{{music.HebrewName}}</h4>
+            <h5>{{music.ArtistName}}</h5>
+            <a ng-click="shareInMail()" class="sharelink cursor-pointer"><span class="glyphicon glyphicon-envelope"></span><span>שתף את היצירה בדוא"ל</span></a>
+            <a class="sharelink">
+                <span class="glyphicon glyphicon-link"></span>
+                <span>הדבק היכן שתרצה לשתף</span>
+                <span class="shorturl">{{url}}</span>
+            </a>
+        </div>
+    </div>
+</script>

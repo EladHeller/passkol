@@ -1,0 +1,113 @@
+﻿@using Model.Users;
+@using PaskolProd.Models;
+@using PaskolProd.Models.Helper;
+@using Model.Helper;
+@using Microsoft.AspNet.Identity
+
+@model List<ManagersCreateView>
+@{
+    ViewBag.Title = "ניהול מנהלים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>צפיה במנהלים</h2>
+
+<p>
+    @Html.ActionLink("צור מנהל חדש", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            שם
+        </th>
+        <th>
+            תאריך הרשמה
+        <th>
+            הרשאות
+        </th>
+        <th>
+            סטאטוס
+        </th>
+        <th>
+            הערה
+        </th>
+        <th>
+            פעולות
+        </th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="6" class="text-center">אין משתמשים</td>
+        </tr>
+    }
+    else
+    {
+        foreach (ManagersCreateView user in Model)
+        {
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+                <td style="direction:ltr">
+                    @user.RegisteredDate
+                </td>
+                <td>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapse@(user.UserID)" aria-expanded="false" aria-controls="collapseThree">
+                                        צפה בהרשאות
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse@(user.UserID)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-condensed">
+
+                                        @if (user.Roles.Count() > 0)
+                                        {
+                                            foreach (string role in user.Roles)
+                                            {
+                                                <tr><td>@role</td></tr>
+                                            }
+                                        }
+                                        else {
+                                            <p>אין הרשאות</p>
+                                        }
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @user.Status
+                </td>
+                <td>
+                    @user.Note
+                </td>
+                <td>
+                    @Html.ActionLink("ערוך", "Edit", new { id = user.UserID }, new { @class = "btn btn-default" })
+
+                    @if (user.Status == UserStatus.Active.ToDescription() && user.UserID != User.Identity.GetUserId())
+                    {
+                        @Html.ActionLink("חסום", "GetBlockActive", new { id = user.UserID, urlAction = "AdminManagment" }, new { @class = "btn btn-default" })
+
+                    }
+                    else if (user.Status == UserStatus.Blocked.ToDescription())
+                    {
+                        @Html.ActionLink("אחזר", "GetBlockActive", new { id = user.UserID, urlAction = "AdminManagment" }, new { @class = "btn btn-default" })
+                    }
+                    
+                   
+
+                </td>
+            </tr>
+        }
+    }
+
+</table>

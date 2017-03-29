@@ -1,0 +1,71 @@
+﻿@using Model.Users
+@using PaskolProd.Views.Helpers
+@using PaskolProd.Models
+
+@{
+    ViewBag.Title = "ניהול אישי";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<ArtistAgentArtistsView>
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+
+        <ul class="innermenu2">
+            <li><a href="~/ArtistAgent/MyProfile">עדכון פרופיל</a></li>
+            <li><a href="~/ArtistAgent/SellReport">דו"ח רכישות</a></li>
+            <li class="active"><a href="~/ArtistAgent/PersonalManagment">ניהול אישי</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2" ng-controller="ArtAgntPersonalMng">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><i href="#">האיזור האישי </i></li>
+            <li><i href="#">ניהול אישי</i></li>
+        </ol>
+        <h1> ניהול אישי</h1>
+        <i ng-show="isLoading" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+        <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+        <div class="innercontent">
+            <div class="row editprofile" style="margin-bottom:10px !important">
+                <div class="col-lg-offset-3 col-lg-4 col-md-4 col-md-4">
+                   @foreach (var artist in Model)
+                   {
+                    <div class="row" style="margin-bottom:10px !important">
+                        <div class="col-lg-12">
+                            <a style="float:left;margin-right:10px" ng-click="removeArtist('@artist.ArtistId')">מחק אמן</a>
+                            @if (!artist.ArtistsAgentConfirmed)
+                            {
+                                <a style="float:left;margin-right:10px" ng-click="confirmArtist('@artist.ArtistId')">אשר</a>
+                            }
+                            @if (!artist.ArtistsConfirmed)
+                            {
+                                <p style="float:left;margin-right:10px">ממתין לאישור</p>
+                            }
+                            <p>אמן</p>
+                            <input autocomplete="off" disabled="disabled" class="form-control greyinput" placeholder="@(artist.ArtistsName ?? artist.ArtistEmail )"/>
+                            
+                        </div>
+                    </div>
+                   }
+                    <a href="#" id="togglemanager" class="btn" ng-click="addArtist()">הוסף פרטי מנהל ראשי <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+                    <div class="manager">
+                        <a class="bluelink pull-left" ng-click="artistEmail = null">מחק אמן</a>
+                        <div class="clearfix"></div>
+                        <div class="managerform">
+                            <p>דוא"ל אמן</p>
+                            <input autocomplete="off" class="form-control greyinput input1" value="" type="email" ng-model="artistEmail">
+                            <p style="color:red">{{artistEmailNessage}}</p>
+                            <p class="iagree"><label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label> <span>הנני מאשר/ת שאני המנהל המייצג את האמן</span></p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

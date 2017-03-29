@@ -1,0 +1,98 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="editMusic.template">
+    <section class="container-fluid container-innercontent2"  ng-init="openEditMusicPanel(music)">
+        <div class="innercontent">
+            <div ng-show="uploadMusicLoading">
+                <img src="/Content/images/logo_anim.gif" />
+            </div>
+            <form class="row editprofile editprofile2 edit-music-frm" name="editMusicFrm" ng-hide="uploadMusicLoading">
+                <div class="col-lg-3 col-md-3 col-md-6 padding1">
+                    <p>העלה קובץ MP3 <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <file-input file="MP3File" type="'audio/mp3'" reset-file="resetMP3File"></file-input>
+                    <p>העלה קובץ WAV <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <file-input file="WAVFile" type="'audio/wav'" reset-file="resetWAVFile"></file-input>
+                    <p>שם היצירה בעברית <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <input name="hebrewName" autocomplete="off" type="text" class="form-control greyinput" ng-model="editedMusic.HebrewName" required="required" ng-class="{'input-error': !editMusicFrm.hebrewName.$valid && showValidationErrors}">
+                    <p>שם היצירה באנגלית <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <input name="englishName" autocomplete="off" type="text" class="form-control greyinput" ng-model="editedMusic.EnglishName" required="required" ng-class="{'input-error': !editMusicFrm.englishName.$valid && showValidationErrors}">
+                    <p>אורך היצירה (בדקות) <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <span>
+                        <input name="seconds" autocomplete="off" type="number" min="0" max="59" class="form-control greyinput2" ng-model="editedMusic.Seconds" required="required" ng-class="{'input-error': !editMusicFrm.seconds.$valid && showValidationErrors}">
+                        <span class="colon">:</span>
+                        <input name="minutes" autocomplete="off" type="number" min="0" max="59" class="form-control greyinput2" ng-model="editedMusic.Minutes" required="required" ng-class="{'input-error': !editMusicFrm.minutes.$valid && showValidationErrors}">
+                    </span>
+                    <p>BPM</p>
+                    <input autocomplete="off" type="number" min="0" class="form-control greyinput2" ng-model="editedMusic.BPM">
+                    <p class="bottomremark"><span class="glyphicon glyphicon-asterisk asterisk"></span> שדות חובה</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-md-6 padding1">
+                    <p>כותב <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <input name="writer" autocomplete="off" type="text" class="form-control greyinput" ng-model="editedMusic.MusicWriter" required="required" ng-class="{'input-error': !editMusicFrm.writer.$valid && showValidationErrors}">
+                    <p>מלחין <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <input name="composer" autocomplete="off" type="text" class="form-control greyinput" ng-model="editedMusic.MusicComposer" required="required" ng-class="{'input-error': !editMusicFrm.composer.$valid && showValidationErrors}">
+                    <p>מבצע <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <input name="performer" autocomplete="off" type="text" class="form-control greyinput" ng-model="editedMusic.MusicPerformer" required="required" ng-class="{'input-error': !editMusicFrm.performer.$valid && showValidationErrors}">
+                    <p>מילים (מומלץ להעתיק ולהדביק)</p>
+                    <textarea class="form-control greyinput textarea2" ng-model="editedMusic.SongText"></textarea>
+                </div>
+                <div class="col-lg-3 col-md-3 col-md-6 padding1">
+                    <p>ציין מי שותף בזכויות וקבע חלוקה <span class="glyphicon glyphicon-asterisk asterisk"></span></p>
+                    <div class="percentages">
+                        <div ng-repeat="copyright in editedMusic.Copyrights">
+                            <small>
+                                <select class="copyright-type-select" ng-options="type.name for type in copyrightsTypeOptions" ng-model="copyright.selectedType"></select>
+                            </small>
+                            <div class="row rowp">
+                                <div class="col-lg-1 col-md-1 col-sm-1">
+                                    <a class="remove-off cursor-pointer" ng-click="removeCopyright(copyright)">×</a>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7">
+                                    <input name="copyrightOwner{{$index}}" autocomplete="off" type="text" class="form-control whiteinput" ng-model="copyright.CopyrightAuthorName" required="required" ng-class="{'input-error': !editMusicFrm['copyrightOwner' + {{$index}}].$valid && showValidationErrors}">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <input autocomplete="off" type="number" min="0" max="100" class="form-control greyinput2 copyright-percents-number" ng-model="copyright.Percents">
+                                    <span style="font-size:15px;line-height: 32px;">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row rowp2">
+                            <div class="col-lg-1 col-md-1 col-sm-1">
+                                <a class="plus cursor-pointer" title="הוסף שותף בזכויות" ng-click="addCopyright()">+</a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <a class="clear-btn cursor-pointer" ng-click="clearCopyrights()">אפס</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <a class="update-btn cursor-pointer" ng-click="updateSumCopyrights()">עדכן</a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <span ng-bind="editedMusic.sumPercents"></span>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-md-6 padding1">
+                    <p>החרגות <span class="glyphicon glyphicon-question-sign qmark"></span></p>
+                    <textarea class="form-control greyinput textarea3" ng-model="editedMusic.Exceptions"></textarea>
+                    <p>תיוג היצירה</p>
+                    <div class="tagscont-container">
+                        <select style="width:100%" multiple id="autoCompleteTags"></select>
+                    </div>
+                    <div class="row bottombuttons" ng-hide="isModal">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <a ng-click="save(true)" class="cursor-pointer">שמור</a>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <a ng-click="save(false)" class="cursor-pointer">שמור והעלה יצירה נוספת</a>
+                        </div>
+                    </div>
+                    <div ng-show="isModal" class="music-edit-save-btn">
+                        <a ng-click="saveAndClose()" class="cursor-pointer btn btn-primary" style="font-size:large">שמור</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</script>

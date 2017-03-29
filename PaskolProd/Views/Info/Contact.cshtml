@@ -1,0 +1,71 @@
+﻿@using Infrastructure.Configuration
+@model bool?
+@{
+    ViewBag.Title = "צור קשר";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid container-innersearch6">
+    <div class="innersearch">
+        <h1 class="morepadding">צור קשר</h1>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="/">עמוד הבית</a></li>
+            <li>צור קשר</li>
+        </ol>
+
+        <div class="contactinfo">
+            <p><strong>פסקול</strong></p>
+            <p>רחוב התבור 6 תל-אביב   <span style="font-size: smaller;padding:0px 12px ">|</span>   <a href="mailto:@(WebConf.TeamMail)">@(WebConf.TeamMail)</a></p>
+            <p>עמית שיין  <strong>054-4369308</strong>   <span style="font-size: smaller;padding:0px 12px ">|</span>   נועה בניאל-דרייפוס  <strong>052-4437040</strong></p>
+        </div>
+        @if (Model.HasValue && Model.Value)
+        {
+            <p class="text-success">
+                <strong>תודה על פנייתכם! נחזור אליכם תוך יום עסקים אחד.</strong>
+            </p>
+        }
+        else
+        {
+            <p class="contactformtitle">לפניה לשירות אנא מלאו את הטופס ונחזור אליכם תוך יום עסקים אחד</p>
+        }
+        <div class="contactform">
+            <form class="form-horizontal" action="/Info/MailToTeam" method="post">
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">שם פרטי</label>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <input autocomplete="off" type="text" class="form-control" name="firstName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">שם משפחה</label>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <input autocomplete="off" type="text" class="form-control" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">טלפון</label>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <input autocomplete="off" type="tel" class="form-control" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">דוא"ל</label>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <input autocomplete="off" type="email" class="form-control" name="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">תוכן הפניה</label>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <textarea class="form-control" name="content" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="contactformsubmit btn">שליחה</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

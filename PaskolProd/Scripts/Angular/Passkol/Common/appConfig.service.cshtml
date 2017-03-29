@@ -1,0 +1,30 @@
+﻿@using PaskolProd.Authentication;
+@inherits System.Web.Mvc.WebViewPage
+<script>
+    (function () {
+        angular.module("passkolApp").factory("appConfig", appConfig);
+        appConfig.$inject = [];
+        function appConfig() {
+            var userConfig = {
+                isAuthenticated: Boolean('@(User.Identity.IsAuthenticated)'),
+                    @{
+                        var user = User.GetUser();
+                        var userType = string.Empty;
+                        var userName = string.Empty;
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                        {
+                            userType = user.UserType.ToString();
+                            userName = user.UserName;
+                    }
+                    userType : '@(userType)',
+                    userName : '@(userName)',
+            };
+            var service = {
+                userConfig : userConfig
+            };
+
+            return service;
+        }
+    })();
+</script>

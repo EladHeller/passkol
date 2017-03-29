@@ -1,0 +1,191 @@
+﻿@using Model.Auctions
+@using Model;
+@using Model.Helper
+
+@model Model.Auctions.Auction
+
+@{
+    ViewBag.Title = "פרטי מכרז";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>פרטי מכרז</h2>
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">פרטי מכרז:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>שם פרויקט</th>
+                                <th>@Model.AuctionName</th>
+                            </tr>
+                            <tr>
+                                <th>שימוש</th>
+                                <th>
+                                   @Model.UsingName
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>תאריך התחלה</th>
+                                <th style="direction:ltr">@Model.OpenDate</th>
+                            </tr>
+                            <tr>
+                                <th>תאריך סיום</th>
+                                <th style="direction:ltr">@Model.CloseDate</th>
+                            </tr>
+                            <tr>
+                                <th>תאריך בחירת זוכה</th>
+                                <th style="direction:ltr">@Model.PickWinnerDate</th>
+                            </tr>
+                            <tr>
+                                <th>תאריך תחילת פרויקט</th>
+                                <th style="direction:ltr">@Model.OpenProjectDate</th>
+                            </tr>
+                            <tr>
+                                <th>תאריך סיום פרויקט</th>
+                                <th style="direction:ltr">@Model.CloseProjectDate</th>
+                            </tr>
+                            <tr>
+                                <th>מאפייני המוסיקה</th>
+                                <th>@Model.MusicProperties</th>
+                            </tr>
+                            <tr>
+                                <th>איש קשר</th>
+                                <th>@Model.ContactName</th>
+                            </tr>
+                            <tr>
+                                <th>משך המוזיקה הנדרש</th>
+                                <th>@Model.MusicLength</th>
+                            </tr>
+                            <tr>
+                                <th>תקציב</th>
+                                <th>@Model.AuctionBudget</th>
+                            </tr>
+                            <tr>
+                                <th>טלפון</th>
+                                <th>@Model.ContactPhone</th>
+                            </tr>
+                            <tr>
+                                <th>אימייל</th>
+                                <th>@Model.ContactEmail</th>
+                            </tr>
+                            <tr>
+                                <th>הערות</th>
+                                <th>@Model.Notes</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">משתתפים:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            @if (Model.Participants != null)
+                            {
+                                foreach (var user in Model.Participants)
+                                {
+                                    <tr>
+                                        <td>
+                                            @user.User.UserName
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                           
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">סקיצות:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" style="overflow:overlay">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>
+                                        נגן
+                                    </td>
+                                    <td>
+                                        שם הסקיצה
+                                    </td>
+                                    <td>
+                                        שם אמן
+                                    </td>
+                                    <td>
+                                        נרכש
+                                    </td>
+                                </tr>
+                                @foreach (Model.Sketch mu in Model.Sketches)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (mu.WAVFile != null || mu.MP3File != null)
+                                            {
+                                                <audio controls style="margin:10px;">
+                                                    @if (mu.MP3File != null)
+                                                    {
+                                                        <source src="~/File/GetFile?FileId=@mu.MP3File.FileId&UserId=@mu.ArtistID&FileType=@FileType.Music&version=@mu.MP3File.version&suffix=@mu.MP3File.suffix">
+                                                    }
+                                                    @if (mu.WAVFile != null)
+                                                    {
+                                                        <source src="~/File/GetFile?FileId=@mu.WAVFile.FileId&UserId=@mu.ArtistID&FileType=@FileType.Music&version=@mu.WAVFile.version&suffix=@mu.WAVFile.suffix">
+                                                    }
+                                                    הדפדפן שלך לא תומך ב-HTML5
+                                                </audio>
+                                            }
+                                        </td>
+                                        <td>
+                                            @mu.Name
+                                        </td>
+                                        <td>
+                                            @mu.Artist.User.UserName
+                                        </td>
+                                        <td>
+                                           @(mu.Purchased ? "כן" : "לא")
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+            @if (Model.PickWinnerDate < DateTime.Now && Model.AuctionStatus != AuctionStatus.close)
+            {
+                <div class="col-lg-1 col-lg-offset-9">
+                    <a class="btn btn-danger" href="/Admin/Auction/Close?Id=@Model.AuctionId&returnUrl=@ViewBag.returnUrl">סגור</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-2 col-lg-offset-10">
+                    <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

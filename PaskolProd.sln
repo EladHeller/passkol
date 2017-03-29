@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaskolProd", "PaskolProd\PaskolProd.csproj", "{E28B1D8A-B921-4B2E-9F54-EA9FC6A34857}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58D87AF1-B992-4E32-B294-2B073F982CBE} = {58D87AF1-B992-4E32-B294-2B073F982CBE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{DE1083A0-CB08-48E5-BA37-A13B201472DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{33C7B183-FFF4-4231-8059-1B9F38179688}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{74B49599-2886-4D9E-99B6-6DEE46E970B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{E7DF4A44-4D6F-4DBD-BBBA-58DF463AE355}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58D87AF1-B992-4E32-B294-2B073F982CBE} = {58D87AF1-B992-4E32-B294-2B073F982CBE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFws", "PDFws\PDFws.csproj", "{58D87AF1-B992-4E32-B294-2B073F982CBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E28B1D8A-B921-4B2E-9F54-EA9FC6A34857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E28B1D8A-B921-4B2E-9F54-EA9FC6A34857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E28B1D8A-B921-4B2E-9F54-EA9FC6A34857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E28B1D8A-B921-4B2E-9F54-EA9FC6A34857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1083A0-CB08-48E5-BA37-A13B201472DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1083A0-CB08-48E5-BA37-A13B201472DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1083A0-CB08-48E5-BA37-A13B201472DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1083A0-CB08-48E5-BA37-A13B201472DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C7B183-FFF4-4231-8059-1B9F38179688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C7B183-FFF4-4231-8059-1B9F38179688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C7B183-FFF4-4231-8059-1B9F38179688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C7B183-FFF4-4231-8059-1B9F38179688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B49599-2886-4D9E-99B6-6DEE46E970B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B49599-2886-4D9E-99B6-6DEE46E970B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B49599-2886-4D9E-99B6-6DEE46E970B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B49599-2886-4D9E-99B6-6DEE46E970B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7DF4A44-4D6F-4DBD-BBBA-58DF463AE355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7DF4A44-4D6F-4DBD-BBBA-58DF463AE355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7DF4A44-4D6F-4DBD-BBBA-58DF463AE355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7DF4A44-4D6F-4DBD-BBBA-58DF463AE355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D87AF1-B992-4E32-B294-2B073F982CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D87AF1-B992-4E32-B294-2B073F982CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D87AF1-B992-4E32-B294-2B073F982CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D87AF1-B992-4E32-B294-2B073F982CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://moshebarnes.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PaskolProd\\PaskolProd.csproj
+		SccProjectName1 = PaskolProd
+		SccLocalPath1 = PaskolProd
+		SccProjectUniqueName2 = Infrastructure\\Infrastructure.csproj
+		SccProjectName2 = Infrastructure
+		SccLocalPath2 = Infrastructure
+		SccProjectUniqueName3 = Model\\Model.csproj
+		SccProjectName3 = Model
+		SccLocalPath3 = Model
+		SccProjectUniqueName4 = Repository\\Repository.csproj
+		SccProjectName4 = Repository
+		SccLocalPath4 = Repository
+		SccProjectUniqueName5 = Services\\Services.csproj
+		SccProjectName5 = Services
+		SccLocalPath5 = Services
+		SccProjectUniqueName6 = PDFws\\PDFws.csproj
+		SccProjectName6 = PDFws
+		SccLocalPath6 = PDFws
+	EndGlobalSection
+EndGlobal

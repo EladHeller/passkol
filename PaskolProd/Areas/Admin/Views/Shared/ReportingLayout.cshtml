@@ -1,0 +1,60 @@
+﻿@using Model.Authentication
+@{
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<ol class="breadcrumb" style="margin-top:20px"> 
+    <li>@ViewBag.MainCat</li>
+    <li class="active">@ViewBag.SubCat</li>
+</ol>
+<ul class="nav nav-pills" style="margin-left: 740px;padding-right:0;margin-top:20px">
+    @if (!User.IsInRole(PasskolRoles.AdminFinance.ToString()))
+    {
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                משתמשים
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="~/Admin/Reports/Users">סך אמנים</a></li>
+            </ul>
+        </li>
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                יצירות
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="~/Admin/Reports/Musics">סך יצירות</a></li>
+                <li><a href="~/Admin/Reports/LeadMusics">יצירות מובילות</a></li>
+            </ul>
+        </li>
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                תהליכים פתוחים
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="~/Admin/Reports/RegisterNotCompleted">רישום</a></li>
+                <li><a href="~/Admin/Reports/ArtistNotCompleted"> פרופיל אמן</a></li>
+                <li><a href="~/Admin/Reports/DataUploadNotCompleted">העלאת תוכן</a></li>
+                <li><a href="~/Admin/Reports/PurchasesNotCompleted">רכישה פתוחה</a></li>
+            </ul>
+        </li>
+    }
+   
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            רכישות
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="~/Admin/Reports/PurchaseSum">סך רכישות</a></li>
+            <li><a href="~/Admin/Reports/Purchase">רכישות</a></li>
+            <li><a href="~/Admin/Reports/PurchaseArtistsNotPaid">עסקאות לתשלום</a></li>
+        </ul>
+    </li>
+</ul>
+<div id="reportsContainer">
+        @RenderBody()
+</div>

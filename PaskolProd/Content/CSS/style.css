@@ -1,0 +1,377 @@
+*{
+	margin: 0 auto 0 auto;
+	text-align:right;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-family: Arial;
+    direction:rtl;
+}
+
+div,span,p
+{
+	direction:rtl;
+}
+
+.fullWidth
+{
+	width:100%;
+	min-width:1024px!important;
+	display:block;
+}
+
+.mainWidth
+{
+	width: 1024px!important;
+}
+
+#botHeaderButWrapper {
+	display:inline-block;
+	padding-top:16px;
+	overflow:hidden;
+}
+
+#botHeaderButWrapper a
+{
+	float:right;
+	padding: 28px 53px 28px 87px; 
+	margin-right: -25px; 
+	background-image:url(../images/homeMidButton.png);
+    color:#ffffff;
+}
+
+#topHeaderWrapper{
+	background-color: #b1b1b1;
+	height:14px;
+		background-color: #b1b1b1;
+	height:14px;
+	background-image:url(../images/topHeaderBkg.png);
+	background-repeat:no-repeat;
+	background-position: center top;
+}
+
+
+#topHeader{
+
+	display:block;
+	clear:both;
+}
+
+#topHeader a{
+
+	color:#ffffff;
+}
+
+#midHeader
+{
+	height:71px;
+	display:block;
+	clear:both;
+}
+
+#botHeader
+{
+	display:block;
+	clear:both;
+}
+
+#botHeaderWrapper
+{
+		height:668px;
+		background-image:url(../images/main_texture.png);	
+}
+
+#mainContentWrapper
+{
+	background-image:url(../images/main_bkg.png);
+	background-repeat:repeat-x;
+	background-position: center bottom;
+}
+
+#mainContent
+{
+	min-height:976px;
+}
+
+/*footer{
+    position:relative;
+    bottom:0px;
+}*/
+#footerWrapper
+{
+	background-color:black;
+}
+
+#footer
+{
+	height:92px;
+}
+#footer #social 
+{
+	padding-top:36px;
+	display:inline-block;
+	float:left;
+}
+
+#footer #copy 
+{
+	display:inline-block;
+	float:right;
+	padding-top:40px;
+	color: #999999;
+}
+#footer
+{
+    margin-top:20px;
+    color: #dddddd;
+    padding:20px 4px 20px 4px;
+}
+
+#botHeader div.botHeaderMainContent
+{
+	clear: both; display: block;
+    color:#ffffff;
+}
+#botHeader div.botHeaderMainContent img
+{
+	padding-top: 62px;
+	display: block;
+}
+#botHeader div.botHeaderMainContent h1
+{
+	display: block;
+		text-align:center;
+		padding-top: 22px;
+		font-weight: bold;
+		font-size: 36;
+}
+
+#botHeader div.botHeaderMainContent h2
+{
+	text-align:center;		
+	padding-top: 14px;
+	font-size:19px;
+}
+
+ul.soc { width:100%; float:left; padding-left:0px}
+ul.soc li { width: auto; float: left; margin-right:18px; list-style:none;}
+ul.soc li a.c1{ width:12px; height:22px;background:url(../images/social-icons.png) no-repeat; float:left;background-position:0 0}
+ul.soc li a.c2{ width:20px; height:22px;background:url(../images/social-icons.png) no-repeat; float:left;background-position:-50px 0}
+ul.soc li a.c3{ width:20px; height:22px;background:url(../images/social-icons.png) no-repeat; float:left;background-position:-108px 0}
+ul.soc li a.c4{ width:20px; height:22px;background:url(../images/social-icons.png) no-repeat; float:left;background-position:-169px 0}
+
+.topHeaderA2 {
+width: 73px; margin-right:1px;text-align: center; font-weight: bold; display: inline-block;
+background:#b1b1b1; padding:5px 5px; text-align:center;-webkit-border-bottom-right-radius: 7px;
+-webkit-border-bottom-left-radius: 7px;
+-moz-border-radius-bottomright: 7px;
+-moz-border-radius-bottomleft: 7px;
+border-bottom-right-radius: 7px;
+border-bottom-left-radius: 7px;}
+.topHeaderA1 {width: 73px; text-align: center; font-weight: bold; display: inline-block;float:right;
+background:#0683be; padding:5px 5px; text-align:center;-webkit-border-bottom-right-radius: 7px;
+-webkit-border-bottom-left-radius: 7px;
+-moz-border-radius-bottomright: 7px;
+-moz-border-radius-bottomleft: 7px;
+border-bottom-right-radius: 7px;
+border-bottom-left-radius: 7px;}
+
+a
+{
+text-decoration: none;
+}
+
+img
+{
+	border:0;
+    user-select: none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+}
+
+#midHeader a.logo
+{
+	padding-top:19px;
+	float:left;
+}
+
+#topMenu
+{
+	float:right;
+	padding-top:28px;
+}
+
+#topMenu ul {
+	list-style: none;
+	padding: 0px;
+	margin-left:auto;
+}
+
+#topMenu li {
+	list-style: none;
+	padding: 0px;	
+	display: inline; 
+	
+}
+
+#topMenu li img{
+	margin-left: 5px; 
+	vertical-align: middle;
+}
+
+#topMenu a {
+	float: left;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: #000000;
+	padding-left:30px;
+	
+}
+
+#topMenu a:hover{
+	color:#0683be;
+}
+
+.cnet-cnt
+{
+	display:block;
+}
+
+.cnet-cnt p
+{
+	color: black;
+	font-size: 16px;
+	text-align: center;
+	padding: 90px 0px 46px 0px;
+}
+
+.cnet-cnt div.cnt-1
+{
+		display: inline-block;
+		float:right;
+		width:17%;
+		color: #000000;
+		text-align: center;
+}
+
+.cnet-cnt div span
+{
+		padding: 0px 15px 0px 15px;
+		text-align:center;
+		display:inline-block;
+}
+
+.cnet-cnt div.cnt-2
+{
+		display: inline-block;
+		float:right;
+		text-align: center;
+		width:6%;
+}
+
+.cnet-cnt div.cnt-3
+{
+		display: inline-block;
+		float:right;
+		width:7%;
+		height: 10px;
+}
+
+.cnet-cnt div.cnt-2 img
+{
+	margin-top:40px
+}
+
+.btm-bg
+{
+		display:block;
+		clear:both;
+		padding-top: 75px;
+		text-align: center;
+}
+
+.btm-bg span
+{
+	background-color: #00adff;
+	padding: 0px 2px 0px 2px;
+}
+
+.button1
+{
+	color: white;
+	background-color: #0683be;
+	text-align: center;
+	display: inline-box;
+	font-size: 20px;
+	padding: 15px 25px 15px 25px;
+	border-radius: 7px;
+	-webkit-border-bottom-left-radius: 7px;
+	-moz-border-radius-bottomright: 7px;
+}
+
+.body-content{
+    position:relative;
+}
+
+.duration-time-container {
+    border:1px solid #9d9d9d;
+    padding-top:0px;
+    height:30px;
+    float:right;
+}
+
+.duration-time-container:focus {
+    box-shadow: inset 0 1px 1px #00adff;
+}
+
+.duration-time {
+    border:none;
+    font-size:15px;
+    width:30px;
+}
+
+.duration-time:active {
+    outline:none;
+}
+
+.upload-file-input {
+    opacity:0;
+    z-index:1000;
+    position:absolute;
+    top:0px;
+    width:100%;
+}
+
+.upload-file-container {
+    padding:3px;
+}
+
+.upload-file-text {
+    position:relative;
+    margin-right:1px;
+    margin-top:1px;
+    width:100%;
+}
+
+.file-form-container{
+    margin:10px 0px 10px 0px;
+    padding:10px;
+    display:inline-block;
+    width:100%;
+}
+
+.input-validation-error{
+    border-color:#c00;
+}
+
+.required-field-asterisk{
+    font-size: 8px;
+}

@@ -1,0 +1,62 @@
+﻿@using Model.Users
+@using PaskolProd.Views.Helpers
+@using PaskolProd.Models
+
+@{
+    ViewBag.Title = "עריכת פרופיל";
+    Layout = "~/Views/Shared/_ArtistLayout.cshtml";
+}
+@model Artist
+
+<div class="container-fluid container-innercontent2" ng-controller="ctrlPersonalManagment">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><i href="#">האיזור האישי </i></li>
+            <li><i href="#">ניהול אישי</i></li>
+        </ol>
+        <h1> ניהול אישי</h1>
+        <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+        <div class="innercontent">
+            <div class="row editprofile"  style="margin-bottom:10px !important">
+                <div class="col-lg-offset-3 col-lg-4 col-md-4 col-md-4">
+                  @if (Model.ArtistAgent != null)
+                  {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a style="float:left;margin-right:10px" ng-click="removeArtistAgent('@Model.ArtistAgent.User.Id')">מחק מנהל</a>
+                            @if (!Model.RelConfByArtist)
+                            {
+                                <a style="float:left;margin-right:10px" ng-click="confirmArtistAgent('@Model.ArtistAgent.User.Id')">אשר</a>
+                            }
+                            @if (!Model.RelConfByArtistAgent)
+                            {
+                                <p style="float:left;margin-right:10px">ממתין לאישור</p>
+                            }
+                            <p>מנהל</p>
+                            <input autocomplete="off" disabled="disabled" class="form-control greyinput" placeholder="@(Model.ArtistAgent.User.UserName ?? Model.ArtistAgent.User.Email)"/>
+                        </div>
+                    </div>
+                  }
+                  else
+                  {
+                    <a href="#" id="togglemanager" class="btn" ng-click="addArtistAgent()">הוסף פרטי מנהל ראשי <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+                    <div class="manager">
+                        <a class="bluelink pull-left" ng-click="artistAgentEmail = null">מחק מנהל</a>
+                        <div class="clearfix"></div>
+                        <div class="managerform">
+                            <p>דוא"ל מנהל</p>
+                            <input autocomplete="off" class="form-control greyinput input1" value="" type="email" ng-model="artistAgentEmail">
+                            <p style="color:red">{{artistAgentEmailNessage}}</p>
+                            <p class="iagree"><label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label> <span>הנני מאשר/ת למנהל לייצג אותי ולנהל את הפרופיל שלי בפסקול.</span></p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                  }
+                    <i ng-show="isLoading" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

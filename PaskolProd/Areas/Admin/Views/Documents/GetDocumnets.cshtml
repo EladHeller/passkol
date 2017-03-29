@@ -1,0 +1,39 @@
+﻿@using PaskolProd.Models
+@using Model
+@model UserDocumentsViewModel
+@{
+    ViewBag.Title = "צפיה במסמכים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>צפיה במסמכים</h2>
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-2 col-lg-offset-7">
+        <p>@Model.User.UserName</p>
+    </div>
+    <div class="col-lg-2 ">
+        <b>שם</b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    @foreach (var doc in Model.Documents)
+                    {
+                        <tr>
+                            <td>
+                                <a class="btn btn-default" href="~/File/GetFile?FileId=@doc.Key&UserId=@Model.User.Id&FileType=@FileType.PDF">@doc.Value</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a href="@ViewBag.ReturnURL">חזרה לעמוד הקודם</a>
+</div>

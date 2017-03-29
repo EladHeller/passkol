@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="ArtistLayout" >
+    <div class="container-fluid container-innersearch8 hidden-print">
+        <div ng-show="isFirstEntrance" class="remark">
+            מעולה! ועכשיו העלה יצירות והתחל להופיע במנוע החיפוש של פסקול. דאג לתייג את היצירות כדי לשפר את הופעתם בתוצאות החיפוש.
+        </div>
+        <div class="innersearch">
+            <h1>@User.Identity.Name</h1>
+            <h2>האזור האישי</h2>
+            <ul class="innermenu2">
+                <li ng-class="{active: href.path == 'MyProfile'}"><a href="~/Artist/MyProfile{{isFirstEntrance ? '?isFirstEntrance' : ''}}">עדכון פרופיל<span ng-show="isFirstEntrance">1</span></a></li>
+                <li ng-class="{active: href.path == 'MySongs'}"><a href="~/Artist/MySongs{{isFirstEntrance ? '?isFirstEntrance' : ''}}">היצירות שלי<span ng-show="isFirstEntrance" class="opac">2</span></a></li>
+                <li ng-class="{active: href.path == 'SellReport'}"><a href="~/Artist/SellReport">דו"ח מכירות</a></li>
+                <li ng-class="{active: href.path == 'OriginalMusic'}"><a href="~/Artist/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+                <li ng-class="{active: href.path == 'PersonalManagment'}"><a href="/Artist/PersonalManagment">ניהול אישי</a></li>
+                @*<li><a href="#">התחשבנות</a></li>*@
+            </ul>
+        </div>
+    </div>
+    @RenderBody()
+</div>

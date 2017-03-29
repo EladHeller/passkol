@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "UserReport";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+
+}
+@using PaskolProd.Models  
+@model UserReportViewModel
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-2 col-lg-offset-7">
+       <p>@Model.User.UserName</p>
+    </div>
+    <div class="col-lg-2 ">
+        <b>שם</b>
+    </div>
+</div>
+<div class="row">
+    
+    <div class="col-lg-2 col-lg-offset-7">
+        <p>@Model.User.Email</p>
+    </div>
+    <div class="col-lg-2">
+        <b>אימייל</b>
+    </div>
+</div>
+<div class="row">
+   
+    <div class="col-lg-2 col-lg-offset-7">
+        <p>@Model.User.Note</p>
+    </div>
+    <div class="col-lg-2">
+        <b>הערה</b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">תחומי עניין, אמנים:</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>שם אמן</th>
+                            <th>צפיות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ArtistLog in Model.UserWatchArtistLogs)
+                        {
+                            <tr>
+                                <td>@ArtistLog.EntityName</td>
+                                <td>@ArtistLog.value</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">צפייה ביצירות :</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>שם אמן</th>
+                            <th>שם יצירה</th>
+                            <th>צפיות</th>
+                            <th>שמיעה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var MusicLog in Model.UserMusicLogs)
+                        {
+                        <tr>
+                            <td>@MusicLog.ArtistName</td>
+                            <td>@MusicLog.MusicName</td>
+                            <td>@MusicLog.WatchCount</td>
+                            <td>@MusicLog.ListenCount</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">תחומי עניין, תיוגים:</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>תיוג</th>
+                            <th>צפיות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tagLog in Model.UserWatchTagsLogs)
+                        {
+                            <tr>
+                                <td>@tagLog.EntityName</td>
+                                <td>@tagLog.value</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">רכישות:</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>שם אמן</th>
+                            <th>שם יצירה</th>
+                            <th>רשיון</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var purchase in Model.Purchases)
+                        {
+                            <tr>
+                                <td>@purchase.PurchaseDate.ToShortDateString()</td>
+                                <td>@purchase.Music.Artist.User.UserName</td>
+                                <td>@purchase.Music.HebrewName</td>
+                                <td>
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingThree">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                                       href="#collapse@(purchase.PurchaseId)" aria-expanded="false" aria-controls="collapseThree">
+                                                        צפה ברשיון
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse@(purchase.PurchaseId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    <table class="table table-bordered table-condensed">
+                                                        @foreach (Model.PermissionPropertyValue propery in purchase.Permision.PropertyValues)
+                                                        {
+                                                            <tr>
+                                                                <th>@propery.PermissionProperty.Name</th>
+                                                                <th>@propery.Name</th>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@purchase.Permision.PermissionCost</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.ActionLink("חזרה לרשימה", "Index","UserManager", new { @class = "btn btn-default" })
+

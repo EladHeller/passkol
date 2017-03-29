@@ -1,0 +1,491 @@
+﻿@{
+    Layout = "/Views/Shared/_TemplatesLayout.cshtml";
+}
+<div class="container-fluid container-innersearch">
+    <div class="innersearch">
+        <h1>מודאלים</h1>
+        <div class="row" id="megasearch2">
+            <div class="col-lg-1 col-md-1 col-sm-1">
+	            <a href="#" class="megasearchbtn2 glyphicon glyphicon-search"></a>
+            </div>
+            <div class="col-lg-11 col-md-11 col-sm-11">
+                <input autocomplete="off" type="text" class="form-control innersearchinput" value="" placeholder="חפש במאגר פסקול, הקלד מילות חיפוש או בחר מתוך הקבוצות שלהלן">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid container-innercontent">
+    <div class="innercontent">
+	    <p><a href="#" data-toggle="modal" data-target="#modal1">שיתוף יצירה #1</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal3">שיתוף יצירה #2</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal2">התחברות לפסקול</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal4">הרשמה לפסקול</a></p>
+                
+	    <p><a href="#" data-toggle="modal" data-target="#modal5">רכישה #1</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal6">רכישה #2</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal7">צור מכרז</a></p>
+                
+        <p><a href="#" data-toggle="modal" data-target="#modal8">סוכן אמנים</a></p>
+    </div>
+            
+    <div id="modal1" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">שיתוף יצירה</h4>
+                </div>
+                <div class="modal-body padding36">
+                    <h4>פגישה לאין קץ</h4>
+                    <h5>אסף אמדורסקי</h5>
+                    <a href="#" class="sharelink"><span class="glyphicon glyphicon-envelope"></span><span>שתף את היצירה בדוא"ל</span></a>
+                    <a href="#" class="sharelink"><span class="glyphicon glyphicon-link"></span><span>העתק את הכתובת שמשמאל והדבק היכן שתרצה לשתף</span><span class="shorturl">http://bit.ly/1xtsEZA</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal3" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">שיתוף יצירה</h4>
+                </div>
+                <div class="modal-body padding36">
+                    <h4>פגישה לאין קץ</h4>
+                    <h5>אסף אמדורסקי</h5>
+                    <a href="#" class="sharelink active"><span class="glyphicon glyphicon-envelope"></span><span>שתף את היצירה בדוא"ל</span></a>
+                    <form class="sharebyemail">
+                        <div class="form-group">
+                            <label>כתובת הדוא"ל שלך:</label>
+                            <input autocomplete="off" type="text" class="form-control greyinput">
+                        </div>
+                        <div class="form-group">
+                            <label>כתובת הדוא"ל של החבר:</label>
+                            <input autocomplete="off" type="text" class="form-control greyinput">
+                        </div>
+                        <div class="form-group">
+                            <label>הוסף הערות (לא חובה):</label>
+                            <textarea class="form-control greyinput"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label>שלח העתק לדוא"ל שלי <a href="#" class="btn send">שלח</a> <a href="#" class="btn cancelsend">בטל</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">התחברות לפסקול</h4>
+                </div>
+                <div class="modal-body padding22 gram">
+                    <div class="row gram2">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h4>כניסה</h4>
+                            <form>
+                                <div class="form-group">
+                                    <label>דוא"ל:</label>
+                                    <input autocomplete="off" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>סיסמה:</label>
+                                    <input autocomplete="off" type="password" class="form-control">
+                                    <a href="#" class="bluelink pull-left">שכחתי סיסמה</a>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label>זכור אותי
+                                </div>
+                                <button type="submit" class="btn loginbtn">כניסה</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h4>עדיין לא רשום?</h4>
+                            <h5>הירשם כעת <strong>בחינם</strong> ותיהנה
+                            <br>ממבחר השירותים באתר</h5>
+                            <a href="#" class="btn registernow">לחץ כאן להרשמה</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal4" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">הרשמה לפסקול</h4>
+                </div>
+                <div class="modal-body padding22 tape">
+                    <div class="row tape2">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <p>הירשם בתור</p>
+                            <div class="radios">
+                                <span><label class="myradio1"><input autocomplete="off" type="radio" name="regtype1" checked><i></i></label>רוכש מדיה</span>
+                                <span><label class="myradio1"><input autocomplete="off" type="radio" name="regtype1"><i></i></label>אמן/להקה</span>
+                                <span><label class="myradio1"><input autocomplete="off" type="radio" name="regtype1"><i></i></label>מנהל אמנים</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p>כבר רשום לפסקול?</p>
+                            <a href="#" class="bluelink">לחץ כאן</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <form>
+                                <p><input autocomplete="off" type="text" class="form-control" value="" placeholder="שם מלא"></p>
+                                <p><input autocomplete="off" type="text" class="form-control" value="" placeholder="דוא&quot;ל"></p>
+                                <p><input autocomplete="off" type="text" class="form-control" value="" placeholder="טלפון"></p>
+                                <p><input autocomplete="off" type="text" class="form-control" value="" placeholder="שם חברה"></p>
+                                <p><input autocomplete="off" type="password" class="form-control" value="" placeholder="סיסמה"><span class="glyphicon glyphicon-question-sign qmark"></span></p>
+                                <p><input autocomplete="off" type="text" class="form-control captcha" value="" placeholder="קוד"></p>
+                                <p class="agree2"><label class="mycheckbox"><input type="checkbox" checked><i></i></label> הנני מאשר/ת את <a href="#" class="bluelink" target="_blank">תנאי השימוש</a></p>
+                                <button type="submit" class="btn registerbtn">הרשמה</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal5" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">פגישה לאין קץ / אסף אמדורסקי</h4>
+                </div>
+                <div class="modal-body purchase">
+                    <div class="row purchase2">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <p class="bluep">סוג רשיון</p>
+                            <div class="selector selector3">
+                                <span>-בחר-</span>
+                                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                <ul>
+                                    <li><a href="#">-בחר-</a></li>
+                                    <li><a href="#">אאאאאאאאא</a></li>
+                                    <li><a href="#">בבבב בבבבבבבבב</a></li>
+                                    <li><a href="#">גגג גגגגגג ג'</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <p class="price1">0<span class="currency"> &#8362;</span></p>
+                            <a href="#" class="btn continue">המשך</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal6" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">פגישה לאין קץ / אסף אמדורסקי</h4>
+                </div>
+                <div class="modal-body purchase">
+                    <div class="row purchase2">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <p class="bluep">סוג רשיון</p>
+                            <div class="selector selector3">
+                                <span>-בחר-</span>
+                                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                <ul>
+                                    <li><a href="#">-בחר-</a></li>
+                                    <li><a href="#">אאאאאאאאא</a></li>
+                                    <li><a href="#">בבבב בבבבבבבבב</a></li>
+                                    <li><a href="#">גגג גגגגגג ג'</a></li>
+                                </ul>
+                            </div>
+                                        
+                            <p class="bluep">טריטוריה</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="territory" checked><i></i></label>פסטיבלים בלבד</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="territory"><i></i></label>סרט טלויזיה בלבד</p>
+                            <p class="p1 p2"><label class="myradio2"><input autocomplete="off" type="radio" name="territory"><i></i></label>הקרנה מסחרית</p>
+                                    
+                            <p class="bluep">סוג שימוש</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="usage"><i></i></label>פסטיבלים בלבד</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="usage"><i></i></label>סרט טלויזיה בלבד</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="usage" checked><i></i></label>סרט טלויזיה בלבד</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="usage"><i></i></label>סרט טלויזיה בלבד</p>
+                            <p class="p1 p2"><label class="myradio2"><input autocomplete="off" type="radio" name="usage"><i></i></label>הקרנה מסחרית</p>
+                                    
+                            <p class="bluep">גרסה</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="version" checked><i></i></label>פסטיבלים בלבד</p>
+                            <p class="p1"><label class="myradio2"><input autocomplete="off" type="radio" name="version"><i></i></label>סרט טלויזיה בלבד</p>
+                                    
+                            <a href="#" class="btn reset2">אפס</a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 morepadding">
+                            <p class="price1 price2">2,499<span class="currency"> &#8362;</span></p>
+                            <a href="#" class="btn agreebtn">הסכם</a>
+                            <p class="p1"><label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label>הנני מאשר/ת שקראתי את ההסכם</p>
+                            <a href="#" class="btn continue2">המשך</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal7" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">צור מכרז</h4>
+                </div>
+                <div class="modal-body auction">
+                    <div class="row auction2">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="selector selector4">
+                                <span>-בחר-</span>
+                                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                <ul>
+                                    <li><a href="#">-בחר-</a></li>
+                                    <li><a href="#">אאאאאאאאא</a></li>
+                                    <li><a href="#">בבבב בבבבבבבבב</a></li>
+                                    <li><a href="#">גגג גגגגגג ג'</a></li>
+                                </ul>
+                            </div>
+                            <div class="selector selector4">
+                                <span>-בחר-</span>
+                                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                <ul>
+                                    <li><a href="#">-בחר-</a></li>
+                                    <li><a href="#">אאאאאאאאא</a></li>
+                                    <li><a href="#">בבבב בבבבבבבבב</a></li>
+                                    <li><a href="#">גגג גגגגגג ג'</a></li>
+                                </ul>
+                            </div>
+                            <div class="dater">
+                                <p>עבודה על הפרויקט מתאריך</p>
+                                <div class="selector selector5">
+                                    <span>יום</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>חודש</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>שנה</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="dater dater2">
+                                <p>עד תאריך</p>
+                                <div class="selector selector5">
+                                    <span>שנה</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>חודש</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>יום</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="dater">
+                                <p>הגשת הסקיצה וסגירת המכרז עד</p>
+                                <div class="selector selector5">
+                                    <span>יום</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>חודש</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>שנה</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="dater">
+                                <p>בחירת המוזיקה "זוכת המכרז"</p>
+                                <div class="selector selector5">
+                                    <span>יום</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>חודש</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selector selector5">
+                                    <span>שנה</span>
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <ul>
+                                        <li><a href="#">8</a></li>
+                                        <li><a href="#">9</a></li>
+                                        <li><a href="#">10</a></li>
+                                        <li><a href="#">11</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="p5">מאפייני המוזיקה</p>
+                            <textarea class="form-control greyinput textarea4" placeholder="כלי נגינה מוביל, האם מדובר בשיר נושא, מוסיקת רקע, האם צריך אפקטים, דומה לשיר מסוים, אווירה בשיר ועוד"></textarea>
+                            <a href="#" class="btn reset3">ביטול</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="smallinput">
+                                <p>משך המוזיקה הנדרש</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+                            </div>
+                            <div class="smallinput2">
+                                <p>תקציב</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+                            </div>
+                            <div class="clearfix"></div>
+							<p class="p3">איש קשר</p>
+                            <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+							<p class="p3">טלפון</p>
+                            <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+							<p class="p3">דוא"ל</p>
+                            <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+							<p class="p3">הערות</p>
+                            <input autocomplete="off" type="text" class="form-control greyinput input2" value="">
+                            <p class="p4"><label class="mycheckbox"><input autocomplete="off" type="checkbox" checked><i></i></label> <span>אני מעוניין שייצרו עבורי יצירה מקורית ולנהל תהליך הוגן בבחירת המוזיקאי. בלחיצה על אישור אמנים יתחילו לייצר סקיצה עבורי.</span></p>
+                            <a href="#" class="btn confirm">אישור</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div id="modal8" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">סוכן אמנים</h4>
+                </div>
+                <div class="modal-body padding36">
+                    <h4>התחבר למערכת פסקול בתור:</h4>
+                    <div class="row agent">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span><label class="myradio1"><input autocomplete="off" type="radio" name="regtype" checked><i></i></label>שם של סוכן האמנים</span>
+                            <span><label class="myradio1"><input autocomplete="off" type="radio" name="regtype"><i></i></label>אחר</span>
+                            <a href="#" class="btn reset3 reset3-agent">ביטול</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <select id="select1">
+                                <option value="">אאא</option>
+                                <option value="">אאא אאא</option>
+                                <option value="">אאא אאא אאא</option>
+                                <option value="">בבב</option>
+                                <option value="">בבב בבב</option>
+                                <option value="">בבב בבב בבב</option>
+                                <option value="">גגג</option>
+                                <option value="">גגג גגג</option>
+                                <option value="">גגג גגג גגג</option>
+                            </select>
+                            <a href="#" class="btn confirm confirm-agent">אישור</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+</div>
+<script language="javascript">
+	$(document).ready(function() {
+		$("#select1").select2({ width: '100%'});
+	});
+</script>
+    

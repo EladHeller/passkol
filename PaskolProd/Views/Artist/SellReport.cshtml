@@ -1,0 +1,78 @@
+﻿@using Model.Users
+@using Model
+@using PaskolProd.Controllers.Helper
+@using BotDetect.Web.UI.Mvc
+@using PaskolProd.Views.Helpers
+@{
+    ViewBag.Title = "דו\"ח רכישות";
+    Layout = "~/Views/Shared/_ArtistLayout.cshtml";
+}
+
+<div class="container-fluid container-innercontent2" ng-controller="ArtistPurchaseReport">
+    <div class="innercontent">
+        <div class="hidden-print">
+            <ol class="breadcrumb">
+                <li><a href="~/">עמוד הבית</a></li>
+                <li><i href="#">דו"ח רכישות </i></li>
+            </ol>
+            <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+
+            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+            <div class="noprint row">
+                <div class="col-lg-2">
+                    <span ng-click="printReports()" style="cursor:pointer;color:#0683be;margin-right:100px;position: absolute;margin-top:40px"><span style="margin-left:10px">הדפס</span><i class="glyphicon glyphicon-print"></i></span>
+                </div>
+                <div class="col-lg-offset-6 col-lg-4">
+                    <h1>דו"ח רכישות</h1>
+                </div>
+            </div>
+        </div>
+        <div id="resReportsContainer">
+            <div class="noprint tabletitle">
+                <strong>{{results.length}} רכישות בוצעו</strong>
+                <div class="pull-left">
+                    סדר לפי:
+                    <div class="selector selector2">
+                        <div ng-click="showOptions = !showOptions">
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                            <span>{{selectedOption.text}}</span>
+                        </div>
+                        <ul ng-show="showOptions" ng-click="showOptions = false">
+                            <li ng-repeat="option in sortOptions track by option.value" ng-click="optionSelect(option)">{{option.text}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <table class="table searchresults">
+                <thead>
+                    <tr>
+                        <th>תאריך</th>
+                        <th>שם היצירה</th>
+                        <th>אמן</th>
+                        <th>סוג רשיון</th>
+                        <th>מחיר</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="column-span:all" ng-show="results.length === 0">
+                            אין תוצאות להצגה
+                        </td>
+                    </tr>
+                    <tr ng-repeat="result in results track by result.ID" ng-show="results.length > 0">
+                        <td>{{result.DatePurchased}}</td>
+                        <td><b>{{result.MusicName}}</b></td>
+                        <td>{{result.ArtistName}}</td>
+                        <td>{{result.PermissionToString}}</td>
+                        <td>{{result.Price}}שח</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination2">
+                <li ng-show="page > 1"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{page - 1}}&sortType={{sortType}}" class="glyphicon glyphicon-chevron-left"></a></li>
+                <li ng-repeat="pageIndex in pages" ng-class="{active:($index + 1) == page}"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{$index+1}}&sortType={{sortType}}">{{$index + 1}}</a></li>
+                <li ng-show="page < TotalPages"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{page + 1}}&sortType={{sortType}}" class="glyphicon glyphicon-chevron-right"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

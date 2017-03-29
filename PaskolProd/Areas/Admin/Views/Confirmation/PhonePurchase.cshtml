@@ -1,0 +1,166 @@
+﻿@using Model
+
+@model Model.Purchase.Purchase
+
+@{
+    ViewBag.Title = "אישור רכישה טלפונית";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>אישור רכישה טלפונית</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Customer.Id)
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">פרטי רוכש:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>שם</th>
+                                <th>@Model.Customer.UserName</th>
+                            </tr>
+                            <tr>
+                                <th>חברה</th>
+                                <th>@Model.Customer.Customer.CompanyName</th>
+                            </tr>  
+                            <tr>
+                                <th>מייל</th>
+                                <th>@Model.Customer.Email</th>
+                            </tr>
+                            <tr>
+                                <th>טלפון</th>
+                                <th>@Model.Customer.PhoneNumber</th>
+                            </tr>                
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">פרטי יצירה:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>שם יצירה בעברית</th>
+                                <th>@Model.Music.HebrewName</th>
+                            </tr>
+                            <tr>
+                                <th>שם יצירה באנגלית</th>
+                                <th>@Model.Music.EnglishName</th>
+                            </tr>
+                            <tr>
+                                <th>שם אמן</th>
+                                <th>@Model.Music.Artist.User.UserName</th>
+                            </tr>
+                            <tr>
+                                <th>נגן יצירה</th>
+                                <th>@if (Model.Music.WAVFile != null || Model.Music.MP3File != null)
+                                {
+                                    <audio controls>
+                                        @if (Model.Music.MP3File != null)
+                                        {
+                                            <source src="~/File/GetFile?FileId=@Model.Music.MP3File.FileId&UserId=@Model.Music.ArtistID&FileType=@FileType.Music&version=@Model.Music.MP3File.version&suffix=@Model.Music.MP3File.suffix">
+                                        }
+                                        @if (Model.Music.WAVFile != null)
+                                        {
+                                            <source src="~/File/GetFile?FileId=@Model.Music.WAVFile.FileId&UserId=@Model.Music.ArtistID&FileType=@FileType.Music&version=@Model.Music.WAVFile.version&suffix=@Model.Music.WAVFile.suffix">
+                                        }
+                                        הדפדפן שלך לא תומך ב-HTML5
+                                    </audio>
+                                }</th>
+                            </tr>
+                            <tr>
+                                <th>החרגות</th>
+                                <th>@Model.Music.Exceptions</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PurchaseId)
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">סוג רשיון:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            @foreach (Model.PermissionPropertyValue propery in Model.Permision.PropertyValues)
+                            {
+                                <tr>
+                                    <th>@propery.PermissionProperty.Name</th>
+                                    <th>@propery.Name</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">פרטי רכישה:</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                    </div>
+                                </div>
+                                <th>סכום</th>
+                                <th>
+                                    @Html.EditorFor(model => model.PurchaseCost, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PurchaseCost, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>אסמכתא</th>
+                                <th>
+                                    @Html.EditorFor(model => model.CustomerReference, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerReference, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>הערות</th>
+                                <th>
+                                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <input autocomplete="off" type="hidden" id="confirmAction" name="confirmAction" />
+            <div class="col-lg-1 col-lg-offset-3">
+                <button type="submit" class="btn btn-success" onclick="$('#confirmAction').val('Ok')">אשר</button>
+            </div>
+            <div class="col-lg-1">
+                <button type="submit" class="btn btn-default" onclick="$('#confirmAction').val('Decline')">הסר</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "יצירות מועדפות";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+        <ul class="innermenu2">
+            <li><a href="~/Customer/MyProfile">עדכון פרופיל</a></li>
+            <li><a href="~/Customer/UserSearches">היסטוריית חיפושים</a></li>
+            <li class="active"><a href="~/Customer/FavuoriteMusics">יצירות מועדפות</a></li>
+            <li><a href="~/Customer/PurchaseReport">דו"ח רכישות</a></li>
+            <li><a href="~/Customer/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+            @*<li><a href="#">התחשבנות</a></li>*@
+        </ul>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2" ng-controller="userFavouriteMusicsCtrl">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><a class="active">האיזור האישי</a></li>
+        </ol>
+        <div>
+            <h1>יצירות מועדפות</h1>
+        </div>
+        <div class="innercontent">
+            <div style="margin-bottom:30px">
+                <music-results></music-results>
+            </div>
+            <sync-video ng-show="showVideoSync && showAudioPlayer"></sync-video>
+        </div>
+    </div>
+    <passkol-player></passkol-player>
+</div>

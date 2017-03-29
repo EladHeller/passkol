@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Unsubscribe</title>
+</head>
+<body>
+    <div> 
+        @if (ViewBag.Success)
+        {
+            <p>הוסרת בהצלחה</p>
+        }
+        else
+        {
+            <p>לא הצלחנו להסיר אותך</p>
+        }
+    </div>
+</body>
+</html>

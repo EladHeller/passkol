@@ -1,0 +1,120 @@
+﻿@model PaskolProd.Models.PermissionPropertyViewModel
+
+@{
+    ViewBag.Title = "עריכת קטגוריית רישיון";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>עריכת קטגוריית רישיון</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal col-lg-offset-6">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.PermissionsCategoryID)
+        @Html.HiddenFor(model => model.IsCostLevel)
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ViewOrder, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                @Html.ValidationMessageFor(model => model.ViewOrder, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ViewOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+        <div class="col-md-10">
+            <div class="input-group" style="direction: ltr;text-align:left">
+                <input autocomplete="off" type="text" class="form-control" disabled placeholder="האם פעיל">
+                <span class="input-group-addon">
+                    @Html.EditorFor(model => model.IsActive)
+                </span>
+            </div>
+            @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <br/>
+        <div class="row">
+            @Html.Label("","מאפיינים", htmlAttributes: new { @class = "control-label" })
+            <br/>
+            <div class="col-md-12">
+                <table id="propertyValuesTable" class="table table-striped table-bordered">
+                    <tr>
+                        <th>
+                            שם
+                        </th>
+                        <th>
+                            סדר תצוגה
+                        </th>
+                        <th>
+                            האם פעיל?
+                        </th>
+                        <th>פעולות</th>
+                    </tr>
+
+                    @if (Model.PropertyValueViews != null)
+                    {
+                        for (int i = 0; i < Model.PropertyValueViews.Count; i++)
+                        {
+
+                            <tr style="display:@(Model.PropertyValueViews[i].IsDeleted ? "none" : "grid")">
+                                <td>
+                                    @Html.HiddenFor(modelItem => Model.PropertyValueViews[i].ID)
+                                    @Html.HiddenFor(modelItem => Model.PropertyValueViews[i].PermissionPropertyId)
+                                    @Html.HiddenFor(modelItem => Model.PropertyValueViews[i].PermissionsCategoryID)
+                                    @Html.HiddenFor(modelItem => Model.PropertyValueViews[i].IsDeleted, htmlAttributes : new { @class = "is-row-deleted" })
+                                    @Html.EditorFor(modelItem => Model.PropertyValueViews[i].Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(modelItem => Model.PropertyValueViews[i].Name, "", new { @class = "text-danger" })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model.PropertyValueViews[i].ViewOrder, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                                    @Html.ValidationMessageFor(modelItem => Model.PropertyValueViews[i].ViewOrder, "", new { @class = "text-danger" })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model.PropertyValueViews[i].IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(modelItem => Model.PropertyValueViews[i].IsActive, "", new { @class = "text-danger" })
+                                </td>
+                                <td>
+                                    <a class="btn btn-default remove-value-btn">הסר</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        
+                    }
+                    <tr id="rowAddNewValue">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input autocomplete="off" type="hidden" name="PropertyValuesCount" id="PropertyValuesCount" value="@(Model.PropertyValueViews!=null ? Model.PropertyValueViews.Count : 0)" />
+                            <a id="addValueBtn" class="btn btn-default">הוסף</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input autocomplete="off" type="submit" value="שמור" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a id="backToReferrerPage" href="" class="btn btn-default">חזור לרשימה</a>
+</div>
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")

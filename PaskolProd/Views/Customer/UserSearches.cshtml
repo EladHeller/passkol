@@ -1,0 +1,84 @@
+﻿@using Model.Logs
+@{
+    ViewBag.Title = "היסטוריית חיפושים";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<SearchLog>
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+        <ul class="innermenu2">
+            <li><a href="~/Customer/MyProfile">עדכון פרופיל</a></li>
+            <li class="active"><a href="~/Customer/UserSearches">היסטוריית חיפושים</a></li>
+            <li><a href="~/Customer/FavuoriteMusics">יצירות מועדפות</a></li>
+            <li><a href="~/Customer/PurchaseReport">דו"ח רכישות</a></li>
+            <li><a href="~/Customer/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+            @*<li><a href="#">התחשבנות</a></li>*@
+        </ul>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><a>האיזור האישי</a></li>
+            <li><a class="active">היסטוריית חיפושים</a></li>
+        </ol>
+        <div>
+            <h1>היסטוריית חיפושים</h1>
+        </div>
+        <div class="innercontent">
+            <div style="margin-bottom:40px">
+                @if (Model != null && Model.Any())
+                {
+                    <div class="tabletitle">
+                        <strong>@ViewBag.MusicsCount חיפושים אחרונים נשמרו</strong>
+                        <div class="pull-left">
+                            סדר לפי:
+                            <div class="selector2" ng-init="sortOptions ={showSortOptions : false}">
+                                <div ng-click="sortOptions.showSortOptions = !sortOptions.showSortOptions">
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                    <span>@ViewBag.SortText</span>
+                                </div>
+                                <ul ng-show="sortOptions.showSortOptions" ng-click="sortOptions.showSortOptions = false">
+                                    <li><a href="/customer/UserSearches?sortDesc=true">תאריך (מהחדש לישן)</a></li>
+                                    <li><a href="/customer/UserSearches?sortDesc=false">תאריך (מהישן לחדש)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table searchresults">
+                        <thead>
+                            <tr>
+                                <th>תאריך</th>
+                                <th>מחרוזת החיפוש</th>
+                                <th>יצירות</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var search in Model)
+                            {
+                                <tr>
+                                    <td>@search.DateTime.ToShortDateString()</td>
+                                    <td>
+                                        <a href="@search.SearchUrl">
+                                            <span>@search.TagsNames</span>&rlm;
+                                            <span style="margin-right:50px"> | </span>
+                                            <span style="margin-right:50px"> @search.SearchString</span>
+                                        </a>
+                                    </td>
+                                    <td>@search.ResultCount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <span>אין חיפושים שמורים</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+﻿@using Model
+@model Model.Music
+
+@{
+    ViewBag.Title = (Model.Status == MusicActiveStatus.Blocked ? "אחזר" : "חסום") +" יצירה";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>@(Model.Status == MusicActiveStatus.Blocked ? "אחזר" : "חסום")</h2>
+<h3> האם אתה בטוח שברצונך ל@(Model.Status == MusicActiveStatus.Blocked ? "שחרר" : "חסום") את היצירה?</h3>
+<div>
+    <hr />
+    <table class="table table-condensed table-responsive">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.HebrewName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.HebrewName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EnglishName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.EnglishName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                שם אמן
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Artist.User.UserName)
+            </td>
+        </tr>
+        <tr8>
+            <td colspan="2">
+                <audio controls style="margin:10px;">
+                    @if (Model.MP3File != null)
+            {
+                        <source src="~/File/GetFile?FileId=@Model.MP3File.FileId&UserId=@Model.ArtistID&FileType=@FileType.Music&version=@Model.MP3File.version&suffix=@Model.MP3File.suffix">
+                    }
+                    @if (Model.WAVFile != null)
+            {
+                        <source src="~/File/GetFile?FileId=@Model.WAVFile.FileId&UserId=@Model.ArtistID&FileType=@FileType.Music&version=@Model.WAVFile.version&suffix=@Model.WAVFile.suffix">
+                    }
+                    הדפדפן שלך לא תומך ב-HTML5
+                </audio>
+            </td>
+        </tr8>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Comment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Comment)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <a id="backToReferrerPage" href="" class="btn btn-default">חזור לרשימה</a>
+            <input autocomplete="off" type="submit" value="@(Model.Status == MusicActiveStatus.Blocked ? "שחרר" : "חסום")" class="btn btn-primary" />
+        </div>
+    }
+</div>
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")

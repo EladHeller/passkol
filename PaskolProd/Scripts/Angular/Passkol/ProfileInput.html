@@ -1,0 +1,19 @@
+﻿<p>{{label}}</p>
+<div class="icon-addon">
+    <a ng-show="focus === 'nfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="inputVal=''"></a>
+    <input autocomplete="off" class="form-control greyinput blackFocus" ng-focus="focus='nfocus'" ng-model="inputVal" 
+           ng-init="inputVal=modelval" />
+</div>
+<div ng-show="focus === 'nfocus'">
+    <div class="row" style="padding-top: 5px;">
+        <div class="col-lg-2" style="margin-right:5px">
+            <a class="blackButton" ng-click="UserName=OriginalUserName">בטל</a>
+        </div>
+        <div class="col-lg-2">
+            <a class="blueButton" ng-click="updateVal()">עדכן</a>
+        </div>
+        <div class="col-lg-7" style="color:red" ng-show="NameInvalid">
+            {{NameInvalidMsg}}
+        </div>
+    </div>
+</div>

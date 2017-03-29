@@ -1,0 +1,161 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="musicResults.template">
+    <div ng-show="!searchLoad">
+        <img src="/Content/images/logo_anim.gif" />
+    </div>
+    <div ng-show="searchLoad" ng-switch="!!isArtistSongsModel">
+        <div style="margin-top:40px;position: absolute;" ng-show="!results.length">
+            אין תוצאות להצגה
+        </div>
+        <div ng-show="results.length">
+            <div class="tabletitle">
+                <strong style="display:inline-block;padding-top:5px;">{{TotalResults}} יצירות</strong>
+                <div class="pull-left" ng-show="sortOptions && sortOptions.length">
+                    <span  style="display:inline-block;padding-top:5px;">סדר לפי:</span>
+                    <div class="selector selector2">
+                        <div ng-click="showOptions = !showOptions">
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                            <span>{{selectedOption.text}}</span>
+                        </div>
+                        <ul ng-show="showOptions" ng-click="showOptions = false">
+                            <li ng-repeat="option in sortOptions track by option.value" ng-click="optionSelect(option)">{{option.text}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <table class="table searchresults" ng-switch-when="false">
+                <thead>
+                    <tr>
+                        <th>נגן</th>
+                        <th>שם היצירה</th>
+                        <th>אמן</th>
+                        <th class="text-center">BPM</th>
+                        <th class="text-center">אורך</th>
+                        <th class="text-center">החרגות</th>
+                        <th class="text-center">שיתוף</th>
+                        <th class="text-center">מועדפים</th>
+                        <th class="text-center">רכישה</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="result in results | filter:resultsFilter track by result.ID">
+                    <tr ng-class="{opentr1:result.isOpen}" ng-click="openResult(result, $event)">
+                        <td>
+                            <a ng-click="setPlayedMusic(result)" ng-show="!showAudioPlayer || musicPlayed.ID !== result.ID" class="play-music-btn play fa fa-caret-right cursor-pointer"></a>
+                            <a ng-show="showAudioPlayer && musicPlayed.ID === result.ID" class="equalizer-play play-music-btn cursor-pointer" ng-click="closePlayedMusic()">
+                                <img class="play-music-btn" src="/Content/images/logo_anim_white.gif" />
+                            </a>
+                        </td>
+                        <td>
+                            {{result.HebrewName}}
+                            <span ng-show="result.isNew" class="new-music-text">חדש</span>
+                            <a ng-show="!result.isOpen" style="color:white" class="glyphicon glyphicon-triangle-top closetr place-holder-icon"></a>
+                            <a ng-show="result.isOpen" class="glyphicon glyphicon-triangle-top closetr cursor-pointer"></a>
+                        </td>
+                        <td><a href="/Artists/{{result.ArtistPageUrl || 'Id/' +result.ArtistID}}">{{result.ArtistName}}</a></td>
+                        <td class="text-center">{{result.BPM}}</td>
+                        <td class="text-center">{{result.MusicLength}}</td>
+                        <td class="text-center">
+                            <img src="/TemplatesContent/images/song.exclutions.empty.png" ng-show="!result.Exceptions" />
+                            <img src="/TemplatesContent/images/song.exclutions.full.png" ng-show="result.Exceptions" />
+                        </td>
+                        <td class="text-center">
+                            <img ng-click="openSharedModal(result)" src="/TemplatesContent/images/song.share.default.png" class="cursor-pointer"/>
+                        </td>
+                        <td class="text-center">
+                            <img src="/TemplatesContent/images/song.fav.empty.default.png" ng-click="favouriteMusic(result)" ng-show="result.IsFavourite" class="cursor-pointer"/>
+                            <img src="/TemplatesContent/images/song.fav.empty.hover.png" ng-click="favouriteMusic(result)" ng-show="!result.IsFavourite" class="cursor-pointer"/>
+                        </td>
+                        <td class="text-center">
+                            <img src="/TemplatesContent/images/song.purchase.default.png" ng-click="purchaseMusic(result)" class="cursor-pointer" />
+                        </td>
+                    </tr>
+                    <tr ng-show="result.isOpen" class="opentr2">
+                        <td></td>
+                        <td colspan="7">
+                            <p class="warning2" ng-if="result.Exceptions">
+                                <img src="/TemplatesContent/images/song.exclutions.full.png" />
+                                 <span>{{result.Exceptions}}</span>
+                            </p>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 searchdetails">
+                                    <p><label>שם בעברית:</label> {{result.HebrewName}}</p>
+                                    <p><label>שם באנגלית:</label> {{result.EnglishName}}</p>
+                                    <p><label>פורמט:</label> WAV, MP3</p>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 searchdetails">
+                                    <p><label>כותב:</label> {{result.MusicWriter}}</p>
+                                    <p><label>מלחין:</label> {{result.MusicComposer}}</p>
+                                    <p><label>מבצע:</label> {{result.MusicPerformer}}</p>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 searchdetails">
+                                    <p>
+                                        <label>מילים:</label>
+                                        <span>
+                                            {{result.SongText}}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tags">
+                                <label>תיוגים:</label>
+                                <span ng-repeat="tag in result.Tags track by tag.ID">{{tag.Name}}</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table searchresults" ng-switch-when="true">
+                <thead>
+                    <tr>
+                        <th>נגן</th>
+                        <th>שם היצירה</th>
+                        <th>אמן</th>
+                        <th>תאריך העלאה</th>
+                        <th>עודכן לאחרונה</th>
+                        <th>סטטוס</th>
+                        <th>ערוך</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="result in results track by result.ID">
+                    <tr>
+                        <td>
+                            <a ng-click="setPlayedMusic(result)" ng-show="!showAudioPlayer || musicPlayed.ID !== result.ID" class="play-music-btn play fa fa-caret-right cursor-pointer"></a>
+                            <a ng-show="showAudioPlayer && musicPlayed.ID === result.ID" class="equalizer-play play-music-btn cursor-pointer" ng-click="closePlayedMusic()">
+                                <img class="play-music-btn" src="/Content/images/logo_anim_white.gif" />
+                            </a>
+                        </td>
+                        <td class="bold">
+                            {{result.HebrewName}}
+                            <span ng-show="result.isNew" class="new-music-text">חדש</span>
+                            <a ng-show="result.isOpen" style="cursor:pointer" class="glyphicon glyphicon-triangle-top closetr"></a>
+                        </td>
+                        <td><a href="/Artists/{{result.ArtistPageUrl || 'Id/' +result.ArtistID}}">{{result.ArtistName}}</a></td>
+                        <td>{{result.CreateDate | date: 'dd/MM/yy' }}</td>
+                        <td>{{result.UpdateDate | date: 'dd/MM/yy' }}</td>
+                        <td>
+                            <span ng-if="result.IsConfirmed" class="text-success">הועלה לפסקול</span>
+                            <span ng-if="!result.IsConfirmed" class="text-danger">ממתין לאישור</span>
+                        </td>
+                        <td>
+                            <img src="/TemplatesContent/images/song.edit.default.png" class="cursor-pointer" ng-click="editMusic(result)"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <ul class="pagination2">
+                <li ng-show="pager.page > 1">
+                    <a ng-click="pageSearch(pager.page - 1)" class="glyphicon glyphicon-chevron-left cursor-pointer"></a>
+                </li>
+                <li ng-repeat="pageIndex in pages" ng-class="{active:($index + 1) == pager.page}">
+                    <a class="cursor-pointer" ng-click="pageSearch($index + 1)">{{$index + 1}}</a>
+                </li>
+                <li ng-show="pager.page < TotalPages">
+                    <a ng-click="pageSearch(pager.page + 1)" class="glyphicon glyphicon-chevron-right cursor-pointer"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>

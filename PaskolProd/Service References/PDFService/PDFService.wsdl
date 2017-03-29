@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="createPDF">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BaseRoute" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createPDFResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ArtistPermissionAgreement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Time" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BaseRoute" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArtistPermissionAgreementResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ArtistAddMusic">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Time" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="MusicName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Composer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Singer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Exeptions" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Writer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BaseRoute" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArtistAddMusicResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTempPurchaseHtml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="time" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicWriter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicComposer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicPerformer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="permission" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cost" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="exceptions" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTempPurchaseHtmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTempPurchaseHtmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PurchaseAgreement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BaseRoute" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="time" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicWriter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicComposer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musicPerformer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="permission" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cost" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="exceptions" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PurchaseAgreementResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="createPDFSoapIn">
+    <wsdl:part name="parameters" element="tns:createPDF" />
+  </wsdl:message>
+  <wsdl:message name="createPDFSoapOut">
+    <wsdl:part name="parameters" element="tns:createPDFResponse" />
+  </wsdl:message>
+  <wsdl:message name="ArtistPermissionAgreementSoapIn">
+    <wsdl:part name="parameters" element="tns:ArtistPermissionAgreement" />
+  </wsdl:message>
+  <wsdl:message name="ArtistPermissionAgreementSoapOut">
+    <wsdl:part name="parameters" element="tns:ArtistPermissionAgreementResponse" />
+  </wsdl:message>
+  <wsdl:message name="ArtistAddMusicSoapIn">
+    <wsdl:part name="parameters" element="tns:ArtistAddMusic" />
+  </wsdl:message>
+  <wsdl:message name="ArtistAddMusicSoapOut">
+    <wsdl:part name="parameters" element="tns:ArtistAddMusicResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTempPurchaseHtmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTempPurchaseHtml" />
+  </wsdl:message>
+  <wsdl:message name="GetTempPurchaseHtmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTempPurchaseHtmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="PurchaseAgreementSoapIn">
+    <wsdl:part name="parameters" element="tns:PurchaseAgreement" />
+  </wsdl:message>
+  <wsdl:message name="PurchaseAgreementSoapOut">
+    <wsdl:part name="parameters" element="tns:PurchaseAgreementResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PDFServiceSoap">
+    <wsdl:operation name="createPDF">
+      <wsdl:input message="tns:createPDFSoapIn" />
+      <wsdl:output message="tns:createPDFSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArtistPermissionAgreement">
+      <wsdl:input message="tns:ArtistPermissionAgreementSoapIn" />
+      <wsdl:output message="tns:ArtistPermissionAgreementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArtistAddMusic">
+      <wsdl:input message="tns:ArtistAddMusicSoapIn" />
+      <wsdl:output message="tns:ArtistAddMusicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTempPurchaseHtml">
+      <wsdl:input message="tns:GetTempPurchaseHtmlSoapIn" />
+      <wsdl:output message="tns:GetTempPurchaseHtmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseAgreement">
+      <wsdl:input message="tns:PurchaseAgreementSoapIn" />
+      <wsdl:output message="tns:PurchaseAgreementSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PDFServiceSoap" type="tns:PDFServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createPDF">
+      <soap:operation soapAction="http://tempuri.org/createPDF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArtistPermissionAgreement">
+      <soap:operation soapAction="http://tempuri.org/ArtistPermissionAgreement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArtistAddMusic">
+      <soap:operation soapAction="http://tempuri.org/ArtistAddMusic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTempPurchaseHtml">
+      <soap:operation soapAction="http://tempuri.org/GetTempPurchaseHtml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseAgreement">
+      <soap:operation soapAction="http://tempuri.org/PurchaseAgreement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PDFServiceSoap12" type="tns:PDFServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createPDF">
+      <soap12:operation soapAction="http://tempuri.org/createPDF" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArtistPermissionAgreement">
+      <soap12:operation soapAction="http://tempuri.org/ArtistPermissionAgreement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArtistAddMusic">
+      <soap12:operation soapAction="http://tempuri.org/ArtistAddMusic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTempPurchaseHtml">
+      <soap12:operation soapAction="http://tempuri.org/GetTempPurchaseHtml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseAgreement">
+      <soap12:operation soapAction="http://tempuri.org/PurchaseAgreement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PDFService">
+    <wsdl:port name="PDFServiceSoap" binding="tns:PDFServiceSoap">
+      <soap:address location="http://localhost:51039/PDFService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PDFServiceSoap12" binding="tns:PDFServiceSoap12">
+      <soap12:address location="http://localhost:51039/PDFService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

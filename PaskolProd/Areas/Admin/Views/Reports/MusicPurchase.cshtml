@@ -1,0 +1,72 @@
+﻿@using Model.Purchase
+@model IEnumerable<Model.Purchase.Purchase>
+
+@{
+    Layout = "";
+}
+<table class="table table-bordered table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>תאריך</th>
+            <th>שם רוכש</th>
+            <th>חברה</th>
+            <th>דוא"ל</th>
+            <th>טלפון</th>
+            <th>סוג הרישיון</th>
+            <th>מחיר</th>
+            <th>תשלום לאמן</th>
+            <th>תשלום לפסקול</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="11" class="text-center">אין רכישות</td>
+            </tr>
+        }
+        else
+        {
+            foreach (Purchase p in Model)
+            {
+                <tr>
+                    <td>@p.PurchaseDate</td>
+                    <td>@p.Customer.UserName</td>
+                    <td>@p.Customer.Customer.CompanyName</td>
+                    <td>@p.Customer.Email</td>
+                    <td>@p.Customer.PhoneNumber</td>
+                    <td>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapse@(p.Permision.ID + p.PurchaseId)" aria-expanded="false" aria-controls="collapseThree">
+                                            צפה ברשיון
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse@(p.Permision.ID + p.PurchaseId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <table class="table table-bordered table-condensed">
+                                            @foreach (Model.PermissionPropertyValue propery in p.Permision.PropertyValues)
+                                            {
+                                                <tr>
+                                                    <th>@propery.PermissionProperty.Name</th>
+                                                    <th>@propery.Name</th>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@p.PurchaseCost</td>
+                    <td>@p.ArtistEarn</td>
+                    <td>@p.PasskolEarn</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

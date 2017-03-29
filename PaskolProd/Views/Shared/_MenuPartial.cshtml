@@ -1,0 +1,235 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using Model.Users
+@using PaskolProd.Authentication
+@using Model.Authentication
+@using PaskolProd.Views.Helpers
+
+@{UserType? originalType = HttpContext.Current.User.GetOriginalType();}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+    {
+@Html.AntiForgeryToken()
+<div class="row">
+<div class="pull-right">
+@{PaskolUser CurrentUser = HttpContext.Current.User.GetUser();}
+@{string CurrentUserName = StringHelper.TruncateWithEllipsis(CurrentUser.UserName);}
+@{string OriginalUserName = StringHelper.TruncateWithEllipsis(User.GetOriginalName());}
+
+@if (CurrentUser.UserType == UserType.Artist)
+{
+    if (originalType == UserType.Admin || originalType == UserType.ArtistAgent)
+    {
+        <div href="#" class="btn account">
+            שלום, @OriginalUserName
+            <strong>(@CurrentUserName)</strong> <span class="fa fa-caret-down"></span>
+            <div class="accountmenu1 accountmenu2">
+                <ul>
+                    <li class="changeaccount">
+                        <span>
+                            הנך מחובר כ-
+                            <strong>@CurrentUserName</strong>
+                        </span>
+                        <a href="#" data-toggle="modal" data-target="#LoginAs">החלף משתמש</a>
+                    </li>
+                    <li><a href="~/Artist/MySongs?Upload" class="ami1"> העלה יצירה חדשה</a></li>
+                    <li><a href="~/Artist/MyProfile" class="ami2"> עדכון פרופיל</a></li>
+                    <li><a href="~/Artist/MySongs" class="ami7"> היצירות שלי</a></li>
+                    <li><a href="~/Artist/SellReport" class="ami4"> דו"ח מכירות</a></li>
+                    <li><a href="~/Artist/OriginalMusic" class="ami6"> יצירת מוזיקה מקורית</a></li>
+                    <li><a href="~/Artist/PersonalManagment" class="ami8"> ניהול אישי</a></li>
+                    @*<li><a href="#" class="ami9"> התחשבנות</a></li>*@
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+                </ul>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div href="#" class="btn account">
+            שלום, <strong>@CurrentUserName</strong> <span class="fa fa-caret-down"></span>
+            <div class="accountmenu1">
+                <ul>
+                    <li><a href="~/Artist/MySongs?Upload" class="ami1"> העלה יצירה חדשה</a></li>
+                    <li><a href="~/Artist/MyProfile" class="ami2"> עדכון פרופיל</a></li>
+                    <li><a href="~/Artist/MySongs" class="ami7"> היצירות שלי</a></li>
+                    <li><a href="~/Artist/SellReport" class="ami4"> דו"ח מכירות</a></li>
+                    <li><a href="~/Artist/OriginalMusic" class="ami6"> יצירת מוזיקה מקורית</a></li>
+                    <li><a href="~/Artist/PersonalManagment" class="ami8"> ניהול אישי</a></li>
+                    @*<li><a href="#" class="ami9"> התחשבנות</a></li>*@
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+                </ul>
+            </div>
+        </div>
+        }
+    }
+    else if (CurrentUser.UserType == UserType.Customer)
+    {
+        if (originalType == UserType.Admin)
+        {
+        <div href="#" class="btn account">
+            שלום,@OriginalUserName <strong>(@CurrentUserName)</strong> <span class="fa fa-caret-down"></span>
+            <div class="accountmenu1 accountmenu2">
+                <ul>
+                    <li class="changeaccount">
+                        <span>
+                            הנך מחובר כ-
+                            <strong>@CurrentUserName</strong>
+                        </span>
+                        <a href="#" data-toggle="modal" data-target="#LoginAs">החלף משתמש</a>
+                    </li>
+                    <li><a href="~/Customer/MyProfile" class="ami2"> עדכון פרופיל</a></li>
+                    <li><a href="~/Customer/UserSearches" class="time"> היסטוריית חיפושים</a></li>
+                    <li><a href="~/Customer/FavuoriteMusics" class="heart"> יצירות מועדפות</a></li>
+                    <li><a href="~/Customer/PurchaseReport" class="cart"> דו"ח רכישות</a></li>
+                    <li><a href="~/Customer/OriginalMusic" class="ami6"> יצירת מוזיקה מקורית</a></li>
+                    @*<li><a href="#" class="ami9"> התחשבנות</a></li>*@
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+                </ul>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div href="#" class="btn account">
+            שלום, <strong>@CurrentUserName</strong> <span class="fa fa-caret-down"></span>
+            <div class="accountmenu1">
+                <ul>
+                    <li><a href="~/Customer/MyProfile" class="ami2"> עדכון פרופיל</a></li>
+                    <li><a href="~/Customer/UserSearches" class="time"> היסטוריית חיפושים</a></li>
+                    <li><a href="~/Customer/FavuoriteMusics" class="heart"> יצירות מועדפות</a></li>
+                    <li><a href="~/Customer/PurchaseReport" class="cart"> דו"ח רכישות</a></li>
+                    <li><a href="~/Customer/OriginalMusic" class="ami6"> יצירת מוזיקה מקורית</a></li>
+                    @*<li><a href="#" class="ami9"> התחשבנות</a></li>*@
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+                </ul>
+            </div>
+        </div>
+        }
+
+    }
+    else if (CurrentUser.UserType == UserType.ArtistAgent)
+    {
+    <div href="#" class="btn account">
+        שלום, <strong>@CurrentUserName</strong> <span class="fa fa-caret-down"></span>
+        <div class="accountmenu1 accountmenu2">
+            <ul>
+                <li class="changeaccount">
+                    <span>
+                        הנך מחובר כ-
+                        <strong>@CurrentUserName</strong>
+                    </span>
+                    <a href="#" data-toggle="modal" data-target="#LoginAs">החלף משתמש</a>
+                </li>
+                <li><a href="~/ArtistAgent/MyProfile" class="ami2"> עדכון פרופיל</a></li>
+                <li><a href="~/ArtistAgent/SellReport" class="ami4"> דו"ח מכירות</a></li>
+                <li><a href="~/ArtistAgent/PersonalManagment" class="ami2"> ניהול אישי</a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+            </ul>
+        </div>
+    </div>
+    }
+    else if (CurrentUser.UserType == UserType.Admin)
+    {
+    <div href="#" class="btn account">
+        <span>שלום, <strong>@CurrentUserName</strong> </span><span class="fa fa-caret-down"></span>
+        <div class="accountmenu1 accountmenu2">
+            <ul>
+                <li class="changeaccount">
+                    <span>
+                        הנך מחובר כ-
+                        <strong>@CurrentUserName</strong>
+                    </span>
+                    <a href="#" data-toggle="modal" data-target="#LoginAs">החלף משתמש</a>
+                </li>
+                @if (User.IsInRole(PasskolRoles.SystemAdmin.ToString()))
+                {
+                    <li><a href="/Admin" class="ami1"> עמוד שער</a></li>
+                            <li><a href="/Admin/UserManager" class="ami2"> ניהול משתמשים</a></li>
+                            <li><a href="/Admin/AdminManagment" class="ami3"> ניהול הרשאות</a></li>
+                            <li><a href="/Admin/Tags" class="ami4"> ניהול זאנרים</a></li>
+                            <li><a href="/Admin/PermissionCategory" class="ami5"> ניהול רשיונות</a></li>
+                            <li><a href="/Admin/Auction" class="ami6"> ניהול מכרזים</a></li>
+                            <li><a href="/Admin/Music" class="ami7"> ניהול יצירות</a></li>
+                            <li><a href="/Admin/Confirmation" class="ami8"> ניהול אישורים</a></li>
+                            <li><a href="/Admin/Reports/Users" class="ami9"> דוחות</a></li>
+                }
+                else
+                {
+                    if (User.IsInRole(PasskolRoles.AdminLabel.ToString()))
+                    {
+                        <li><a href="/Admin/Tags" class="ami4"> ניהול זאנרים</a></li>
+                    }
+                    if (User.IsInRole(PasskolRoles.AdminMusicEditor.ToString()))
+                    {
+                        <li><a href="/Admin/Music" class="ami7"> ניהול יצירות</a></li>
+                    }
+                    if (User.IsInRole(PasskolRoles.AdminProfile.ToString()))
+                    {
+                        <li><a href="/Admin/UserManager" class="ami2"> ניהול משתמשים</a></li>
+                    }
+                    if (User.IsInRole(PasskolRoles.AdminFinance .ToString()))
+                    {
+                        <li><a href="/Admin/Reports/Purchase" class="ami9"> דוחות</a></li>
+                    }
+                    if (!User.IsInRole(PasskolRoles.AdminLabel.ToString()))
+                    {
+                        <li><a href="/Admin/Confirmation" class="ami8"> ניהול אישורים</a></li>
+                    }
+                }
+               
+                <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ami10"> יציאה מהמערכת</a></li>
+            </ul>
+        </div>
+    </div>
+    }
+</div>
+</div>
+    }
+
+    <div id="LoginAs" class="modal fade" role="dialog">
+        <div class="modal-dialog passkol-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">החלפת משתמש</h4>
+                </div>
+                <div class="modal-body padding36">
+                    <h4>התחבר למערכת פסקול בתור:</h4>
+                    <div class="row agent">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                            <span>
+                                <label class="myradio1"><input autocomplete="off" type="radio" value="me" ng-model="register.impersonate.as"><i></i></label>
+                                @(User.IsImpersonating() ? User.GetOriginalName() : User.Identity.Name)
+                            </span>
+
+                            <span><label class="myradio1"><input autocomplete="off" type="radio" value="other" ng-model="register.impersonate.as"><i></i></label>אחר</span>
+
+                            <a href="#" data-dismiss="modal" class="btn reset3 reset3-agent">ביטול</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <input autocomplete="off" style="font-size:18px;" ng-disabled="register.impersonate.as == 'me'" class="form-control"  type="text" auto-Complete url="/UserManager/GetImpersonatingUser?StartWith="
+                                    placeholder="הקלד שם לחיפוש"
+                                    ng-model="register.impersonate.registerAsName" id="impersonateUserName" />
+                            <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+                            <a href="#" ng-click="register.impersonate.impersonate()" class="btn confirm confirm-agent">אישור</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="row">
+        <div class="pull-right">
+            <a href="#" data-toggle="modal" class="btn login" data-target="#LoginModal">התחבר</a>
+            <a href="#" data-toggle="modal" class="btn register" data-target="#RegsterModal">הירשם</a>
+        </div>
+    </div>
+}

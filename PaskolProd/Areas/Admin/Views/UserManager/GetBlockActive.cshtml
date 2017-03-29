@@ -1,0 +1,64 @@
+﻿@using Model.Users;
+
+@{
+    ViewBag.Title = @"חסום\ אשר משתמש";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>חסום \ אחזר</h2>
+<div class="row" style="margin-top:20px">
+    <div class="col-lg-offset-6 col-lg-6">
+
+                @if (ViewBag.HasUser)
+                {
+                    using (Html.BeginForm("BlockActive", "UserManager"))
+                    {
+                        <input autocomplete="off" type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                        <input autocomplete="off" name="Id" value="@ViewBag.UserId" type="hidden" />
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input autocomplete="off" disabled="disabled" value="@ViewBag.Name" class="form-control"/>
+                            </div>
+                            @Html.Label("","שם", htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input autocomplete="off" disabled="disabled" value="@ViewBag.Email" class="form-control" />
+                            </div>
+                            @Html.Label("", "אימייל", htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input autocomplete="off" disabled="disabled" value="@ViewBag.Type" class="form-control" />
+                            </div>
+                            @Html.Label("", "סוג", htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input autocomplete="off" disabled="disabled" value="@ViewBag.MgrNote" class="form-control" />
+                            </div>
+                            @Html.Label("", "הערה", htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @if (ViewBag.Status == UserStatus.Active)
+                                {
+                                    <button type="submit" class="btn btn-danger">חסום</button>
+                                }
+                                else if (ViewBag.Status == UserStatus.Blocked)
+                                {
+                                    <button type="submit" class="btn btn-success">אחזר</button>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span>לא הצלחנו למצוא את המשתמש המבוקש</span>
+                }
+            </div>
+        </div>
+<div>
+    <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+</div>

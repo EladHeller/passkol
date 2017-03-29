@@ -1,0 +1,173 @@
+﻿@using PaskolProd.Models
+@using Model.Logs
+@model LeadMusicViewModel
+@{
+    ViewBag.Title = "דוחות - יצירות מובילות";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "יצירות";
+    ViewBag.SubCat = "יצירות מובילות";
+}
+<div class="container">
+    <div class="row well" style="margin-top:10px; direction: ltr;">
+        @using (Html.BeginForm("LeadMusics", "Reports", FormMethod.Get))
+        {
+            <div class="col-lg-1 col-lg-offset-1">
+                <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+            </div>
+            <div class="col-lg-2">
+                <div class="col-lg-11">
+                    <select name="ActionType" class="form-control">
+                        <option value="0" @(Model.ActionType == MusicReportType.Show ? "selected=\"selected\"" : "")>נצפו</option>
+                        <option value="2" @(Model.ActionType == MusicReportType.Purchase ? "selected=\"selected\"" : "")>נמכרו</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input autocomplete="off" id="StartDate" name="StartDate" format="dd/MM/yyyy" type="date" class="form-control" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("yyyy-MM-dd") : "")">
+                    <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                    <input autocomplete="off" id="EndDate" name="EndDate" type="date" class="form-control" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "")">
+                </div>
+            </div>
+        }
+        <div class="col-lg-1 col-lg-offset-1">
+            <button id="WeekDate" class="btn btn-default">שבוע אחרון</button>
+        </div>
+        <div class="col-lg-1">
+            <button id="MonthDate" class="btn btn-default">חודש אחרון</button>
+        </div>
+        <div class="col-lg-1">
+            <button id="YearDate" class="btn btn-default">שנה אחרונה</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-hover" id="leadMusicTable">
+        <thead>
+            <tr>
+                <th>שם האמן</th>
+                <th>שם היצירה</th>
+                <th>כמות @(Model.ActionType == MusicReportType.Purchase ? "מכירות" : "צפיות")</th>
+                <th>מחיר מכירה ממוצע</th>
+                <th>סך הכנסות</th>
+                <th>הכנסות לאמן</th>
+                <th>הכנסות לפסקול</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.LeadMusicLogs == null || !Model.LeadMusicLogs.Any())
+            {
+                <tr>
+                    <td colspan="11" class="text-center">לא נמצאו יצירות</td>
+                </tr>
+            }
+            else
+            {
+                foreach (LeadMusicLog l in Model.LeadMusicLogs)
+                {
+                    <tr class="laed-music-row" data-music-id="@l.MusicID">
+                        <td>@l.ArtistName</td>
+                        <td>@l.HebrewName</td>
+                        <td>@l.Count</td>
+                        <td>@l.AvgCost</td>
+                        <td>@l.SumCosts</td>
+                        <td>@l.ArtistEarn</td>
+                        <td>@l.PasskolEarn</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="col-lg-offset-1">
+        @if (Model.LeadMusicLogs.Any())
+        {
+            <span>עמוד @Model.Page מתוך @Model.TotalPages</span>
+            <div class="pagination-container">
+                <ul class="pagination">
+                    @if (Model.Page < Model.TotalPages)
+                {
+                        <li class="PagedList-skipToNext">
+                            @Html.ActionLink(">>", "LeadMusics", new { Page = Model.Page + 1, ActionType= Model.ActionType, StartDate= Model.StartDate, EndDate= Model.EndDate  })
+                        </li>
+                    }
+                    @if (Model.TotalPages - 5 > Model.Page)
+                {
+                        <li>
+                            @Html.ActionLink(Model.TotalPages.ToString() as string, "LeadMusics", new { Page = Model.TotalPages, ActionType = Model.ActionType, StartDate = Model.StartDate, EndDate = Model.EndDate })
+                        </li>
+                        <li>
+                            <a disabled="disabled">...</a>
+                        </li>
+                    }
+                    @for (int i = ((Model.TotalPages - 5 > Model.Page) ? (Model.Page + 4) : Model.TotalPages);
+                  i > 0 && i > (Model.Page - 5);
+                  i--)
+                    {
+                        if (i == Model.Page)
+                        {
+                            <li class="active">
+                                <a>@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink(i.ToString(), "LeadMusics", new { Page = i, ActionType = Model.ActionType, StartDate = Model.StartDate, EndDate = Model.EndDate })
+                            </li>
+                        }
+                    }
+                    @if (Model.Page > 5)
+                {
+                        <li>
+                            <a disabled="disabled">...</a>
+                        </li>
+                        <li>
+                            @Html.ActionLink("1", "LeadMusics", new { Page = 1, ActionType = Model.ActionType, StartDate = Model.StartDate, EndDate = Model.EndDate })
+                        </li>
+                    }
+                    @if (Model.Page > 1)
+                {
+                        <li class="PagedList-skipToPrevious">
+                            @Html.ActionLink("<<", "LeadMusics", new { Page = Model.Page - 1, ActionType = Model.ActionType, StartDate = Model.StartDate, EndDate = Model.EndDate })
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <span class="text-warning">אין תוצאות לחיפוש המבוקש.</span>
+        }
+    </div>
+
+    <div class="modal fade" id="modelMusicPurchases"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="min-width:950px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">רכישות</h4>
+                </div>
+                <div class="modal-body" id="modelMusicPurchasesBody" style="padding:5px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="modal-lg fade col-lg-12" tabindex="-1" style="z-index:999999;position:absolute;top:10%" role="dialog" id="modכelMusicPurchases">
+        <div class="modal-dialog modal-lg"  role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">רכישות</h4>
+                </div>
+                <div class="modal-body" id="modelMusicPurchasesBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>

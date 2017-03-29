@@ -1,0 +1,37 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="passkolPlayer.template">
+    <div ng-show="showAudioPlayer">
+        <div class="container-fluid container-player">
+            <div class="player-error" ng-show="audioError">
+                אירעה שגיאה בטעינת המוזיקה!
+            </div>
+            <div class="player" ng-show="!audioError">
+                <div class="player-vidoe-sync-close">
+                    <span class="cursor-pointer" ng-click="closePlayedMusic()">X</span>
+                </div>
+                <div class="player-vidoe-sync">
+                    <img ng-show="!hideSycnVideoBtn" ng-click="showVideoBtnClicked()" class="cursor-pointer" src="/Content/images/vidoe.png" />
+                </div>
+                <div class="player-vidoe-sync-text">
+                    <span ng-show="!hideSycnVideoBtn">
+                        סנכרן עם<br />
+                        סרטון וידאו
+                    </span>
+                </div>
+                <div class="player-content-player">
+                    <audio-player></audio-player>
+                    <div class="music-play-properties">
+                        <span>{{musicPlayed.HebrewName}} &rlm; / &rlm; {{musicPlayed.ArtistName}}</span>&rlm;<span style="margin:4px 25px 2px 25px"> • </span><span ng-show="audioLoaded">&rlm;{{audioPlayer.duration| time}} / <span style="color:#0683be;">{{audioPlayer.currentTime | time}}</span></span>
+                    </div>
+                </div>
+                <div class="player-icons" ng-show="audioLoaded">
+                    <i class="glyphicon glyphicon-step-forward" ng-click="nextMusic()"></i>
+                    <i ng-class="{'glyphicon-pause':!audioPlayer.paused,
+                                    'glyphicon-play':audioPlayer.paused}"
+                       class="glyphicon" ng-click="playClicked()"></i>
+                    <i class="glyphicon glyphicon-step-backward" ng-click="previousMusic()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

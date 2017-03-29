@@ -1,0 +1,29 @@
+﻿@using PaskolProd.Views.Helpers
+@using PaskolProd.Models
+@{
+    ViewBag.Title = "עריכת פרופיל";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model ProfileShared
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@Model.UserName</h1>
+        <h2>האזור האישי</h2>
+        <ul class="innermenu2">
+            <li class="active"><a href="~/ArtistAgent/MyProfile">עדכון פרופיל</a></li>
+            <li><a href="~/ArtistAgent/SellReport">דו"ח רכישות</a></li>
+            <li><a href="~/ArtistAgent/PersonalManagment">ניהול אישי</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2" ng-controller="CustomerProfile">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><i href="#">האיזור האישי </i></li>
+            <li><i href="#">עריכת פרופיל </i></li>
+        </ol>
+       @Html.Partial("SharedProfile")
+    </div>
+</div>
+

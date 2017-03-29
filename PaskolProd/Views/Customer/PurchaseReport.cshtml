@@ -1,0 +1,102 @@
+﻿@using Model.Users
+@using Model
+@using PaskolProd.Controllers.Helper
+@using BotDetect.Web.UI.Mvc
+@using PaskolProd.Views.Helpers
+@{
+    ViewBag.Title = "דוח רכישות";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model PaskolUser
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+        <ul class="innermenu2">
+            <li><a href="~/Customer/MyProfile">עדכון פרופיל</a></li>
+            <li><a href="~/Customer/UserSearches">היסטוריית חיפושים</a></li>
+            <li><a href="~/Customer/FavuoriteMusics">יצירות מועדפות</a></li>
+            <li class="active"><a href="~/Customer/PurchaseReport">דו"ח רכישות</a></li>
+            <li><a href="~/Customer/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+            @*<li><a href="#">התחשבנות</a></li>*@
+        </ul>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2" ng-controller="PurchaseReport">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><i href="#">דו"ח רכישות </i></li>
+        </ol>
+        <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+        <div ng-init="fileType='@FileType.PDF'" />
+        <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+        <div class="noprint row">
+            <div class="col-lg-2">
+                <span ng-click="printReports()" style="cursor:pointer;color:#0683be;margin-right:100px;position: absolute;margin-top:40px"><span style="margin-left:10px">הדפס</span><i class="glyphicon glyphicon-print"></i></span>
+            </div>
+            <div class="col-lg-offset-6 col-lg-4">
+                <h1>דו"ח רכישות</h1>
+            </div>
+        </div>
+        <div style="margin-top:40px" ng-show="results.length === 0">
+            אין תוצאות להצגה
+        </div>
+        <div id="resReportsContainer" ng-show="results.length > 0">
+            <div class="noprint tabletitle">
+                <strong>{{results.length}} רכישות בוצעו</strong>
+                <div class="pull-left">
+                    סדר לפי:
+                    <div class="selector selector2">
+                        <div ng-click="showOptions = !showOptions">
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                            <span>{{selectedOption.text}}</span>
+                        </div>
+                        <ul ng-show="showOptions" ng-click="showOptions = false">
+                            <li ng-repeat="option in sortOptions track by option.value" ng-click="optionSelect(option)">{{option.text}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <table class="table searchresults">
+                <thead>
+                    <tr>
+                        <th>תאריך</th>
+                        <th>שם היצירה</th>
+                        <th>אמן</th>
+                        <th>סוג רשיון</th>
+                        <th>מחיר</th>
+                        <th>הסכם</th>
+                        <th>הורדה</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="result in results track by result.ID">
+                    <tr>
+                        <td>{{result.DatePurchased}}</td>
+                        <td><b>{{result.MusicName}}</b></td>
+                        <td>{{result.ArtistName}}</td>
+                        <td>{{result.PermissionToString}}</td>
+                        <td><span ng-show="result.Price"> {{result.Price}} שח</span></td>
+                        <td>
+                            <span ng-show="result.AgreementFileID">
+                                <a href="~/File/GetFile?FileId={{result.AgreementFileID}}&UserId=@(User.GetUser().Id)&FileType={{fileType}}&suffix=.pdf"><i class="glyphicon glyphicon-align-justify"></i></a>
+                            </span>
+                        </td>
+                        <td>
+                            <span ng-show="result.Musicfile.FileId">
+                                <a href="~/File/GetFile?FileId={{result.Musicfile.FileId}}&UserId={{result.ArtistID}}&FileType=@FileType.Music&version={{result.Musicfile.version}}&suffix={{result.Musicfile.suffix}}&FileName={{result.MusicName}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                            </span>
+</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination2">
+                <li ng-show="page > 1"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{page - 1}}&sortType={{sortType}}" class="glyphicon glyphicon-chevron-left"></a></li>
+                <li ng-repeat="pageIndex in pages" ng-class="{active:($index + 1) == page}"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{$index+1}}&sortType={{sortType}}">{{$index + 1}}</a></li>
+                <li ng-show="page < TotalPages"><a href="/search?searchText={{searchText}}&strTagIds={{selectedTagsIdsStr}}&page={{page + 1}}&sortType={{sortType}}" class="glyphicon glyphicon-chevron-right"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+

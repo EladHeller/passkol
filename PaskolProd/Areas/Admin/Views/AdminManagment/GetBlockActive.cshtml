@@ -1,0 +1,76 @@
+﻿@using Model.Users;
+@using Model.Helper
+@{
+    ViewBag.Title = @"חסום \ אשר משתמש";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>חסימה / אחזור משתמש</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-6">
+   
+    @if (ViewBag.HasUser)
+    {
+        using (Html.BeginForm("BlockActive", "AdminManagment"))
+        {
+            <div class="form-horizontal">
+                <hr />
+                <input autocomplete="off" name="Id" value="@ViewBag.UserId" type="hidden" />
+                <input autocomplete="off" type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input autocomplete="off" class="form-control text-box single-line" disabled="disabled" value="@ViewBag.Name">
+                    </div>
+                    <label class="control-label col-md-2">שם</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input autocomplete="off" class="form-control text-box single-line" disabled="disabled" value="@ViewBag.Email">
+                    </div>
+                    <label class="control-label col-md-2">אימייל</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input autocomplete="off" class="form-control text-box single-line" disabled="disabled" value="@ViewBag.MgrNote">
+                    </div>
+                    <label class="control-label col-md-2">הערה</label>
+                </div>
+                <div class="form-group">
+                    @foreach (string role in ViewBag.Roles)
+                        {
+                            <div class="col-md-10">
+                                <div class="input-group" style="direction: ltr;text-align:left">
+                                    <input autocomplete="off" type="text" class="form-control" disabled placeholder="@role">
+                                    <span class="input-group-addon">
+                                        <input autocomplete="off" type="checkbox" name="Roles" disabled="disabled" checked="checked">
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    <label class="control-label col-md-2">הרשאות</label>
+                </div>
+                <div >
+                    @if (ViewBag.Status == UserStatus.Active)
+                    {
+                        <button type="submit" class="btn btn-danger">חסום</button>
+                    }
+                    else if (ViewBag.Status == UserStatus.Blocked)
+                    {
+                        <button type="submit" class="btn btn-success">אחזר</button>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+                <span>לא הצלחנו למצוא את המשתמש המבוקש</span>
+                }
+
+            </div>
+</div>
+  
+<div>
+    <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+</div>

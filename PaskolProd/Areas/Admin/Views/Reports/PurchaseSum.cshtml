@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "סך רכישות";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "רכישות";
+    ViewBag.SubCat = "סך רכישות";
+}
+
+<div class="row well" style="margin-top:10px; direction: ltr;">
+    @using (Html.BeginForm())
+    {
+        <div class="col-lg-1">
+            <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+        </div>
+        <div class="col-lg-3 col-lg-offset-5">
+            <div class="input-group input-daterange">
+                <input autocomplete="off" id="StartDate" name="StartDate" type="date" class="form-control" value="@(ViewBag.StartDate.ToString("yyyy-MM-dd"))">
+                <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                <input autocomplete="off" id="EndDate" name="EndDate" type="date" class="form-control" value="@(ViewBag.EndDate.ToString("yyyy-MM-dd"))">
+            </div>
+        </div>
+
+    }
+    <div class="col-lg-1">
+        <button id="WeekDate" class="btn btn-default">שבוע אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="MonthDate" class="btn btn-default">חודש אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="YearDate" class="btn btn-default">שנה אחרונה</button>
+    </div>
+</div>
+
+
+<table class="table table-bordered table-striped" style="width:400px">
+    <tr>
+        <th>סך עסקאות</th>
+        <td>@ViewBag.SUM_Purchase</td>
+    </tr>
+    <tr>
+        <th>סך הכנסות</th>
+        <td>@ViewBag.SUM_Earn</td>
+    </tr>
+    <tr>
+        <th>ממוצע הכנסה ליצירה</th>
+        <td>@ViewBag.AVG_Earn</td>
+    </tr>
+    <tr>
+        <th>ממוצע הכנסה לאמן</th>
+        <td>@ViewBag.AVG_ArtistEarn</td>
+    </tr>
+    <tr>
+        <th>סך הכנסה לפסקול</th>
+        <td>@ViewBag.SUM_PasskolEarn</td>
+    </tr>
+</table>
+
+  
+
+

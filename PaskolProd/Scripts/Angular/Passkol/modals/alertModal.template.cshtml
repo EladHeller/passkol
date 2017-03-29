@@ -1,0 +1,13 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="alertModal.template">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">&times;</button>
+        <h4 class="modal-title">{{subject}}</h4>
+    </div>
+    <div class="modal-body padding36">
+        <span>{{text}}</span>
+    </div>
+    <div class="modal-footer">
+        <a style="font-size:large" class="btn btn-passkol" ng-click="close()">אישור</a>
+    </div>
+</script>

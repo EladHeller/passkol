@@ -1,0 +1,156 @@
+﻿@using Model.Confirm;
+@using PagedList.Mvc;
+@using PaskolProd.Authentication
+@using PaskolProd.Models
+@using Model.Helper;
+
+@model ConfirmationViewModel
+
+
+@{
+    ViewBag.Title = "אישורים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>אישורים</h2>
+
+<div class="row" style="margin-bottom:10px">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="well">
+            <form action="~/Admin/Confirmation/Index" class="input-group" style="direction:ltr;" method="get">
+                <div class="col-lg-1 col-lg-offset-8">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default " type="submit">חפש!</button>
+                    </span>
+                </div>
+                <div class="col-lg-3">
+                    <select class="form-control" data-val="true" id="ConfirmType" name="ConfirmType">
+                        @if (User.IsInRole("SystemAdmin") || User.GetUser().Roles.Count > 1)
+                        {
+                            <option value="0"  @(0 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>הכל</option>
+                        }
+                        @if (User.IsInRole("AdminFinance") || User.IsInRole("SystemAdmin"))
+                        {
+                            <option value="1"  @(1 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>רכישה טלפונית</option>
+                        }
+                        @if (User.IsInRole("AdminProfile") || User.IsInRole("SystemAdmin"))
+                        {
+                            <option value="2"  @(2 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>אמן חדש</option>
+                            <option value="3"  @(3 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>עדכון אמן</option>
+                        }
+                      
+                        @if (User.IsInRole("AdminMusicEditor") || User.IsInRole("SystemAdmin"))
+                        {
+                            <option value="4"  @(4 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>יצירה חדשה</option>
+                            <option value="5"  @(5 == (int)ViewBag.SelectedType ? "selected='selected'" : "")>עדכון יצירה</option>
+                        }
+                       
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+     
+<table class="table table-striped">
+        <tr>
+            <th>@Html.ActionLink("סוג", "Index",
+               new {
+                   sortOrder = ViewBag.TypeSortParm,
+                   ConfirmType = ViewBag.SelectedType,
+                   PageIndex = ViewBag.Page
+               })</th>
+            <th>שם</th>
+            <th>@Html.ActionLink("תאריך עדכון", "Index",
+               new {
+                   sortOrder = ViewBag.DateSortParm,
+                   ConfirmType = ViewBag.SelectedType,
+                   PageIndex = ViewBag.Page
+               }) </th>
+            <th>הערה</th>
+            <th>פעולות</th>
+        </tr>
+        @if (Model.Confirmations.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-center">אין אישורים</td>
+            </tr>
+        }
+        else
+        {
+            foreach (Confirmation conf in Model.Confirmations)
+            {
+                <tr>
+                    <td>@conf.ConfirmType.ToDescription()</td>
+                    <td>@conf.Name</td>
+                    <td style="direction:ltr">@conf.DateUpdate</td>
+                    <td>@conf.ManagerNote</td>
+                    <td>
+                        @if (conf.ConfirmType == ConfirmType.NewArtist)
+                        {
+                            <a href="/Admin/Confirmation/NewArtist?Id=@conf.EntityId" class="btn btn-default">פרטים</a>
+                        }
+                        else if (conf.ConfirmType == ConfirmType.UpdateArtist)
+                        {
+                            <a href="/Admin/Confirmation/EditedArtist?Id=@conf.EntityId" class="btn btn-default">פרטים</a>
+                        }
+                        else if (conf.ConfirmType == ConfirmType.PhonePurchase)
+                        {
+                            <a href="/Admin/Confirmation/PhonePurchase?Id=@conf.EntityId" class="btn btn-default">פרטים</a>
+                        }
+                        else if (conf.ConfirmType == ConfirmType.NewMusic)
+                        {
+                            <a href="/Admin/Confirmation/NewMusic?id=@conf.EntityId" class="btn btn-default">פרטים</a>
+                        }
+                        else if (conf.ConfirmType == ConfirmType.UpdateMusic)
+                        {
+                            <a href="/Admin/Confirmation/EditedMusic?Id=@conf.EntityId" class="btn btn-default">פרטים</a>
+                        }
+                    </td>
+                </tr>
+
+            }
+        }
+    </table>
+<div class="col-lg-offset-1">
+    @if (Model.Confirmations.Count() > 0)
+    {
+        <span>עמוד @ViewBag.Page מתוך @ViewBag.TotalPages</span>
+        <div class="pagination-container">
+            <ul class="pagination">
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="PagedList-skipToNext">
+                        @Html.ActionLink(">>", "Index", new { PageIndex = ViewBag.Page + 1, ConfirmType = Model.ConfirmType, sortOrder = ViewBag.CurrentSort })
+                    </li>
+                }
+                @for (int i = ViewBag.TotalPages; i > 0; i--)
+                {
+
+                    if ((i) == ViewBag.Page)
+                    {
+                        <li class="active">
+                            <a>@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(i.ToString(), "Index", new { PageIndex = i, ConfirmType = ViewBag.SelectedType, sortOrder = ViewBag.CurrentSort })
+                        </li>
+                    }
+                }
+
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="PagedList-skipToPrevious">
+                        @Html.ActionLink("<<", "Index", new { PageIndex = ViewBag.Page - 1, ConfirmType = ViewBag.SelectedType, sortOrder = ViewBag.CurrentSort })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/PaskolManager")
+}

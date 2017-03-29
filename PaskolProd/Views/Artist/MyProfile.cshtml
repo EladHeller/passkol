@@ -1,0 +1,215 @@
+﻿@using Model
+@using PaskolProd.Views.Helpers
+@model Model.Users.Artist
+@{
+    ViewBag.Title = "עדכון פרופיל";
+    Layout = "~/Views/Shared/_ArtistLayout.cshtml";
+}
+
+<div class="container-fluid container-innercontent2" ng-controller="ArtistProfile">
+    
+     <input id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+    <div class="innercontent">
+        <ol class="breadcrumb">
+            <li><a href="~/">עמוד הבית</a></li>
+            <li><i href="#">האיזור האישי</i></li>
+            <li><i href="#">עדכון פרופיל</i></li>
+        </ol>
+        <form name="ap" id="uploadImageForm" enctype="multipart/form-data" action="/Account/updateArtistProfile" method="post">
+        <div class="row editprofile" style="margin-bottom:10px !important  ">
+            <div class="col-lg-4 col-md-4 col-md-4">
+
+                <div style="cursor:pointer" ng-click="focus = 'picfocus'">
+                    <p>העלה תמונת פרופיל</p>
+                    @if (Model.PhotoID != null)
+                    {
+                        <img alt="" class="profileimage" src="/File/GetFile?FileType=@FileType.Photo&UserId=@Model.Id&FileId=@Model.PhotoID">
+                    }
+                    else
+                    {
+                        <img src="~/TemplatesContent/images/profile.jpg" class="profileimage">
+                    }
+                </div>
+
+                    @Html.AntiForgeryToken()
+                    
+                    <div ng-show="focus === 'picfocus'">
+                        <Progress-Bar-Uploader parent="uploader" url="'/Account/updateArtistProfile '">
+                            <div class="fileinput">
+                                <span></span>
+                                <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                                <input autocomplete="off" name="upload" type="file" id="f_UploadImage">
+                            </div>
+                            <input autocomplete="off" type="hidden" value="Photo" name="property" />
+                        </Progress-Bar-Uploader>
+                        @*<div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+
+                            </div>
+                        </div>*@
+                        @*<div class="fileinput">
+                            <span></span>
+                            <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                            <input autocomplete="off" name="upload" type="file" value="" id="f_UploadImage">
+                        </div>*@
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                @*<input type='button' onclick="uploadFile()" id='upload-files' value='Upload Files' class="btn btn-default"/>*@
+                                <a class="blueButton" ng-click="uploader.uploadFile()">עדכן</a>
+
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="PhotoInvalid">
+                                {{PhotoInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                @*<profileinput label="'שם'" modelval="'@Model.User.UserName'"></profileinput>*@
+                <p>שם\להקה</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'nfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="UserName=''"></a>
+                        <input autocomplete="off" class="form-control greyinput blackFocus" ng-focus="focus='nfocus'" ng-model="UserName" ng-init="UserName ='@Model.User.UserName'" />
+                </div>
+                <div ng-show="focus === 'nfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="UserName=OriginalUserName">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updateName()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="NameInvalid">
+                            {{NameInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+                <p>כתובת אישית</p><p style="direction:ltr">https://passkol.com/artists/{{PageUrl}}</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'pfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="PageUrl=''"></a>
+                        <input autocomplete="off" class="form-control greyinput input1 blackFocus" ng-focus="focus='pfocus'" ng-model="PageUrl" ng-init="PageUrl ='@Model.PageUrl'" ng-pattern="/^[א-תa-z0-9]+$/i" ng-maxlength="20" name="personalPage"/>
+                </div>
+                <div ng-show="focus === 'pfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="PageUrl=OriginalPageUrl">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updatePageUrl()" ng-hide="ap.personalPage.$invalid">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="PageUrlInvalid">
+                            {{PageUrlInvalidMsg}}
+                        </div>
+                            <div class="col-lg-7" style="color:red" ng-show="ap.personalPage.$invalid">
+                               כתובת יכולה להכיל אותיות ומספרים בעברית ואנגלית עד 20 תווים
+                    </div>
+                </div>
+            </div>
+                </div>
+            <div class="col-lg-1 col-md-1 col-md-1">
+            </div>
+            <div class="col-lg-4 col-md-4 col-md-4">
+                <p>דוא"ל</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'efocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="Email=''"></a>
+                        <input autocomplete="off" class="form-control greyinput input1 blackFocus" ng-focus="focus='efocus'" 
+                               ng-model="Email" ng-init="Email ='@Model.User.Email'" />
+                </div>
+                <div ng-show="focus === 'efocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="Email=OriginalEmail">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updateEmail()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="EmailInvalid">
+                            {{EmailInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+                <p>סיסמה</p>
+                <div class="icon-addon">
+                    <a ng-show="focus==='passfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="Password=''"></a>
+                        <input autocomplete="off" ng-focus="focus='passfocus'" type="password" ng-model="Password" class="blackFocus form-control greyinput" />
+                </div>
+                <div ng-show="focus==='passfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px;">
+                                <a class="blackButton" ng-click="Password=OriginalPassword">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updatePassword()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="PasswordInvalid">
+                            {{PasswordInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+                <p>איש קשר</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'cmnfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="ContactManName=''"></a>
+                        <input autocomplete="off" class="form-control greyinput input1 blackFocus" ng-focus="focus='cmnfocus'" ng-model="ContactManName" ng-init="ContactManName ='@Model.ContactManName'" />
+                </div>
+                <div ng-show="focus === 'cmnfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="ContactManName=OriginalContactManName">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updateContactManName()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="ContactManNameInvalid">
+                            {{ContactManNameInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+                <p>מספר הטלפון של איש הקשר</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'cmpfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="ContactManPhone=''"></a>
+                        <input autocomplete="off" class="form-control greyinput input1 blackFocus" ng-focus="focus='cmpfocus'" ng-model="ContactManPhone" ng-init="ContactManPhone ='@Model.ContactManPhone'" />
+                </div>
+                <div ng-show="focus === 'cmpfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="ContactManPhone=OriginalContactManPhone">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updateContactManPhone()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="ContactManPhoneInvalid">
+                            {{ContactManPhoneInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-md-9">
+                <p>ביוגרפיה</p>
+                <div class="icon-addon">
+                    <a ng-show="focus === 'bfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="Biography=''"></a>
+                    <textarea style="margin-bottom:0px" class="form-control greyinput textarea1 blackFocus" ng-focus="focus='bfocus'" ng-model="Biography" ng-init="Biography ='@Model.Biography'"></textarea>
+                </div>
+                <div ng-show="focus === 'bfocus'">
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="Biography=OriginalBiography">בטל</a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="blueButton" ng-click="updateBiography()">עדכן</a>
+                        </div>
+                        <div class="col-lg-7" style="color:red" ng-show="BiographyInvalid">
+                            {{BiographyInvalidMsg}}
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="isFirstEntrance">
+                        <p><label class="mycheckbox"><input autocomplete="off" ng-change="participateInAuctionToggele(WantToParticipate)" ng-model="WantToParticipate" type="checkbox" ng-init="WantToParticipate= @(Model.ParticipateInAuction ? "true" : "false")"><i></i></label> רוצה ליצור מוזיקה מקורית עבור רוכשי תוכן במסגרת "פסקול קורא" <span class="glyphicon glyphicon-question-sign qmark"></span></p>
+                    <button type="button" class="btn bigsubmit" onclick="location.href = '/Artist/MySongs'">העלה יצירות למערכת</button>
+                </div>
+                    <p><label class="mycheckbox"><input autocomplete="off" type="checkbox" disabled="disabled" checked="checked"><i></i></label> אני מאשר את <a target="_blank" href="/File/PersonalArtistAgreement?UserId=@Model.User.Id">חוזה האמן שלי</a> <span class="glyphicon glyphicon-question-sign qmark"></span></p>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

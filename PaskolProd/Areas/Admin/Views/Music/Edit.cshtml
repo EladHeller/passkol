@@ -1,0 +1,364 @@
+﻿@using Model;
+@model PaskolProd.Models.MusicViewModelEntry
+
+@{
+    ViewBag.Title = "עריכת יצירה";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>עריכת יצירה</h2>
+<div class=""></div>
+@using (Html.BeginForm("Edit", "Music", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal col-lg-12">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.WAVFileID)
+        @if (Model.WAVFileID != null)
+        {
+            @Html.HiddenFor(model => model.WAVFile.suffix)
+            @Html.HiddenFor(model => model.WAVFile.version)
+            @Html.HiddenFor(model => model.WAVFile.FileType)
+        }
+        @Html.HiddenFor(model => model.MP3FileID)
+        @if (Model.MP3FileID != null)
+        {
+            @Html.HiddenFor(model => model.MP3File.suffix)
+            @Html.HiddenFor(model => model.MP3File.version)
+            @Html.HiddenFor(model => model.MP3File.FileType)
+        }
+        <div class="row col-lg-6">
+            <div class="row col-lg-12">
+                <div>
+                    @Html.Label("", "תגיות", htmlAttributes: new { @class = "control-label col-lg-offset-6" })
+                </div>
+                <div>
+                    <input autocomplete="off" type="hidden" value="@(Model.Tags != null ? Model.Tags.Count : 0)" id="musicTagsCount" />
+                    <div id="musicTags" style="padding:20px">
+                        @if (Model.Tags != null)
+                        {
+                            for (int i = 0; i < Model.Tags.Count; i++)
+                            {
+                                <div class="form-group-sm">
+                                    <div class="input-group" style="direction: ltr;text-align:left">
+                                        <span class="input-group-addon">
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].Name" value="@Model.Tags[i].Name"/>
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].ViewOrder" value="@Model.Tags[i].ViewOrder"/>
+                                            <input autocomplete="off" class="tag-id-value" type="hidden" name="TagViews[@i].ID" value="@Model.Tags[i].ID"/>
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].IsCanDelete" value="@Model.Tags[i].IsCanDelete.ToString()">
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].IsDynamic" value="@Model.Tags[i].IsDynamic.ToString()">
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].IsPublicTag" value="@Model.Tags[i].IsPublicTag.ToString()">
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].Level" value="@Model.Tags[i].Level">
+                                            <input autocomplete="off" type="hidden" name="TagViews[@i].ParentTagID" value="@Model.Tags[i].ParentTagID">
+                                            <input autocomplete="off" type="checkbox" checked="checked" name="TagViews[@i].IsNotDeleted" value="true">
+                                        </span>
+                                        @{ 
+                                            var rtl = char.ConvertFromUtf32(8207);
+                                            var placehelder = string.Empty;
+                                            if (Model.Tags[i].ParentTag != null)
+                                            {
+                                                if (Model.Tags[i].ParentTag.ParentTag != null)
+                                                {
+                                                    placehelder += Model.Tags[i].ParentTag.ParentTag.Name + rtl + " ← " + rtl;
+                                                }
+                                                placehelder +=  Model.Tags[i].ParentTag.Name + rtl + " ← " + rtl;
+
+                                            }
+                                            placehelder += rtl+ Model.Tags[i].Name;
+                                        }
+                                        <input type="text" disabled class="form-control" placeholder="@placehelder" style="direction:rtl;"/>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <br />
+                    <div class="col-lg-10">
+                        <div class="input-group" style="direction: ltr;text-align:left">
+                            <span class="input-group-addon" style="padding:0px">
+                                <input autocomplete="off"  id="addTagBtn" class="btn btn-primary" type="button"  value="הוסף">
+                            </span>
+                            <select id="searchTagName" class="form-control" name="searchTagName" placeholder="הוספת תגית"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row col-lg-12">
+                <div>
+                    <label class="control-label">
+                        <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                        &nbsp;שותפי זכויות
+                    </label>
+                </div>
+                <div style="padding:20px;" class="table-responsive">
+                    <input autocomplete="off" type="hidden" value="@(Model.Copyrights != null ? Model.Copyrights.Count : 0)" id="musicCopyrightsCount" />
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>תפקיד</td>
+                                <td>שם</td>
+                                <td>אחוזים</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Copyrights != null)
+	                        {
+		                         for (int i = 0; i < Model.Copyrights.Count; i++)
+                                 {
+                                     <tr>
+                                         <td>
+                                             @Html.HiddenFor(model => model.Copyrights[i].ID)
+                                             @Html.HiddenFor(model => model.Copyrights[i].IsDeleted, new { @class="is-copyright-deleted"})
+                                             @Html.HiddenFor(model => model.Copyrights[i].MusicID)
+                                             @Html.EnumDropDownListFor(model=>model.Copyrights[i].Type)
+                                         </td>
+                                         <td>
+                                             <input autocomplete="off" name="@Html.NameFor(model=>model.Copyrights[i].CopyrightAuthorName)" class="form-inline" type="text" value="@Model.Copyrights[i].CopyrightAuthorName" />
+                                             @Html.ValidationMessageFor(model=> model.Copyrights[i].CopyrightAuthorName, "", new { @class = "text-danger" })
+                                         </td>
+                                         <td>
+                                             <input autocomplete="off" name="@Html.NameFor(model=>model.Copyrights[i].Percents)" class="form-inline copy-right-percents" type="number" min="0" max="100" value="@Model.Copyrights[i].Percents" />
+                                             @Html.ValidationMessageFor(model => model.Copyrights[i].Percents, "", new { @class = "text-danger" })
+                                         </td>
+                                         <td>
+                                             <input autocomplete="off" type="button" value="הסר" class="btn btn-default remove-copyright-btn" />
+                                         </td>
+                                     </tr>
+                                 }
+	                        }
+                            <tr id="newCopyrightRow" class="info">
+                                <td>
+                                    <select id="newCopyrightOwnerType" class="form-inline">
+                                        <option value="0">מו"ל</option>
+                                        <option value="1">כותב</option>
+                                        <option value="2">מלחין</option>
+                                        <option value="3">מעבד</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input autocomplete="off" id="newCopyrightOwnerName" class="form-inline" placeholder="שם בעל זכויות להוספה"/>
+                                    <span class="field-validation-valid text-danger" id="newCopyrightOwnerNameMessage"></span>
+                                </td>
+                                <td>
+                                    <input autocomplete="off" id="newCopyrightPercents" class="form-inline" type="number" min="0" max="100" value="0" />
+                                </td>
+                                <td>
+                                    <input autocomplete="off" id="addCopyrightsOwner" type="button" class="btn btn-default" value="הוסף"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="padding-right:22%;padding-top:15px;">סה"כ אחוזים</td>
+                                <td>
+                                    <input autocomplete="off" id="sumCopyrightsPercents" name="CopyrightsPercents" class="form-inline" type="number" min="100" max="100" value="@Model.CopyrightsPercents" disabled="disabled"/>
+                                    <span class="field-validation-valid text-danger" id="sumCopyrightsPercentsMessage"></span>
+                                </td>
+                                <td>
+                                    <input autocomplete="off" id="updateCopyrightsPercents" type="button" class="btn btn-default" value="עדכן"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row col-lg-5 col-lg-offset-1">
+            <div class="form-group-sm">
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.HebrewName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HebrewName, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-4">
+                    <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                    &nbsp;שם בעברית
+                </label>
+
+            </div>
+
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+                @if (Model.WAVFile != null || Model.MP3File !=null)
+                {
+                    <audio controls style="margin:10px;">
+                        @if (Model.MP3File != null)
+                        {
+                            <source src="~/File/GetFile?FileId=@Model.MP3File.FileId&UserId=@Model.ArtistID&FileType=@FileType.Music&version=@Model.MP3File.version&suffix=@Model.MP3File.suffix">
+                        }
+                        @if (Model.WAVFile != null)
+                        {
+                            <source src="~/File/GetFile?FileId=@Model.WAVFile.FileId&UserId=@Model.ArtistID&FileType=@FileType.Music&version=@Model.WAVFile.version&suffix=@Model.WAVFile.suffix">
+                        }      
+                        הדפדפן שלך לא תומך ב-HTML5
+                    </audio>
+                }
+                <div class="form-group-sm file-form-container row">
+                    <div>
+                        <label class="control-label col-md-4 pull-right">
+                            <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                            &nbsp;נתיב קובץ WAV
+                        </label>
+                        <div class="upload-file-container btn btn-primary col-md-2 pull-left">
+                            <span class="upload-file-text">העלה חדש</span>
+                            <input autocomplete="off" type="file" accept="audio/wav" class="upload-file-input" name="WAVUpload" />
+                        </div>
+                    </div>
+                    <div>
+                        <input autocomplete="off" name="Model.WAVFile.RelativePath" type="text" disabled class="form-control file-path-input" value="@(Model.WAVFile != null ? Model.WAVFile.RelativePath : "")" />
+                        <span class="field-validation-valid text-danger file-danger-message"></span>
+                        @Html.ValidationMessageFor(model => model.WAVFile.RelativePath, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group-sm file-form-container row">
+                    <div>
+                        <label class="control-label col-md-4 pull-right">
+                            <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                            &nbsp;נתיב קובץ MP3
+                        </label>
+                        <div class="upload-file-container btn btn-primary col-md-2 pull-left">
+                            <span class="upload-file-text">העלה חדש</span>
+                            <input autocomplete="off" type="file" accept="audio/mp3" class="upload-file-input" name="MP3Upload" />
+                        </div>
+                    </div>
+                    <div>
+                        <input autocomplete="off" name="Model.MP3File.RelativePath" type="text" disabled class="form-control file-path-input" value="@(Model.MP3File != null ? Model.MP3File.RelativePath : "")" />
+                        @Html.ValidationMessageFor(model => model.MP3File.RelativePath, "", new { @class = "text-danger" })
+                        <span class="field-validation-valid text-danger file-danger-message"></span>
+                    </div>
+                </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Artist.User.UserName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.HiddenFor(model => model.Artist.Id)
+                    @Html.HiddenFor(model => model.ArtistID)
+                </div>
+                @Html.Label("", "שם אמן", htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.HiddenFor(model => model.CreateDate)
+                    @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+                @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.HiddenFor(model => model.UpdateDate)
+                    @Html.EditorFor(model => model.UpdateDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+                @Html.LabelFor(model => model.UpdateDate, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-8">
+                    <div class="input-lg duration-time-container">
+                        @Html.HiddenFor(model => model.MusicLength )
+                        <input autocomplete="off" type="number" class="form-inline duration-time" min="0" max="59" id="Seconds" name="Seconds" value="@(Model.MusicLength.Seconds)"/> : 
+                        <input autocomplete="off" type="number" class="form-inline duration-time" min="0" max="59" id="Minutes" name="Minutes" value="@(Model.MusicLength.Minutes)"/>
+                    </div>
+                    <span class="text-danger" id="musicLengthDangerMessage"></span>
+                </div>
+                <label class="control-label col-md-4">
+                    <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>    
+                    &nbsp;אורך יצירה בדקות
+                </label>
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.BPM, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BPM, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.BPM, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.MusicWriter, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MusicWriter, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-3">
+                    <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                    &nbsp;כותב
+                </label>
+            </div>
+
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.MusicComposer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MusicComposer, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-3">
+                    <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                    &nbsp;מלחין
+                </label>
+            </div>
+
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.MusicPerformer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MusicPerformer, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-3">
+                    <i class="glyphicon glyphicon-asterisk text-danger pull-right required-field-asterisk"></i>
+                    &nbsp;מבצע
+                </label>
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.EnumDropDownListFor(model => model.CostLevel, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CostLevel, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.CostLevel, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.SongText, htmlAttributes : new { @class = "form-control" } )
+                    @Html.ValidationMessageFor(model => model.SongText, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.SongText, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.Exceptions, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Exceptions, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Exceptions, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+            
+            <div class="form-group-sm">
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.Comment, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-3" })
+            </div>
+        </div>
+
+        <div class="form-group-sm">
+            <div class="col-md-offset-2 col-md-10">
+                <input autocomplete="off" type="submit" value="שמור" class="btn btn-primary" id="saveEditMusicBtn"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a id="backToReferrerPage" href="" class="btn btn-default">חזור לרשימה</a>
+</div>
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")

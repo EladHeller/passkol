@@ -1,0 +1,68 @@
+﻿@using Model.Users
+@model PaskolUser
+@{
+    ViewBag.Title = "אישור עדכון אמן";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>אישור עדכון אמן</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3" style="direction:rtl; text-align:right">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.Id)
+                    </div>
+                </div>
+                <div class="form-group @(Model.UserName == Model.Artist.TempArtist.UserName || 
+                        string.IsNullOrEmpty(Model.Artist.TempArtist.UserName) ? "" : "has-error")">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Artist.TempArtist.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Artist.TempArtist.UserName, "", new { @class = "text-danger" })
+                    </div>
+                   <span class="control-label col-md-2">שם אמן</span>
+                </div>
+                <div class="form-group @(Model.Email == Model.Artist.TempArtist.Email ||
+                            string.IsNullOrEmpty(Model.Artist.TempArtist.Email) ? "" : "has-error")">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Artist.TempArtist.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <span class="control-label col-md-2">אמייל</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <input autocomplete="off" type="hidden" id="confirmAction" name="confirmAction"/>
+            <div class="col-lg-1 col-lg-offset-3">
+               <button type="submit" class="btn btn-success" onclick="$('#confirmAction').val('Ok')">אשר</button>
+                
+            </div>
+            <div class="col-lg-1">
+                <button type="submit" class="btn btn-default" onclick="$('#confirmAction').val('Decline')">דחה</button>
+               
+            </div>
+            <div class="col-lg-2">
+                <input autocomplete="off" type="text" name="DeclineReason" value="" class="form-control" placeholder="סיבת דחייה" />
+            </div>
+            <div class="col-lg-1">
+                <button type="submit" class="btn btn-danger" onclick="$('#confirmAction').val('Block')">חסום</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("חזרה לרשימה","Index","Confirmation",new { @class = "btn btn-default" })
+    @*<a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>*@
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

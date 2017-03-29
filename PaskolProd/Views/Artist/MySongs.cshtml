@@ -1,0 +1,22 @@
+﻿@using Model.Users;
+@model PaskolUser
+@{
+    ViewBag.Title = "היצירות שלי";
+    Layout = "~/Views/Shared/_ArtistLayout.cshtml";
+}
+<main ng-controller="artistSongsCtrl">
+    <div ng-show="!showEditMusicPanel" class="innercontent" style="margin-bottom:40px;">
+        <h1>היצירות שלי</h1>
+        <span class="btn btn-primary pull-left" ng-click=uploadNewMusic()>
+            <span>העלה יצירה חדשה</span>
+            <i class="glyphicon glyphicon-upload"></i>
+        </span>
+    </div>
+    <edit-music ng-show="showEditMusicPanel"></edit-music>
+
+    <section class="innercontent">
+        <music-results></music-results>
+        <sync-video ng-show="showVideoSync && showAudioPlayer"></sync-video>
+    </section>
+    <passkol-player></passkol-player>
+</main>

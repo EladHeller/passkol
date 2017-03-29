@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "אמנים";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<info-page>
+<div class="container-fluid container-innersearch4">
+    <div class="innersearch">
+        <h1 class="morepadding">אמנים</h1>
+    </div>
+</div>
+<div class="container-fluid container-innercontent2">
+    <div class="innercontent">
+        <ol class="breadcrumb">
+			<li><a href="/">עמוד הבית</a></li>
+			<li class="active">אמנים</li>        
+		</ol>
+            
+            <div class="text-center subtitle">
+                פסקול מאפשרת לך למכור רישיונות שימוש ביצירות המוזיקאליות שלך לשימושים
+מסחריים. בכל מקרה, תמיד, הזכויות יישארו שלך ותמיד אתה תחליט לאיזה תוכן
+                נמסחר את המוזיקה שלך.
+            </div>
+        <h3 class="bigblueheading">איך זה עובד?</h3>
+                
+        <div class="row steps">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <img alt="" src="~/Content/images/work1.png">
+                <p>העלה את התוכן שלך למערכת פסקול והגדר את תנאי המכירה שלך.</p>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <img alt="" src="~/Content/images/steparrow.png">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <img alt="" src="~/Content/images/work2.png">
+                <p>התוכן ייחשף לרוכשי תוכן שיוכלו לרכוש את התוכן בהתאם לתנאים שלך.</p>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <img alt="" src="~/Content/images/steparrow.png">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <img alt="" src="~/Content/images/work3.png">
+                <p>קבל כסף עבור המכירה.</p>
+            </div>
+        </div>
+                
+            <a ng-click="uploadContent()" class="btn uploadoption2 cursor-pointer">העלה תוכן למערכת פסקול<span class="glyphicon glyphicon-circle-arrow-up"></span></a>
+        <div class="row uploadoptions">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="artistlink">
+                    שאלות? <a href="/Info/faq#/why_passkol_art?tab=אמנים">לחץ לעמוד שאלות ותשובות</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+	            <div class="artistlink">
+		            רוצה ליצור מוזיקה מקורית עבור רוכש התוכן? <a href="/Info/faq#/auction_work_help_art?tab=אמנים">הקלק</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</info-page>

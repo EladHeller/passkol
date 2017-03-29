@@ -1,0 +1,330 @@
+﻿@using PaskolProd.Views.Helpers
+@using Model.Auctions
+@using Model
+@using Model.Helper
+@{
+    ViewBag.Title = "יצירת מוזיקה מקורית";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="noprint container-fluid container-innersearch8">
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+
+        <ul class="innermenu2">
+            <li><a href="~/Customer/MyProfile">עדכון פרופיל</a></li>
+            <li><a href="~/Customer/UserSearches">היסטוריית חיפושים</a></li>
+            <li><a href="~/Customer/FavuoriteMusics">יצירות מועדפות</a></li>
+            <li><a href="~/Customer/PurchaseReport">דו"ח רכישות</a></li>
+            <li class="active"><a href="~/Customer/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+            @*<li><a href="#">התחשבנות</a></li>*@
+        </ul>
+    </div>
+</div>
+<div ng-controller="ctrlAuction">   
+    <div class="container-fluid container-innercontent2" ng-hide="sketchMode">
+        <div class="innercontent">
+            <ol class="breadcrumb">
+                <li><a href="/">עמוד הבית</a></li>
+                <li><a href="/">האיזור האישי </a></li>
+                <li class="active">יצירת מוזיקה מקורית </li>
+            </ol>
+            <div class="row editprofile2">
+                <div class="col-lg-12 col-md-12 col-md-12 padding1">
+                    <h1> יצירת מוזיקה מקורית</h1>
+                    אנו שמחים לחבר בינך ובין אמנים לצורך יצירת מוזיקה מקורית עבורך.<br />
+                    מיד לאחר שתגדיר את סוג המוזיקה שאתה מחפש נבקש מאמנים שונים ליצור עבורך סקיצות בהתאם ללוח הזמנים שתגדיר.<br />
+                    לאחד שתקבל את הסקיצות, תבחר את היצירה המועדפת עליך ואנו נדאג להשלים את תהליך הרכישה עבורך בהתאם לתקציב בשתגדיר.<br />
+                    <a class="btn confirm" data-target="#OpenAuctionModal" data-toggle="modal">צור מכרז</a>
+
+                    <table class="table searchresults">
+                        <thead>
+                            <tr>
+                                <th>
+                                    שם המכרז
+                                </th>
+                                <th>
+                                    תאריך הפתיחה
+                                </th>
+                                <th>
+                                    תאריך סיום
+                                </th>
+                                <th>
+                                    תאריך בחירת זוכה
+                                </th>
+                                <th>
+                                    סקיצות שהתקבלו
+                                </th>
+                                <th>
+                                    סטטוס
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr ng-repeat="a in allAuctions" class="selectable" ng-click="getSketchesForAuction(a.Id,a.CloseDate,a.PickWinnerDate, a.OpenProjectDate)">
+                               <td>{{a.AuctionName}}</td>
+                               <td>{{a.OpenDate}}</td>
+                               <td>{{a.CloseDate}}</td>
+                               <td>{{a.PickWinnerDate}}</td>
+                               <td>{{a.SketchesCount}}</td>
+                               <td ng-class="{'actionOpen': a.AuctionStatus == 'פתוח להצעות'}">{{a.AuctionStatus}}</td>
+                           </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid container-innercontent2" ng-show="sketchMode">
+        <div class="innercontent">
+            <ol class="breadcrumb">
+                <li><a href="~/">עמוד הבית</a></li>
+                <li><a href="/">האיזור האישי </a></li>
+                <li><a href="#" ng-click="sketchMode = false">יצירת מוזיקה מקורית </a></li>
+                <li class="active">סקיצות</li>
+            </ol>
+            <div class="row editprofile2">
+                <div class="col-lg-12 col-md-12 col-md-12 padding1">
+                    <h1> יצירת מוזיקה מקורית</h1>
+                    <div class="row" style="color:dodgerblue;padding: 30px 0px 30px 0px;">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <div class="col-lg-3">
+                            <p>הזמן לקבלת תוצאות המכרז:<p />
+                            <P class="timer" ng-bind-html="pickTime - currentTime | durationview:'הסתיים'"></P>
+                        </div>
+                        <div class="col-lg-3">
+                            <p>הזמן להגשת הסקיצה:<p/>
+                            <P  class="timer" ng-bind-html="endTime - currentTime | durationview:'תם הזמן'"></P>                    
+                        </div>
+                        <div class="col-lg-3">
+                            <p>הזמן שנותר לשליחת סקיצה:</p>
+                            <P class="timer" ng-bind-html="openProjectDate - currentTime | durationview:'תם הזמן'"></P>
+                        </div>
+                    </div>
+                    <table class="table searchresults">
+                        <thead>
+                            <tr>
+                                <th>
+                                    נגן
+                                </th>
+                                <th>
+                                   שם הסקיצה
+                                </th>
+                                <th>
+                                    אמן
+                                </th>
+                                <th>
+                                   הערות
+                                </th>
+                                <th>
+                                    רכישה
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="a in allSketches">
+                                <td>
+                                    <audio controls style="margin:10px;" ng-show="openAudio">
+                                        <source ng-src="{{ documnet.location.origin + '/File/GetFile?FileId=' + a.File.FileId + '&UserId=' + a.ArtistId + '&FileType=@FileType.Music&version=' + a.File.version + '&suffix=' + a.File.suffix | EmbedUrl}}">
+                                    </audio>
+                                    <a ng-hide="openAudio" class="play-music-btn play fa fa-caret-right cursor-pointer" ng-click="openAudio = true"></a>
+                                </td>
+                                <td>{{a.SketchesName}}</td>
+                                <td>{{a.ArtistName}}</td>
+                                <td>{{a.Note}}</td>
+                                <td><span ng-show="canBuy" ng-click="buySketch(a.AuctionId,a.SketchID)" class="glyphicon glyphicon-shopping-cart blackicon cursor-pointer"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn confirm" ng-click="sketchMode = false;">חזרה לרשימה</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="OpenAuctionModal" class="modal fade" role="dialog">
+        <div class="modal-dialog passkol-modal" style="width:800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">צור מכרז</h4>
+                </div>
+                <div class="modal-body auction">
+                    <div ng-show="newAuctoinSucceeded" class="thanksNewAuction">
+                        <h2>תודה שנרשמת</h2>
+                        כעת נחפש עבורך אמן מתאים שיוכל ליצור עבורך את המוזיקה
+                        ונעדכן אותך באמצעות דואר אלקטרוני בקרוב
+                    </div>
+                    <form name="NewAuction" ng-hide="newAuctoinSucceeded" ng-submit="openNewAuction()">
+                        <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+                        <div class="row auction2">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <p class="p3">שם שימוש</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="" ng-model="newAuction.UsingName">
+                                <div class="icon-addon addon-lg">
+                                    <p class="p3">שם פרוייקט</p>
+                                    <input autocomplete="off" style="height:32px" type="text" name="ProjectName" class="form-control greyinput input2"
+                                          ng-required="true" ng-model="newAuction.AuctionName">
+                                    <i class="fa fa-exclamation-circle" rel="tooltip" title="חובה להזין שם פרויקט" data-placement="top"
+                                       ng-show="NewAuction.ProjectName.$invalid"></i>
+                                </div>
+                                @*<p class="p3">שם פרוייקט</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="" ng-required="" ng-model="newAuction.AuctionName">*@
+                                <div class="dater">
+                                    <p><i style="margin-left: 10px !important;" class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="לא ניתן לבחור תאריך מהעבר" data-placement="top"
+   ng-show="newAuction.OpenProjectDateErr"></i>עבודה על הפרויקט מתאריך</p>
+                                    <select ng-options="n for n in [] | range:1:31" ng-model="newAuction.startDay"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value="">יום</option>
+                                    </select>
+                                    <select ng-options="n for n in [] | range:1:12" ng-model="newAuction.startMonth"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> חודש</option>
+                                    </select>
+                                    <select ng-options="n for n in [] | range:currentTime.getFullYear():currentTime.getFullYear() + 5" ng-model="newAuction.startYear"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> שנה</option>
+                                    </select>
+                                    <input autocomplete="off" type="hidden" name="OpenProjectDate" 
+                                           value="{{newAuction.startYear + '/' + newAuction.startMonth + '/' + newAuction.startDay}}"/>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="dater dater2">
+                                    <p><i style="margin-left: 10px !important;" class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="לא ניתן לבחור תאריך מהעבר" data-placement="top"
+   ng-show="newAuction.CloseProjectDateErr"></i>עד תאריך</p>
+                                    <select ng-options="n for n in [] | range:currentTime.getFullYear():currentTime.getFullYear() + 5" ng-model="newAuction.endYear"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> שנה</option>
+                                    </select>
+
+                                    <select ng-options="n for n in [] | range:1:12" ng-model="newAuction.endMonth"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> חודש</option>
+                                    </select>
+                                    <select ng-options="n for n in [] | range:1:31" ng-model="newAuction.endDay"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value="">יום</option>
+                                    </select>
+                                    <input autocomplete="off" type="hidden" name="CloseProjectDate"
+                                           value="{{newAuction.endYear + '/' + newAuction.endMonth + '/' + newAuction.endDay}}" />
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="dater">
+                                    <p>הגשת הסקיצה וסגירת המכרז עד<i class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="לא ניתן לבחור תאריך מהעבר" data-placement="top"
+   ng-show="newAuction.CloseDateErr"></i></p>
+                                    <select name="cd" ng-required="true" ng-options="n for n in [] | range:1:31" ng-model="newAuction.actionEndDay"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value="">יום</option>
+                                    </select>
+                                    <select name="cm" ng-required="true" ng-options="n for n in [] | range:1:12" ng-model="newAuction.actionEndMonth"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> חודש</option>
+                                    </select>
+                                    <select name="cy" ng-required="true" ng-options="n for n in [] | range:currentTime.getFullYear():currentTime.getFullYear() + 5" ng-model="newAuction.actionEndYear"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> שנה</option>
+                                    </select>
+                                    <i class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="יש לבחור תאריך סגירת מכרז" data-placement="top"
+                                       ng-show="NewAuction.cd.$invalid || NewAuction.cy.$invalid  || NewAuction.cm.$invalid "></i>
+                                    <input autocomplete="off" type="hidden" name="CloseDate"
+                                           value="{{newAuction.actionEndYear + '/' + newAuction.actionEndMonth + '/' + newAuction.actionEndDay}}" />
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="dater">
+                                    <p><i class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="לא ניתן לבחור תאריך מהעבר" data-placement="top"
+                                        ng-show="newAuction.PickWinnerDateErr"></i>
+                                        בחירת המוזיקה "זוכת המכרז"
+                                    </p>
+                                   
+                                    <select name="wd" ng-required="true" ng-options="n for n in [] | range:1:31" ng-model="newAuction.pickWinnerDay"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value="">יום</option>
+                                    </select>
+                                    <select name="wm" ng-required="true" ng-options="n for n in [] | range:1:12" ng-model="newAuction.pickWinnerMonth"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> חודש</option>
+                                    </select>
+                                    <select name="wy" ng-required="true" ng-options="n for n in [] | range:currentTime.getFullYear():currentTime.getFullYear() + 5" ng-model="newAuction.pickWinnerYear"
+                                            style="padding:0px;" class="form-control greyinput selector5">
+                                        <option value=""> שנה</option>
+                                    </select>
+                                    <i class="errorIconAuction fa fa-exclamation-circle" rel="tooltip" title="יש לבחור תאריך זכיית מכרז" data-placement="top"
+                                       ng-show="NewAuction.wd.$invalid || NewAuction.wm.$invalid  || NewAuction.wy.$invalid "></i>
+                                    <input autocomplete="off" type="hidden" name="PickWinnerDate"
+                                           value="{{newAuction.pickWinnerYear + '/' + newAuction.pickWinnerMonth + '/' + newAuction.pickWinnerDay}}" />
+
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <p class="p5">מאפייני המוזיקה</p>
+                                <textarea class="form-control greyinput textarea4" ng-model="newAuction.MusicProperties"></textarea>
+                                <a href="#" class="btn reset3" data-dismiss="modal" style="margin-top:20px">ביטול</a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="smallinput p3">
+                                    <div class="icon-addon addon-lg">
+                                        <p>משך המוזיקה הנדרש</p>
+                                        <input autocomplete="off" style="height:32px" type="text" name="Length" class="form-control greyinput input2" ng-pattern="/^[0-9]+$/"
+                                               ng-model="newAuction.MusicLength">
+                                        <i style="top:20px" class="fa fa-exclamation-circle" rel="tooltip" title="משך מוזיקה חייב להכיל מספרים בלבד" data-placement="top"
+                                           ng-show="NewAuction.Length.$invalid"></i>
+                                    </div>
+                                </div>
+                                <div class="smallinput2 p3">
+                                    <div class="icon-addon addon-lg">
+                                        <p>תקציב</p>
+                                        <input autocomplete="off" style="height:32px" type="text" name="Budget" class="form-control greyinput input2"  ng-pattern="/^[0-9]+$/"
+                                               ng-model="newAuction.AuctionBudget">
+                                        <i style="top:20px" class="fa fa-exclamation-circle" rel="tooltip" title="תקציב חייב להכיל מספר בלבד" data-placement="top"
+                                           ng-show="NewAuction.Budget.$invalid"></i>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <p class="p3">איש קשר</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="" ng-model="newAuction.ContactName">
+                                <div class="icon-addon addon-lg">
+                                    <p class="p3">טלפון</p>
+                                    <input autocomplete="off" style="height:32px" type="text" name="Phone" class="form-control greyinput input2" ng-pattern="/^[0-9]+$/"
+                                           ng-model="newAuction.ContactPhone">
+                                    <i class="fa fa-exclamation-circle" rel="tooltip" title="מספר טלפון חייב להכיל ספרות בלבד" data-placement="top"
+                                       ng-show="NewAuction.Phone.$invalid"></i>
+                                </div>
+                                <div class="icon-addon addon-lg">
+                                    <p class="p3">דוא"ל</p>
+                                    <input autocomplete="off" style="height:32px" type="email" name="Email" class="form-control greyinput input2" ng-pattern="/^[a-z]+[a-z0-9._]+&#64;[a-z]+\.[a-z.]{2,5}$/i"
+                                            ng-model="newAuction.ContactEmail">
+                                    <i class="fa fa-exclamation-circle" rel="tooltip" title="אימייל לא תקין" data-placement="top"
+                                       ng-show="NewAuction.Email.$invalid"></i>
+                                </div>
+                                @*<p class="p3">דוא"ל</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="" ng-model="newAuction.ContactEmail">*@
+                                <p class="p3">הערות</p>
+                                <input autocomplete="off" type="text" class="form-control greyinput input2" value="" ng-model="newAuction.Notes">
+                                <p class="p4"><label class="mycheckbox"><input autocomplete="off" type="checkbox" ng-model="newAuction.AgreeWithAgreements" ng-init="newAuction.AgreeWithAgreements = true" ng-required="true"><i></i></label> <span>אני מעוניין שייצרו עבורי יצירה מקורית ולנהל תהליך הוגן בבחירת המוזיקאי. בלחיצה על אישור אמנים יתחילו לייצר סקיצה עבורי.</span></p>
+                                <button type="submit" ng-disabled="NewAuction.$invalid"  class="btn confirm">אישור</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="BuySketchModal" class="modal fade" role="dialog">
+        <div class="modal-dialog passkol-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">תודה שרכשת</h4>
+                </div>
+                <div class="modal-body auction">
+                   <p class="thanksNewAuction">
+                       תודה שהשתתפת וקנית בקול קורא, נציגינו יחזרו אליך בשעות הקרובות להשלים את תהליך הרכישה
+                   </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

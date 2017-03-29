@@ -1,0 +1,64 @@
+﻿@using Model
+@model Model.Users.Artist
+@{
+    ViewBag.Title = "עמוד אמן";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Success)
+{
+    <section ng-controller="artistPublicPageCtrl">
+        <div class="container-fluid container-innersearch3" ng-init="executeSearch('@Model.User.Id')">
+            <div class="innersearch">
+                <h1 class="morepadding">@Model.User.UserName</h1>
+                @if (Model.PhotoID != null)
+                {
+                    <img alt="@Model.User.UserName" class="artist" src="/File/GetFile?FileType=@FileType.Photo&UserId=@Model.Id&FileId=@Model.PhotoID">
+                }
+                else
+                {
+                    <img alt="@Model.User.UserName" class="artist" src="/TemplatesContent/images/artist.png">
+                }
+            </div>
+        </div>
+        <div class="container-fluid container-innercontent2">
+            <div class="innercontent">
+                <ol class="breadcrumb">
+                    <li><a href="/">עמוד הבית</a></li>
+                    <li><a href="/search">מצא מוזיקה</a></li>
+                    <li class="active">&rlm;@Model.User.UserName</li>
+                </ol>
+                <div class="artistinfo">
+                    @if(Model.Biography != null)
+                    {
+                        foreach (var item in Model.Biography.Split('\n'))
+                        {
+                            <p>@item</p>
+                        }
+                    }
+                    <p class="tags2">תגיות נפוצות:</p>
+                    <p>
+                        <strong>
+                            @if (ViewBag.PopularTags != null && ViewBag.PopularTags.Count > 0)
+                            {
+                                for (int i = 0; i < (ViewBag.PopularTags.Count - 1); i++)
+                                {
+                                    <span>@(ViewBag.PopularTags[i]), &rlm;</span>
+                                }
+                                <span>@ViewBag.PopularTags[ViewBag.PopularTags.Count - 1]</span>
+                            }
+                        </strong>
+                    </p>
+                </div>
+                <div style="margin-bottom:30px">
+                    <music-results></music-results>
+                </div>
+                <sync-video ng-show="showVideoSync && showAudioPlayer"></sync-video>
+            </div>
+        </div>
+        <passkol-player></passkol-player>
+    </section>
+}
+else
+{
+    <div class="alert alert-danger">אירעה שגיאה בהצגת עמוד האמן</div>
+}

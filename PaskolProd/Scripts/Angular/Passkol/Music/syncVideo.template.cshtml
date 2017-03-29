@@ -1,0 +1,21 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="syncVideo.template">
+    <div class="video-sync-container">
+        <div class="upload-video-file-container">
+            <div class="upload-video-file">
+                <div>בחר קובץ וידאו</div>
+                <div class="upload-file-container">
+                    <i class="glyphicon glyphicon-upload upload-file-icon" style="float:left"></i>
+                    <span class="upload-file-text"></span>
+                    <input autocomplete="off" class="upload-file-input" type="file" accept="video/*" />
+                </div>
+            </div>
+        </div>
+        <div class="sync-video-play-container">
+            <span class="player-video-btn-close" ng-click="showVideoSync = false"  ng-show="videoLoad">X</span>
+            <video id="syncVideoPlayer" controls>
+                הדפדפן שלך לא תומך ב-HTML5
+            </video>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,445 @@
+﻿
+@using PaskolProd.Controllers.Helper
+@using BotDetect.Web.UI.Mvc
+@using PaskolProd.Views.Helpers
+<!DOCTYPE html>
+    <html lang="he">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="~/logo_anim.gif"/>
+        @Styles.Render("~/Content/Passkol/Css")
+        <title>@ViewBag.Title</title>
+    </head>
+    <body ng-app="passkolApp" ng-controller="ctrlLayout" class="ng-cloak">
+        <div  id="wrap" class="ng-content ng-cloak">
+            <div id="main">
+                @Html.Partial("_LoginPartial")
+                @RenderBody()
+            </div>
+            <div class="container-fluid container-footer">
+                <footer class="bottom-footer">
+                    <div class="pull-right">&copy; כל הזכויות שמורות</div>
+                    <div class="pull-left" hidden="hidden">
+                        <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/mail.png"></a>
+                        <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/twitter.png"></a>
+                        <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/instagram.png"></a>
+                        <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/facebook.png"></a>
+                    </div>
+                </footer>
+            </div>
+
+            <div id="RegsterModal" class="modal fade" role="dialog">
+                <div class="modal-dialog passkol-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">הרשמה לפסקול</h4>
+                        </div>
+                        <div class="modal-body padding22" ng-class="register.Type == userTypes.Customer ? 'tape' : 'trumpet'">
+                            <div class="row tape2">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <p>הירשם בתור</p>
+                                    <div class="radios">
+                                        <span><label class="myradio1"><input autocomplete="off" type="radio" value="{{userTypes.Customer}}" ng-model="register.Type"><i></i></label>רוכש מדיה</span>
+                                        <span><label class="myradio1"><input autocomplete="off" type="radio" value="{{userTypes.Artist}}" ng-model="register.Type"><i></i></label>אמן/להקה</span>
+                                        <span><label class="myradio1"><input autocomplete="off" type="radio" value="{{userTypes.ArtistMgr}}" ng-model="register.Type"><i></i></label>מנהל אמנים</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <p>כבר רשום לפסקול?</p>
+                                    <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#LoginModal" class="bluelink">לחץ כאן</a>
+                                    
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+                                    <form ng-show="register.Type == userTypes.Customer" method="post" name="RegisterCustomer"
+                                          ng-submit="register.registerCustomer()" class="css-form" novalidate>
+                                        <p>
+                                            <input autocomplete="off" type="text" name="Name" ng-change="register.registerCustomer.isNameNotValid = false" class="form-control"
+                                                   placeholder="שם מלא" ng-minlength="2" ng-model="register.customer.Name" ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="יש להזין לפחות 2 תווים" data-placement="top"
+                                                  ng-show="RegisterCustomer.Name.$invalid && !RegisterCustomer.Name.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerCustomer.NameError}}" data-placement="top"
+                                                  ng-show="register.registerCustomer.isNameNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="email" class="form-control" name="Email" ng-change="register.registerCustomer.isEmailNotValid = false"
+                                                   ng-pattern="/^[^\s&#64;]+&#64;[^\s&#64;]+\.[^\s&#64;]{2,}$/" 
+                                                   ng-model="register.customer.Email" placeholder="דוא&quot;ל" ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="חובה להזין מייל תקין" data-placement="top"
+                                                  ng-show="RegisterCustomer.Email.$invalid && !RegisterCustomer.Email.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerCustomer.EmailError}}" data-placement="top"
+                                                  ng-show="register.registerCustomer.isEmailNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" phone-Vld name="Phone" class="form-control" ng-model="register.customer.Phone" placeholder="טלפון">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="מספר טלפון לא תקין" data-placement="top"
+                                                  ng-show="RegisterCustomer.Phone.$error.phoneVld">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" name="CompanyName" class="form-control" ng-model="register.customer.CompanyName"
+                                                   placeholder="שם חברה">
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="password" name="Password" class="form-control" ng-model="register.customer.Password"
+                                                   password-Vld placeholder="סיסמה">
+                                            <span style="margin-right:-53px" rel="tooltip"
+                                                  title="סיסמה חייבת להכיל לפחות 6 תווים, מתוכם לפחות מספר אחד ואות לועזית אחת" data-placement="top"
+                                                  ng-show="RegisterCustomer.Password.$error.passwordVld && !RegisterCustomer.Password.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span class="glyphicon glyphicon-question-sign qmark" data-toggle="popover" data-placement="top" data-content="סיסמה חייבת להכיל 6 תווים לפחות בהם אות קטנה באנגלית וספרה אחת"></span>
+                                        </p>
+                                        <p>
+                                            @{ MvcCaptcha CustomerCaptchaCode = CaptchaHelper.GetCaptcha("CustomerCaptchaCode");
+                                                CustomerCaptchaCode.UserInputClientID = "CustomerCaptchaCode";}
+                                            <input autocomplete="off" type="text" ng-required="true" id="CustomerCaptchaCode"
+                                                   ng-change="register.registerCustomer.isCaptchaNotValid = false"
+                                                   ng-model="a"
+                                                   name="CustomerCaptchaCode" class="form-control" placeholder="קוד">
+                                            <span style="margin-right: 10px;" rel="tooltip" title="קוד לא תקין" data-placement="top" style="margin-right: -100px;"
+                                                  ng-show="register.registerCustomer.isCaptchaNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span>
+                                                @Html.Captcha(CustomerCaptchaCode)
+                                            </span>
+
+                                        </p>
+                                        <p class="agree2"><label class="mycheckbox">
+                                            <input ng-required="true" type="checkbox" checked 
+                                                   name="Confirm"
+                                                   ng-model="register.customer.Confirm" 
+                                                   ng-init="register.customer.Confirm = true"/><i></i></label> הנני מאשר/ת את <a href="~/File/GetTermOfUse" class="bluelink" target="_blank">תנאי השימוש</a></p>
+                                        <span rel="tooltip" title="חובה לאשר את תנאי השימוש" data-placement="top"
+                                              ng-show="RegisterCustomer.Confirm.$invalid && !RegisterCustomer.Confirm.$pristine">
+                                            <i class="fa fa-exclamation-circle errspan"></i>
+                                        </span>
+                                        <button type="submit" class="btn registerbtn" ng-disabled="RegisterCustomer.$invalid">הרשמה</button>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                    <form ng-show="register.Type == userTypes.ArtistMgr" method="post" name="RegisterArtistAgent"
+                                          ng-submit="register.registerArtistAgent()" class="css-form" novalidate>
+                                        <p>
+                                            <input autocomplete="off" type="text" name="Name" ng-change="register.registerArtistAgent.isNameNotValid = false" class="form-control"
+                                                   placeholder="שם מלא" ng-minlength="2" ng-model="register.artistAgent.Name" ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="יש להזין לפחות 2 תווים" data-placement="top"
+                                                  ng-show="RegisterArtistAgent.Name.$invalid && !RegisterArtistAgent.Name.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerArtistAgent.NameError}}" data-placement="top"
+                                                  ng-show="register.registerArtistAgent.isNameNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="email" class="form-control" name="Email"
+                                                   ng-change="register.artistAgent.isEmailNotValid = false"
+                                                   ng-model="register.artistAgent.Email" 
+                                                   placeholder="דוא&quot;ל"
+                                                   ng-pattern="/^[^\s&#64;]+&#64;[^\s&#64;]+\.[^\s&#64;]{2,}$/"
+                                                   ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="חובה להזין מייל תקין" data-placement="top"
+                                                  ng-show="RegisterArtistAgent.Email.$invalid && !RegisterArtistAgent.Email.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerArtistAgent.EmailError}}" data-placement="top"
+                                                  ng-show="register.registerArtistAgent.isEmailNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" phone-Vld name="Phone" class="form-control" ng-model="register.artistAgent.Phone" placeholder="טלפון">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="מספר טלפון לא תקין" data-placement="top"
+                                                  ng-show="RegisterArtistAgent.Phone.$error.phoneVld">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" name="CompanyName" class="form-control" ng-model="register.artistAgent.CompanyName"
+                                                   placeholder="שם חברה">
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="password" name="Password" class="form-control" ng-model="register.artistAgent.Password"
+                                                   password-Vld placeholder="סיסמה">
+                                            <span style="margin-right:-53px" rel="tooltip"
+                                                  title="סיסמה חייבת להכיל לפחות 6 תווים, מתוכם לפחות מספר אחד ואות לועזית אחת" data-placement="top"
+                                                  ng-show="RegisterArtistAgent.Password.$error.passwordVld && !RegisterArtistAgent.Password.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span class="glyphicon glyphicon-question-sign qmark" data-toggle="popover" data-placement="top" data-content="סיסמה חייבת להכיל 6 תווים לפחות בהם אות קטנה באנגלית וספרה אחת"></span>
+                                        </p>
+                                        <p>
+                                            @{ MvcCaptcha ArtistAgentCaptchaCode = CaptchaHelper.GetCaptcha("ArtistAgentCaptchaCode");
+                                                ArtistAgentCaptchaCode.UserInputClientID = "ArtistAgentCaptchaCode";}
+                                            <input autocomplete="off" type="text" ng-required="true" id="ArtistAgentCaptchaCode"
+                                                   name="ArtistAgentCaptchaCode" ng-model="s" ng-change="register.registerArtistAgent.isCaptchaNotValid = false" class="form-control" placeholder="קוד" />
+                                            <span style="margin-right: 10px;" rel="tooltip" title="קוד לא תקין" data-placement="top" style="margin-right: -100px;"
+                                                  ng-show="register.registerArtistAgent.isCaptchaNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span>
+                                                @Html.Captcha(ArtistAgentCaptchaCode)
+                                            </span>
+                                        </p>
+                                        <p class="agree2"><label class="mycheckbox">
+                                            <input type="checkbox" checked ng-required="true"  
+                                                ng-model="register.artistAgent.Confirm" 
+                                                name="Confirm"
+                                                ng-init="register.artistAgent.Confirm = true"><i></i></label> הנני מאשר/ת את <a href="~/File/GetTermOfUse" class="bluelink" target="_blank">תנאי השימוש</a>
+                                        </p>
+                                        <button type="submit" class="btn registerbtn" ng-disabled="RegisterArtistAgent.$invalid">הרשמה</button>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <span rel="tooltip" title="חובה לאשר את תנאי השימוש" data-placement="top"
+                                              ng-show="RegisterArtistAgent.Confirm.$invalid && !RegisterArtistAgent.Confirm.$pristine">
+                                            <i class="fa fa-exclamation-circle errspan"></i>
+                                        </span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                    <form  ng-show="register.Type == userTypes.Artist" method="post" name="RegisterArtist"
+                                          ng-submit="register.registerArtist()" class="css-form" novalidate>
+                                        <p>
+                                            <input autocomplete="off"  type="text" name="Name" ng-change="register.registerArtist.isNameNotValid = false" class="form-control"
+                                                   placeholder="שם אמן/להקה" ng-minlength="2"
+                                                   ng-model="register.artist.Name" ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="יש להזין לפחות 2 תווים" data-placement="top"
+                                                  ng-show="RegisterArtist.Name.$invalid && !RegisterArtist.Name.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerArtist.NameError}}" data-placement="top"
+                                                  ng-show="register.registerArtist.isNameNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" name="ContactManName" class="form-control" ng-model="register.artist.ContactManName"
+                                                   placeholder="איש קשר">
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off" type="text" phone-Vld name="ContactManPhone" class="form-control" ng-model="register.artist.ContactManPhone"
+                                                   placeholder="טלפון איש קשר">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="מספר טלפון לא תקין" data-placement="top"
+                                                  ng-show="RegisterArtist.ContactManPhone.$error.phoneVld">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off"  type="email" class="form-control" name="Email" ng-change="register.registerArtist.isEmailNotValid = false"
+                                                   ng-pattern="/^[^\s&#64;]+&#64;[^\s&#64;]+\.[^\s&#64;]{2,}$/"
+                                                   ng-model="register.artist.Email" placeholder="דוא&quot;ל" ng-required="true">
+                                            <span style="margin-right: -25px;" rel="tooltip" title="חובה להזין מייל תקין" data-placement="top"
+                                                  ng-show="RegisterArtist.Email.$invalid && !RegisterArtist.Email.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span style="margin-right: -25px;" rel="tooltip" title="{{register.registerArtist.EmailError}}" data-placement="top"
+                                                  ng-show="register.registerArtist.isEmailNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <input autocomplete="off"  type="password" name="Password" class="form-control"
+                                                   ng-model="register.artist.Password" password-Vld placeholder="סיסמה">
+                                            <span style="margin-right: -53px;" rel="tooltip"
+                                                  title="סיסמה חייבת להכיל לפחות 6 תווים, מתוכם לפחות מספר אחד ואות לועזית אחת" data-placement="top"
+                                                  ng-show="RegisterArtist.Password.$error.passwordVld && !RegisterArtist.Password.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span class="glyphicon glyphicon-question-sign qmark" data-toggle="popover" data-placement="top" data-content="סיסמה חייבת להכיל 6 תווים לפחות בהם אות קטנה באנגלית וספרה אחת"></span>
+                                        </p>
+                                        <p>
+                                            @{ MvcCaptcha ArtistCaptha = CaptchaHelper.GetCaptcha("ArtistCaptchaCode");
+                                                ArtistCaptha.UserInputClientID = "ArtistCaptchaCode";}
+                                            <input autocomplete="off" type="text" ng-required="true" id="ArtistCaptchaCode"
+                                                   name="ArtistCaptchaCode" ng-change="register.registerArtist.isCaptchaNotValid = false"
+                                                   ng-model="register.artist.CaptchaCode" class="form-control" placeholder="קוד">
+                                            <span style="margin-right: 10px;" rel="tooltip" title="קוד לא תקין" data-placement="top" style="margin-right: -100px;"
+                                                  ng-show="register.registerArtist.isCaptchaNotValid">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                            <span>
+                                                @Html.Captcha(ArtistCaptha)
+                                            </span>
+                                        </p>
+                                        <p class="agree2">
+                                            <label class="mycheckbox">
+                                                <input type="checkbox" name="Confirm" checked ng-required="true" ng-model="register.artist.Confirm" 
+                                                       ng-init="register.artist.Confirm = true"/>
+                                            <i></i></label> הנני מאשר/ת את <a href="~/File/GetTermOfUse" class="bluelink" target="_blank">תנאי השימוש</a>
+                                            <br /> ואת <a href="~/File/GetArtistContract" class="bluelink" target="_blank">חוזה האמן שלי</a>
+                                            <span rel="tooltip" title="חובה לאשר את תנאי השימוש וחוזה האמן" data-placement="top"
+                                                  ng-show="RegisterArtist.Confirm.$invalid && !RegisterArtist.Confirm.$pristine">
+                                                <i class="fa fa-exclamation-circle errspan"></i>
+                                            </span>
+                                        </p>
+                                        <button type="submit" class="btn registerbtn" ng-disabled="RegisterArtist.$invalid">הרשמה</button>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="LoginModal" class="modal fade" role="dialog">
+                <div class="modal-dialog passkol-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">התחברות לפסקול</h4>
+                        </div>
+                        <div class="modal-body padding22 gram">
+                            <div class="row gram2">
+                                <div class="col-lg-6 col-md-6 col-sm-6" style="background: #ededed;">
+                                    <h4>כניסה</h4>
+                                    <form method="post" name="Login" ng-submit="login.submit()" novalidate>
+                                        <div class="form-group">
+                                            <label>דוא"ל:</label>
+                                            <input autocomplete="off" type="text" name="Email" class="form-control" ng-model="login.data.Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>סיסמה:</label>
+                                            <input autocomplete="off" type="password" name="Password" ng-model="login.data.Password" class="form-control">
+                                            <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#PasswordRecover" class="bluelink pull-left">שכחתי סיסמה</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mycheckbox"><input autocomplete="off" name="RememberMe" ng-model="login.data.RememberMe" type="checkbox" checked><i></i></label>זכור אותי
+                                        </div>
+                                        <button type="submit" class="btn loginbtn">כניסה</button>
+                                        <span rel="tooltip" title="ההתחברות נכשלה" data-placement="top"
+                                              ng-show="login.isNotSuccedded">
+                                            <i class="fa fa-exclamation-circle errspan"></i>
+                                        </span>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h4> עדיין לא רשום לפסקול?</h4>
+                                    <h5>
+                                        הירשם כעת <strong>בחינם</strong> ותיהנה
+                                        <br>ממבחר השירותים באתר
+                                    </h5>
+                                    <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#RegsterModal" class="btn registernow">לחץ כאן להרשמה</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="PasswordRecover" class="modal fade" role="dialog">
+                <div class="modal-dialog passkol-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">התחברות לפסקול</h4>
+                        </div>
+                        <div class="modal-body padding22 gram">
+                            <div class="row gram2">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h4 style="float:right">שכחתי סיסמה</h4>
+                                    <span style="float:left">
+                                        <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#RegsterModal">לחץ כאן להרשמה</a>
+                                    </span>
+                                    <form name="RecoverPassword" ng-submit="recoverPassword.submit()">
+                                        <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+                                        <div class="form-group">
+                                            <label>הזן את כתובת הדוא"ל לאיפוס סיסמה</label>
+                                            <input autocomplete="off" type="email" name="Email" class="form-control" ng-model="recoverPassword.data.Email">
+                                        </div>
+                                        <button type="submit" class="btn loginbtn" style="margin-top:180px">כניסה</button>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h4>עדיין לא רשום לפסקול?</h4>
+                                    <h5>
+                                        הירשם כעת <strong>בחינם</strong> ותיהנה
+                                        <br>ממבחר השירותים באתר
+                                    </h5>
+                                    <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#RegsterModal" class="btn registernow">לחץ כאן להרשמה</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="PasswordRecoverConfirm" class="modal fade" role="dialog">
+                <div class="modal-dialog passkol-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">התחברות לפסקול</h4>
+                        </div>
+                        <div class="modal-body padding22 gram">
+                            <div class="row gram2">
+                                <div class="col-lg-6 col-md-6 col-sm-6" ng-hide="recoverPassword.cantRecover">
+                                    <h4 style="float:right">שכחתי סיסמה</h4>
+                                    <span style="float:left">
+                                        <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#RegsterModal">לחץ כאן להרשמה</a>
+                                    </span>
+                                    <form style="margin-top:60px" name="PasswordRecoverConfirm" ng-submit="recoverPassword.setNewPassword()">
+                                        <div class="form-group">
+                                            <div class="icon-addon addon-lg">
+                                                <label>הזן את הקוד שקיבלת במייל</label>
+                                                <input autocomplete="off" type="number" name="Code" class="form-control"
+                                                       ng-change="recoverPassword.data.isCodeNotValid = false"
+                                                       ng-model="recoverPassword.data.Code" ng-required="true" >
+                                                <i class="fa fa-exclamation-circle" rel="tooltip" title="הקוד אינו תקין" data-placement="top"
+                                                   ng-show="recoverPassword.data.isCodeNotValid"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="icon-addon addon-lg">
+                                                <label>בחר סיסמה חדשה</label>
+                                                <input autocomplete="off" type="password" name="Password" class="form-control" ng-model="recoverPassword.data.Password" password-Vld>
+                                                <i class="fa fa-exclamation-circle" rel="tooltip"
+                                                   title="סיסמה חייבת להכיל לפחות 6 תווים, מתוכם לפחות מספר אחד ואות לועזית אחת" data-placement="top"
+                                                   ng-show="PasswordRecoverConfirm.Password.$error.passwordVld && !PasswordRecoverConfirm.Password.$pristine"></i>
+                                            </div>
+                                        </div>
+                                        <button type="submit" ng-disabled="PasswordRecoverConfirm.$invalid" class="btn loginbtn" style="margin-top:70px">שלח</button>
+                                        <span ng-show="isLoading"><img class="profileimage" src="~/Content/images/loader1.gif" /></span>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6" ng-show="recoverPassword.cantRecover">
+                                    <div style="padding: 110px;color: red;"> לא ניתן לשחזר סיסמה המתן 30 דקות</div>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h4>עדיין לא רשום לפסקול?</h4>
+                                    <h5>
+                                        הירשם כעת <strong>בחינם</strong> ותיהנה
+                                        <br>ממבחר השירותים באתר
+                                    </h5>
+                                    <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#RegsterModal" class="btn registernow">לחץ כאן להרשמה</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial(@"~/Views/Shared/Templates.cshtml")
+
+            @Scripts.Render("~/bundles/Scripts/PasskolMain")
+            @Html.Partial(@"~/Scripts/Angular/Passkol/Common/appConfig.service.cshtml")
+        </div>
+    </body>
+</html>

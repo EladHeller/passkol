@@ -1,0 +1,974 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>C:\Users\אלעד\Desktop\pas</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/resource/mail.html">
+      <publishTime>02/01/2016 22:25:48</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>12/31/2015 16:49:16</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>02/04/2016 07:54:36</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>02/04/2016 07:54:36</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>12/31/2015 16:49:28</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>12/31/2015 16:49:18</publishTime>
+    </File>
+    <File Include="bin/Infrastructure.dll">
+      <publishTime>02/03/2016 17:54:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>01/03/2016 20:16:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>01/18/2016 23:19:27</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>01/03/2016 20:16:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>12/31/2015 16:49:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>12/31/2015 16:49:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>12/31/2015 16:49:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>12/31/2015 16:49:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>12/31/2015 16:49:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>12/31/2015 16:49:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>12/31/2015 16:49:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>12/31/2015 16:49:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>12/31/2015 16:49:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>12/31/2015 16:49:38</publishTime>
+    </File>
+    <File Include="bin/Model.dll">
+      <publishTime>02/04/2016 07:54:23</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>12/31/2015 16:49:39</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>12/31/2015 16:49:40</publishTime>
+    </File>
+    <File Include="bin/PagedList.dll">
+      <publishTime>01/03/2016 20:16:38</publishTime>
+    </File>
+    <File Include="bin/PagedList.Mvc.dll">
+      <publishTime>01/03/2016 20:16:38</publishTime>
+    </File>
+    <File Include="bin/PaskolProd.dll">
+      <publishTime>02/04/2016 07:54:30</publishTime>
+    </File>
+    <File Include="bin/Repository.dll">
+      <publishTime>02/04/2016 07:54:24</publishTime>
+    </File>
+    <File Include="bin/Services.dll">
+      <publishTime>02/04/2016 07:54:28</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>02/01/2016 22:25:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>02/01/2016 22:25:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>02/01/2016 22:25:37</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>12/31/2015 16:49:35</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>12/31/2015 16:49:42</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap-responsive.css">
+      <publishTime>01/02/2016 20:14:19</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap-responsive.min.css">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap.css">
+      <publishTime>01/08/2016 00:01:26</publishTime>
+    </File>
+    <File Include="Content/bootstrap/css/bootstrap.min.css">
+      <publishTime>01/08/2016 00:01:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>01/28/2016 12:02:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>01/28/2016 12:02:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>01/28/2016 12:02:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>01/28/2016 12:02:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>01/28/2016 12:02:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap/img/glyphicons-halflings-white.png">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/bootstrap/img/glyphicons-halflings.png">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/bootstrap/js/bootstrap.js">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/bootstrap/js/bootstrap.min.js">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/CSS/datatables.min.css">
+      <publishTime>01/28/2016 12:10:21</publishTime>
+    </File>
+    <File Include="Content/CSS/font.css">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/CSS/indicator.gif">
+      <publishTime>01/03/2016 22:44:19</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.css">
+      <publishTime>01/28/2016 23:54:55</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.min.css">
+      <publishTime>01/28/2016 23:54:55</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.structure.css">
+      <publishTime>01/04/2016 18:32:13</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.structure.min.css">
+      <publishTime>01/04/2016 18:32:19</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.theme.css">
+      <publishTime>01/04/2016 18:32:18</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery-ui.theme.min.css">
+      <publishTime>01/04/2016 18:32:18</publishTime>
+    </File>
+    <File Include="Content/CSS/jquery.autocomplete.css">
+      <publishTime>01/03/2016 22:44:19</publishTime>
+    </File>
+    <File Include="Content/CSS/select2.css">
+      <publishTime>01/03/2016 22:44:22</publishTime>
+    </File>
+    <File Include="Content/CSS/select2.min.css">
+      <publishTime>01/03/2016 22:44:22</publishTime>
+    </File>
+    <File Include="Content/CSS/style.css">
+      <publishTime>02/01/2016 21:45:54</publishTime>
+    </File>
+    <File Include="Content/fonts/generator_config.txt">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bold-webfont.eot">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bold-webfont.woff">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-bolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:20</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabold-webfont.eot">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabold-webfont.woff">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-extrabolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-italic-webfont.eot">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-italic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-italic-webfont.woff">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-italic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-light-webfont.eot">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-light-webfont.ttf">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-light-webfont.woff">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-light-webfont.woff2">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-lightitalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-lightitalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-lightitalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-lightitalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-regular-webfont.eot">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-regular-webfont.ttf">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-regular-webfont.woff">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrew-regular-webfont.woff2">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bold-webfont.eot">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bold-webfont.woff">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-bolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabold-webfont.eot">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabold-webfont.woff">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-extrabolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:21</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-italic-webfont.eot">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-italic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-italic-webfont.woff">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-italic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-light-webfont.eot">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-light-webfont.ttf">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-light-webfont.woff">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-light-webfont.woff2">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-lightitalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-lightitalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-lightitalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-lightitalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-regular-webfont.eot">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-regular-webfont.ttf">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-regular-webfont.woff">
+      <publishTime>01/02/2016 20:14:23</publishTime>
+    </File>
+    <File Include="Content/fonts/opensanshebrewcondensed-regular-webfont.woff2">
+      <publishTime>01/02/2016 20:14:22</publishTime>
+    </File>
+    <File Include="Content/fonts/stylesheet.css">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/arw.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/homeMidButton.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/img2.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/img3.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/img4.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/img5.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/loader1.gif">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="Content/images/logo.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/main_bkg.png">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="Content/images/main_texture.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/searchIcon.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/social-icons.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/images/topHeaderBkg.png">
+      <publishTime>01/02/2016 20:14:24</publishTime>
+    </File>
+    <File Include="Content/PagedList.css">
+      <publishTime>01/03/2016 20:16:39</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>01/02/2016 20:14:18</publishTime>
+    </File>
+    <File Include="fonts/generator_config.txt">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bold-webfont.eot">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bold-webfont.woff">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-bolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabold-webfont.eot">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabold-webfont.woff">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-extrabolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-italic-webfont.eot">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-italic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-italic-webfont.woff">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-italic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-light-webfont.eot">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-light-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-light-webfont.woff">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-light-webfont.woff2">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-lightitalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-lightitalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-lightitalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-lightitalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-regular-webfont.eot">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-regular-webfont.ttf">
+      <publishTime>01/02/2016 20:14:28</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-regular-webfont.woff">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrew-regular-webfont.woff2">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bold-webfont.eot">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bold-webfont.woff">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:25</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-bolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabold-webfont.eot">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabold-webfont.ttf">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabold-webfont.woff">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabold-webfont.woff2">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabolditalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabolditalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabolditalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-extrabolditalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-italic-webfont.eot">
+      <publishTime>01/02/2016 20:14:26</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-italic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-italic-webfont.woff">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-italic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-light-webfont.eot">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-light-webfont.ttf">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-light-webfont.woff">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-light-webfont.woff2">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-lightitalic-webfont.eot">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-lightitalic-webfont.ttf">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-lightitalic-webfont.woff">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-lightitalic-webfont.woff2">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-regular-webfont.eot">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-regular-webfont.ttf">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-regular-webfont.woff">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/opensanshebrewcondensed-regular-webfont.woff2">
+      <publishTime>01/02/2016 20:14:27</publishTime>
+    </File>
+    <File Include="fonts/stylesheet.css">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>02/01/2016 22:25:48</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>02/04/2016 07:54:32</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datepicker.js">
+      <publishTime>01/21/2016 20:55:02</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/datatables.min.js">
+      <publishTime>01/28/2016 12:41:25</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.js">
+      <publishTime>01/28/2016 23:54:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>01/28/2016 23:54:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.autocomplete.js">
+      <publishTime>01/03/2016 22:44:19</publishTime>
+    </File>
+    <File Include="Scripts/jquery.autocomplete.min.js">
+      <publishTime>01/03/2016 22:44:19</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Scripts/PaskolManager.js">
+      <publishTime>02/03/2016 21:49:13</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>01/02/2016 20:14:29</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Scripts/select2.js">
+      <publishTime>01/03/2016 22:44:20</publishTime>
+    </File>
+    <File Include="Scripts/select2.min.js">
+      <publishTime>01/03/2016 22:44:20</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>01/28/2016 22:30:08</publishTime>
+    </File>
+    <File Include="Views/Account/ConfirmEmail.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPassword.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/RegisterArtist.cshtml">
+      <publishTime>01/03/2016 20:16:39</publishTime>
+    </File>
+    <File Include="Views/Account/RegisterCustomer.cshtml">
+      <publishTime>01/03/2016 20:16:39</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPassword.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/SendCode.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/VerifyCode.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/_ChangePasswordPartial.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/_RemoveAccountPartial.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Account/_SetPasswordPartial.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Admin/Index.cshtml">
+      <publishTime>02/03/2016 23:03:23</publishTime>
+    </File>
+    <File Include="Views/AdminManagment/Create.cshtml">
+      <publishTime>01/18/2016 23:19:28</publishTime>
+    </File>
+    <File Include="Views/AdminManagment/Edit.cshtml">
+      <publishTime>01/21/2016 22:39:15</publishTime>
+    </File>
+    <File Include="Views/AdminManagment/GetBlockActive.cshtml">
+      <publishTime>01/18/2016 23:19:28</publishTime>
+    </File>
+    <File Include="Views/AdminManagment/Index.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Auction/Confirm.cshtml">
+      <publishTime>02/03/2016 01:30:28</publishTime>
+    </File>
+    <File Include="Views/Auction/Index.cshtml">
+      <publishTime>01/27/2016 23:16:16</publishTime>
+    </File>
+    <File Include="Views/Auction/Watch.cshtml">
+      <publishTime>02/03/2016 01:30:28</publishTime>
+    </File>
+    <File Include="Views/Confirmation/EditedArtist.cshtml">
+      <publishTime>01/24/2016 22:38:22</publishTime>
+    </File>
+    <File Include="Views/Confirmation/EditedMusic.cshtml">
+      <publishTime>02/03/2016 17:17:23</publishTime>
+    </File>
+    <File Include="Views/Confirmation/Index.cshtml">
+      <publishTime>02/01/2016 22:25:49</publishTime>
+    </File>
+    <File Include="Views/Confirmation/NewArtist.cshtml">
+      <publishTime>02/01/2016 22:25:49</publishTime>
+    </File>
+    <File Include="Views/Confirmation/NewMusic.cshtml">
+      <publishTime>02/03/2016 17:17:23</publishTime>
+    </File>
+    <File Include="Views/Confirmation/PhonePurchase.cshtml">
+      <publishTime>02/03/2016 01:30:31</publishTime>
+    </File>
+    <File Include="Views/Documents/GetDocumnets.cshtml">
+      <publishTime>02/01/2016 22:25:49</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>01/02/2016 20:14:31</publishTime>
+    </File>
+    <File Include="Views/Music/Block.cshtml">
+      <publishTime>02/03/2016 21:29:38</publishTime>
+    </File>
+    <File Include="Views/Music/Create.cshtml">
+      <publishTime>02/03/2016 21:34:42</publishTime>
+    </File>
+    <File Include="Views/Music/Edit.cshtml">
+      <publishTime>02/03/2016 18:43:58</publishTime>
+    </File>
+    <File Include="Views/Music/Index.cshtml">
+      <publishTime>02/01/2016 22:24:39</publishTime>
+    </File>
+    <File Include="Views/PermissionCategory/Create.cshtml">
+      <publishTime>01/25/2016 22:56:52</publishTime>
+    </File>
+    <File Include="Views/PermissionCategory/Delete.cshtml">
+      <publishTime>01/25/2016 22:24:24</publishTime>
+    </File>
+    <File Include="Views/PermissionCategory/Edit.cshtml">
+      <publishTime>01/25/2016 22:53:15</publishTime>
+    </File>
+    <File Include="Views/PermissionCategory/Index.cshtml">
+      <publishTime>01/28/2016 01:07:32</publishTime>
+    </File>
+    <File Include="Views/PermissionCategory/PermissionCost.cshtml">
+      <publishTime>02/03/2016 22:43:42</publishTime>
+    </File>
+    <File Include="Views/PermissionProperties/Create.cshtml">
+      <publishTime>01/26/2016 01:26:49</publishTime>
+    </File>
+    <File Include="Views/PermissionProperties/Delete.cshtml">
+      <publishTime>01/26/2016 01:40:37</publishTime>
+    </File>
+    <File Include="Views/PermissionProperties/Edit.cshtml">
+      <publishTime>01/26/2016 23:45:10</publishTime>
+    </File>
+    <File Include="Views/PermissionProperties/Index.cshtml">
+      <publishTime>01/26/2016 21:46:43</publishTime>
+    </File>
+    <File Include="Views/Reports/ArtistNotCompleted.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/DataUploadNotCompleted.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/LeadMusics.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/MusicPurchase.cshtml">
+      <publishTime>02/03/2016 17:40:55</publishTime>
+    </File>
+    <File Include="Views/Reports/Musics.cshtml">
+      <publishTime>02/04/2016 06:48:51</publishTime>
+    </File>
+    <File Include="Views/Reports/Purchase.cshtml">
+      <publishTime>02/04/2016 06:48:51</publishTime>
+    </File>
+    <File Include="Views/Reports/PurchaseArtistsNotPaid.cshtml">
+      <publishTime>02/04/2016 06:48:47</publishTime>
+    </File>
+    <File Include="Views/Reports/PurchasesNotCompleted.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/PurchaseSum.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/RegisterNotCompleted.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/UserReport.cshtml">
+      <publishTime>02/04/2016 06:48:48</publishTime>
+    </File>
+    <File Include="Views/Reports/Users.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>01/02/2016 20:14:31</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>01/02/2016 20:14:31</publishTime>
+    </File>
+    <File Include="Views/Shared/ManagerLayout.cshtml">
+      <publishTime>02/03/2016 01:22:22</publishTime>
+    </File>
+    <File Include="Views/Shared/ReportingLayout.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>01/10/2016 10:37:15</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>01/02/2016 20:14:31</publishTime>
+    </File>
+    <File Include="Views/Tags/Create.cshtml">
+      <publishTime>01/29/2016 10:53:16</publishTime>
+    </File>
+    <File Include="Views/Tags/Delete.cshtml">
+      <publishTime>01/25/2016 21:39:12</publishTime>
+    </File>
+    <File Include="Views/Tags/Edit.cshtml">
+      <publishTime>01/29/2016 10:53:02</publishTime>
+    </File>
+    <File Include="Views/Tags/Index.cshtml">
+      <publishTime>01/29/2016 10:39:15</publishTime>
+    </File>
+    <File Include="Views/UserManager/CreateArtist.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/CreateArtistAgent.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/CreateCustomer.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/EditArtist.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/EditArtistAgent.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/EditCustomer.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/UserManager/GetBlockActive.cshtml">
+      <publishTime>01/21/2016 20:55:02</publishTime>
+    </File>
+    <File Include="Views/UserManager/Index.cshtml">
+      <publishTime>02/04/2016 06:48:49</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>01/02/2016 20:14:30</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/04/2016 07:54:31</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

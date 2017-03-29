@@ -1,0 +1,65 @@
+﻿@model Model.DashboardData
+@{
+    ViewBag.Title = "פסקול למנהל";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>ראשי</h2>
+<div class="row">
+    <div class="col-lg-2 col-lg-offset-4">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Confirmation">@Model.RequestsForConfirmCount בקשות מחכות לאישור</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Auction">@Model.AuctionForConfirmCount מכרזים ממתינים לאישור</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Auction">@Model.AuctionForCloseCount מכרזים ממתינים לסגירה</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Reports/PurchaseArtistsNotPaid" >@Model.PurchaseForPaymentRegulation רכישות ממתינות להסדרת תשלום</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-lg-offset-4">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Reports/ArtistNotCompleted">@Model.NCProfileRegisterCount תהליכי רישום פרופיל לא הושלמו השבוע</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Reports/DataUploadNotCompleted">@Model.NCDataUploadCount תהליכי העלאת תוכן לא הושלמו השבוע</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Reports/PurchasesNotCompleted" >@Model.NCPurchaseCount תהליכי רכישה לא הושלמו השבוע</a>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="alert alert-info" role="alert">
+            <a href="/Admin/Reports/RegisterNotCompleted">@Model.NCRegisterCount תהליכי רישום לא הושלמו השבוע</a>
+        </div>
+    </div>
+   
+</div>
+    
+   
+   
+   
+   
+   
+   
+   
+    
+    
+   
+   
+    

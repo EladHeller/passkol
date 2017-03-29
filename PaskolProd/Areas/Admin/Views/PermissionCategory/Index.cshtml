@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Model.PermissionsCategory>
+
+@{
+    ViewBag.Title = "ניהול רישיונות";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<br />
+<br />
+<div class="col-lg-7 col-lg-offset-5">
+    <ul class="nav nav-justified  nav-tabs" style="margin-bottom:0px;padding:0px">
+        <li role="navigation" class="active"><a href="#">רישיונות</a></li>
+        <li role="navigation"><a href="~/Admin/PermissionCategory/PermissionCost/">מחירון</a></li>
+    </ul>
+    <div  style="border:1px solid #d9d9d9;border-top:none;margin-top:0px;padding:20px">
+        <h3>ניהול קטגוריות</h3>
+        <ol class="breadcrumb">
+            <li class="active">ראשי</li>
+        </ol>
+        <p>
+            @Html.ActionLink("צור קטגוריה חדשה", "Create", new { sortByName = ViewBag.SortByName, sortDesc = ViewBag.SortDesc }, htmlAttributes: new { @class = "btn btn-primary" })
+        </p>
+        <div class="row">
+            <div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("שם", "Index", new { sortByName = true, sortDesc = (ViewBag.SortByName && !ViewBag.SortDesc) })
+                        </th>
+                        <th>
+                            @Html.ActionLink("סדר תצוגה", "Index", new { sortByName = false, sortDesc = (!ViewBag.SortByName && !ViewBag.SortDesc) })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th>פעולות</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ViewOrder)
+                            </td>
+                            <td>
+                                @(item.IsActive ? "פעיל" : "לא פעיל")
+                            </td>
+                            <td>
+                                <a href="~/Admin/PermissionProperties/Index/@(item.ID)">נהל</a> |
+                                @Html.ActionLink("ערוך", "Edit", new { id = item.ID , sortByName = ViewBag.SortByName, sortDesc = ViewBag.SortDesc }) |
+                                @Html.ActionLink("מחק", "Delete", new { id = item.ID , sortByName = ViewBag.SortByName, sortDesc = ViewBag.SortDesc })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="noprint container-fluid container-innersearch8">
+   
+    <div class="innersearch">
+        <h1>@User.Identity.Name</h1>
+        <h2>האזור האישי</h2>
+
+        <ul class="innermenu2">
+            <li><a href="#">עדכון פרופיל</a></li>
+            <li><a href="#">היסטוריית חיפושים</a></li>
+            <li><a href="#">יצירות מועדפות</a></li>
+            <li><a href="#">דו"ח רכישות</a></li>
+            <li><a href="#">יצירת מוזיקה מקורית</a></li>
+            @*<li><a href="#">התחשבנות</a></li>*@
+        </ul>
+    </div>
+</div>
+@RenderBody()

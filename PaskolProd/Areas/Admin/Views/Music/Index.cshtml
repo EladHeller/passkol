@@ -1,0 +1,179 @@
+﻿@using Model;
+@model PaskolProd.Models.MusicViewModel
+
+@{
+    ViewBag.Title = "ניהול יצירות";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/CSS/jquery-ui.min.css" rel="stylesheet" />
+
+<h2>ניהול יצירות</h2>
+
+<p>
+    @Html.ActionLink("צור יצירה חדשה", "Create", "", htmlAttributes: new { @class = "btn btn-primary" })
+</p>
+@if (Model.Success.HasValue)
+{
+    <div class="alert alert-@(Model.Success.Value ? "success" : "danger") alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @if (Model.Success.Value)
+        {
+            <span>הפעולה בוצעה בהצלחה</span>
+        }
+        else
+        {
+            <span>אירעה שגיאה בעת ביצוע הפעולה</span>
+        }
+    </div>
+}
+<div class="row" style="margin-bottom:10px">
+    <div class="col-lg-7 col-lg-offset-3">
+        <div class="well">
+            <form action="~/Admin/Music/Index" class="input-group" style="direction:ltr;" method="get">
+                <div class="col-lg-1 col-lg-offset-1">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">חפש!</button>
+                    </span>
+                </div>
+                <div class="col-lg-4">
+                    @Html.TextBox("searchArtistName", ViewBag.SearchArtistName as string, new { @class = "form-control", placeholder = "הקלד שם אמן לחיפוש" })
+                </div>
+                <div class="col-lg-4">
+                    @Html.TextBox("searchMusicName", ViewBag.SearchMusicName as string, new { @class = "form-control", placeholder = "הקלד שם יצירה לחיפוש" })
+                </div>
+                <div class="col-lg-2">
+                    @Html.Label("","חיפוש יצירה", new { @style = "padding-top:5px" })
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.ActionLink("שם יצירה", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName , page = ViewBag.Page, sortField = "MusicName", sortDesc = (ViewBag.SortField == MusicFieldsSort.MusicName && !ViewBag.SortDesc) })
+        </th>
+        <th>
+            @Html.ActionLink("שם אמן", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.Page, sortField = "ArtistName", sortDesc = (ViewBag.SortField == MusicFieldsSort.ArtistName && !ViewBag.SortDesc) })
+        </th>
+        <th>
+            @Html.ActionLink("זמן יצירה", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.Page, sortField = "CreateDate", sortDesc = (ViewBag.SortField == MusicFieldsSort.CreateDate && !ViewBag.SortDesc) })
+        </th>
+        <th>
+            @Html.ActionLink("זמן עדכון", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.Page, sortField = "UpdateDate", sortDesc = (ViewBag.SortField == MusicFieldsSort.UpdateDate && !ViewBag.SortDesc) })
+        </th>
+        <th>
+            סטטוס
+        </th>
+        <th>
+            הערת מנהל
+        </th>
+        <th>פעולות</th>
+    </tr>
+
+@foreach (var item in Model.Musics) {
+    <tr>
+        <td>
+            @item.HebrewName
+        </td>
+        <td>    
+            @item.Artist.User.UserName
+        </td>
+        <td style="direction:ltr">
+            @item.CreateDate
+        </td>
+        <td style="direction:ltr">
+            @item.UpdateDate
+        </td>
+        <td>
+            @switch (item.StatusDescription)
+            {
+                case "חדש":
+                    <a href="/Admin/Confirmation/NewMusic?id=@item.ID" class="btn btn-default">@item.StatusDescription</a>
+                    break;
+                case "עריכה ממתינה לאישור":
+                    <a href="/Admin/Confirmation/EditedMusic?id=@item.ID" class="btn btn-default">@item.StatusDescription</a>
+                    break;
+                default:
+                    <span>@item.StatusDescription</span>
+                    break;
+            }
+        </td>
+        <td>
+            @item.Comment
+        </td>
+        <td>
+            @Html.ActionLink("ערוך / פרטים", "Edit", new { id=item.ID }, htmlAttributes: new { @class = "btn btn-default" })
+            @Html.ActionLink(item.Status== MusicActiveStatus.Blocked ? "שחרר" : "חסום", "Block", new { id=item.ID }, htmlAttributes: new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="col-lg-offset-1">
+    @if (Model.Musics.Any())
+    {
+        <span>עמוד @ViewBag.Page מתוך @ViewBag.TotalPages</span>
+        <div class="pagination-container">
+            <ul class="pagination">
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="PagedList-skipToNext">
+                        @Html.ActionLink(">>", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.Page + 1, sortField = ViewBag.SortField, sortDesc = ViewBag.SortDesc })
+                    </li>
+                }
+                @if (ViewBag.TotalPages - 5 > ViewBag.Page)
+                {
+                    <li>
+                        @Html.ActionLink(ViewBag.TotalPages.ToString() as string, "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.TotalPages, sortField = ViewBag.SortField, sortDesc = ViewBag.SortDesc })
+                    </li>
+                    <li>
+                        <a disabled="disabled">...</a>
+                    </li>
+                }
+                @for (int i = ((ViewBag.TotalPages -5 > ViewBag.Page) ? (ViewBag.Page + 4) : ViewBag.TotalPages); 
+                      i > 0 && i > (ViewBag.Page - 5); 
+                      i--)
+                {
+                    if (i == ViewBag.Page)
+                    {
+                        <li class="active">
+                            <a>@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(i.ToString(), "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = i, sortField = ViewBag.SortField, sortDesc = ViewBag.SortDesc })
+                        </li>
+                    }
+                }
+                @if (ViewBag.Page > 5)
+                {
+                    <li>
+                        <a disabled="disabled">...</a>
+                    </li>
+                    <li>
+                        @Html.ActionLink("1", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = 1, sortField = ViewBag.SortField, sortDesc = ViewBag.SortDesc })
+                    </li>
+                }
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="PagedList-skipToPrevious">
+                        @Html.ActionLink("<<", "Index", new { searchMusicName = ViewBag.SearchMusicName, searchArtistName = ViewBag.SearchArtistName, page = ViewBag.Page -1, sortField = ViewBag.SortField, sortDesc = ViewBag.SortDesc })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <span class="text-warning">אין תוצאות לחיפוש המבוקש.</span>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/PaskolManager")
+}

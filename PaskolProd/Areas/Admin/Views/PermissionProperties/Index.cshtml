@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Model.PermissionProperty>
+
+@{
+    ViewBag.Title = "פרטי קטגוריית רשיון";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>רישיונות - ניהול פרטי קטגוריה</h2>
+
+<ol class="breadcrumb">
+    <li><a href="~/Admin/PermissionCategory">ראשי</a></li>
+    <li class="active">@ViewBag.CategoryName</li>
+</ol>
+
+    <p>
+        @if (Model == null || Model.Count() < 3)
+        {
+            @Html.ActionLink("צור חדש", "Create", new { id = ViewBag.CategoryID }, htmlAttributes: new { @class = "btn btn-primary" })
+        }
+    </p>
+
+    <div class="row">
+        <div class="col-lg-7 col-lg-offset-5">
+            <table class="table table-striped col-lg-6">
+                <tr>
+                    <th>
+                        @Html.ActionLink("שם", "Index", new { id = ViewBag.CategoryID, sortByName = true, sortDesc = (ViewBag.SortByName && !ViewBag.SortDesc) })
+                    </th>
+                    <th>
+                        @Html.ActionLink("סדר תצוגה", "Index", new { id = ViewBag.CategoryID, sortByName = false, sortDesc = (!ViewBag.SortByName && !ViewBag.SortDesc) })
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+                    <th>פעולות</th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewOrder)
+                        </td>
+                        <td>
+                            @(item.IsActive ? "פעיל" : "לא פעיל")
+                        </td>
+                        <td>
+                            @if (!item.IsCostLevel)
+                            {
+                                <a href="~/Admin/PermissionProperties/Edit/@item.ID">ערוך</a>
+                                <span> | </span>
+                                <a href="~/Admin/PermissionProperties/Delete/@item.ID">מחק</a>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>

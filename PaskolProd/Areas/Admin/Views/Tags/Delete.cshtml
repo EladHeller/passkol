@@ -1,0 +1,28 @@
+﻿@model PaskolProd.Models.TagViewModel
+@{
+    ViewBag.Title = "ניהול קטגוריות";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>מחיקת קטגוריית תיוג</h2>
+
+<h4>שים לב, הקטגוריה תוסר מכל התיוגים! כל תתי הקטגוריה יוסרו גם הם.</h4>
+<div>
+<hr />
+    <h4>
+        <strong>@Html.DisplayNameFor(model => model.Name)</strong> :
+
+        @Html.DisplayFor(model => model.Name)
+    </h4>
+</div>
+<br/>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <input autocomplete="off" type="submit" value="מחק" class="btn btn-default" />
+        <br />
+        <br/>
+        <a href="/Admin/Tags/?id=@(Model.ParentTagID)&sortDesc=@(Model.SortDesc.ToString())&sortByName=@(Model.SortByName.ToString())" class="btn btn-default">חזור לרשימה</a>
+    </div>
+}
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")

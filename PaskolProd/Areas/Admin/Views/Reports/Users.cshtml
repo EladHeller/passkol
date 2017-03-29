@@ -1,0 +1,49 @@
+﻿@using PaskolProd.Models
+@model UsersReportViewModel
+@{
+    ViewBag.Title = "סך אמנים";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "משתמשים";
+    ViewBag.SubCat = "סך אמנים";
+}
+
+
+<div class="row well" style="margin-top:10px; direction: ltr;">
+@using (Html.BeginForm("Users", "Reports", FormMethod.Get))
+{
+        <div class="col-lg-1 col-lg-offset-1">
+            <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+        </div>
+        <div class="col-lg-2">
+            <div class="col-lg-11">
+                @Html.EnumDropDownListFor(m => m.usersStatus, new { @class = "form-control user-status-report-select" })
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="input-group" >
+                <input autocomplete="off" id="StartDate" name="StartDate" type="date" class="form-control" value="@(ViewBag.StartDate.ToString("yyyy-MM-dd"))">
+                <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                <input autocomplete="off" id="EndDate" name="EndDate" type="date" class="form-control" value="@(ViewBag.EndDate.ToString("yyyy-MM-dd"))">
+            </div>
+        </div>
+
+}
+        <div class="col-lg-1 col-lg-offset-1">
+            <button id="WeekDate" class="btn btn-default" name="DateWeekAgo">שבוע אחרון</button>
+        </div>
+        <div class="col-lg-1">
+            <button id="MonthDate" class="btn btn-default" name="DateMonthAgo">חודש אחרון</button>
+        </div>
+        <div class="col-lg-1">
+            <button id="YearDate" class="btn btn-default" name="DateYearAgo">שנה אחרונה</button>
+        </div>
+    </div>
+
+
+<div class="row" style="margin-top:20px; margin-bottom:300px">
+    <div class="col-lg-3 col-lg-offset-3">
+        <div class="alert alert-warning" role="alert">
+            <h2><strong>סך אמנים:</strong>@ViewBag.ArtistCount</h2>
+        </div>
+    </div>
+</div>

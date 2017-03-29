@@ -1,0 +1,202 @@
+﻿
+@using PagedList.Mvc
+@using Model.Purchase
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "רכישות";
+    ViewBag.SubCat = "רכישות";
+}
+@model IEnumerable<Purchase>
+
+<div class="row well" style="margin-top:10px; direction: ltr;">
+    @using (Html.BeginForm())
+    {
+        <div class="col-lg-1">
+            <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+        </div>
+        <div class="col-lg-3 col-lg-offset-5">
+            <div class="input-group input-daterange">
+                <input autocomplete="off" id="StartDate" name="StartDate" type="date" class="form-control" value="@(ViewBag.StartDate.ToString("yyyy-MM-dd"))">
+                <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                <input autocomplete="off" id="EndDate" name="EndDate" type="date" class="form-control" value="@(ViewBag.EndDate.ToString("yyyy-MM-dd"))">
+            </div>
+        </div>
+
+    }
+    <div class="col-lg-1">
+        <button id="WeekDate" class="btn btn-default">שבוע אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="MonthDate" class="btn btn-default">חודש אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="YearDate" class="btn btn-default">שנה אחרונה</button>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+   <thead>
+       <tr>
+           <th>תאריך</th><th>שם האמן</th><th>שם היצירה</th><th>שם רוכש</th><th>חברה</th><th>דוא"ל</th><th>טלפון</th>
+           <th>סוג הרישיון</th><th>מחיר</th><th>תשלום לאמן</th><th>תשלום לפסקול</th>
+       </tr>
+   </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="11" class="text-center">אין רכישות</td>
+            </tr>
+        }
+        else
+        {
+            foreach (Purchase p in Model)
+            {
+                <tr>
+                    <td>@p.PurchaseDate</td>
+                    <td>@p.Music.Artist.User.UserName</td>
+                    <td>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" 
+                                           href="#collapse@(p.PurchaseId)" aria-expanded="false" aria-controls="collapseThree">
+                                            @p.Music.HebrewName
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse@(p.PurchaseId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <table class="table table-bordered table-condensed">
+                                            <tr>
+                                                <th>שם אמן</th>
+                                                <th>@p.Music.Artist.User.UserName</th>
+                                            </tr>
+                                            <tr>
+                                                <th>אימייל אמן</th>
+                                                <th>@p.Music.Artist.User.Email</th>
+                                            </tr>
+                                            <tr>
+                                                <th>טלפון אמן</th>
+                                                <th>@p.Music.Artist.User.PhoneNumber</th>
+                                            </tr>
+                                            <tr>
+                                                <th>שם איש קשר</th>
+                                                <th>@p.Music.Artist.ContactManName</th>
+                                            </tr>
+                                            <tr>
+                                                <th>טלפון איש קשר</th>
+                                                <th>@p.Music.Artist.ContactManPhone</th>
+                                            </tr>
+                                            <tr>
+                                                <th>שם סוכן</th>
+                                                <th>@p.Music.Artist.AgentName</th>
+                                            </tr>
+                                            <tr>
+                                                <th>טלפון סוכן</th>
+                                                <th>@p.Music.Artist.AgentPhone</th>
+                                            </tr>
+                                            <tr>
+                                                <th>אסמכתא תשלום לאמן</th>
+                                                <th>@p.PaidToArtistReference</th>
+                                            </tr>
+                                            <tr>
+                                                <th>הערות תשלום לאמן</th>
+                                                <th>@p.PaidToArtistNote</th>
+                                            </tr>
+                                            <tr>
+                                                <th>אסמכתא תשלום רוכש</th>
+                                                <th>@p.CustomerReference</th>
+                                            </tr>
+                                            <tr>
+                                                <th>הערות תשלום רוכש</th>
+                                                <th>@p.CustomerPaidNote</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@p.Customer.UserName</td>
+                    <td>@p.Customer.Customer.CompanyName</td>
+                    <td>@p.Customer.Email</td>
+                    <td>@p.Customer.PhoneNumber</td>
+                    <td>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" 
+                                           href="#collapse@(p.Permision.ID + p.PurchaseId)" aria-expanded="false" aria-controls="collapseThree">
+                                            צפה ברשיון
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse@(p.Permision.ID + p.PurchaseId)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <table class="table table-bordered table-condensed">
+                                            @foreach (Model.PermissionPropertyValue propery in p.Permision.PropertyValues)
+                                            {
+                                                <tr>
+                                                    <th>@propery.PermissionProperty.Name</th>
+                                                    <th>@propery.Name</th>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                   <td>@p.Permision.PermissionCost</td>
+                   <td>@p.ArtistEarn</td>
+                    <td>@p.PasskolEarn</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="col-lg-offset-1">
+    @if (Model.Count() > 0)
+    {
+        <span>עמוד @ViewBag.Page מתוך @ViewBag.TotalPages</span>
+        <div class="pagination-container">
+            <ul class="pagination">
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="PagedList-skipToNext">
+                        @Html.ActionLink(">>", "Index", new { PageIndex = ViewBag.Page + 1 })
+                    </li>
+                }
+                @for (int i = ViewBag.TotalPages; i > 0; i--)
+                {
+
+                    if ((i) == ViewBag.Page)
+                    {
+                        <li class="active">
+                            <a>@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(i.ToString(), "Index", new { PageIndex = i })
+                        </li>
+                    }
+                }
+
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="PagedList-skipToPrevious">
+                        @Html.ActionLink("<<", "Index", new { PageIndex = ViewBag.Page - 1 })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+

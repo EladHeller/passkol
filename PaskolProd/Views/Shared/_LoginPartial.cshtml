@@ -1,0 +1,25 @@
+﻿
+<div class="noprint container-fluid @(Request.IsAuthenticated ? "logged" : "notlogged")">
+    <header class="logged">
+        <div class="row">
+            @Html.Partial(@"~/Views/Shared/_MenuPartial.cshtml")
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <a href="/"><img class="pull-left" alt="" src="/TemplatesContent/images/logo.png"></a>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <ul class="list-inline">
+                    <li><a href="~/search"><span class="glyphicon glyphicon-search"></span>מצא מוזיקה</a></li>
+                    <li><a href="~/Info/buying_content">רכישת תוכן</a></li>
+                    <li><a href="~/Info/artists">אמנים</a></li>
+                    <li><a href="~/Info/how_it_works">איך זה עובד</a></li>
+                    <li><a href="~/Info/OriginalMusic">יצירת מוזיקה מקורית</a></li>
+                    <li><a href="~/Info/About">אודות פסקול</a></li>
+                    <li><a href="~/Info/faq">שאלות</a></li>
+                    <li><a href="~/Info/Contact">צור קשר</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+</div>
+
+

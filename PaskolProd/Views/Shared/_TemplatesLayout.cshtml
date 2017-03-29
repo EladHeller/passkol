@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/TemplatesContent/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/TemplatesContent/bootstrap/css/custom.css">
+    <link rel="stylesheet" href="~/TemplatesContent/bootstrap/js/jscrollpane/style/jquery.jscrollpane.css">
+    <script src="~/TemplatesContent/bootstrap/js/jquery.min.js"></script>
+    <script src="~/TemplatesContent/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/TemplatesContent/bootstrap/js/custom.js"></script>
+    <script src="~/TemplatesContent/bootstrap/js/jscrollpane/script/jquery.jscrollpane.min.js"></script>
+    <script src="~/TemplatesContent/bootstrap/js/jscrollpane/script/jquery.mousewheel.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="container-fluid notlogged">
+        <header class="logged">
+            <div class="row">
+                <div class="pull-right">
+                    <a href="#" class="btn login">התחבר</a>
+                    <a href="#" class="btn register">הירשם</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <a href="/"><img class="pull-left" alt="" src="/TemplatesContent/images/logo.png"></a>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                    <ul class="list-inline">
+                        <li><a href="#"><span class="glyphicon glyphicon-search"></span>מצא מוזיקה</a></li>
+                        <li><a href="#">רכישת תוכן</a></li>
+                        <li><a href="#">אמנים</a></li>
+                        <li><a href="#">איך זה עובד</a></li>
+                        <li><a href="#">אודות פסקול</a></li>
+                        <li><a href="#">שאלות</a></li>
+                        <li><a href="#">צור קשר</a></li>
+                        <li><a href="#">ENG</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    </div>
+    @RenderBody()
+    <div class="container-fluid container-footer">
+        <footer>
+            <div class="pull-right">&copy; כל הזכויות שמורות</div>
+            <div class="pull-left">
+                <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/mail.png"></a>
+                <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/twitter.png"></a>
+                <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/instagram.png"></a>
+                <a href="#" target="_blank"><img alt="" src="/TemplatesContent/images/facebook.png"></a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

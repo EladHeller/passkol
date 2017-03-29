@@ -1,0 +1,106 @@
+﻿@using PaskolProd.Views.Helpers
+@using Model.Auctions
+@using Model
+@using Model.Helper
+@inherits System.Web.Mvc.WebViewPage
+
+<div>
+<script type="text/ng-template" id="selectPermissionModal.template">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button ng-click="close()" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{music.HebrewName}} /&rlm; {{music.ArtistName}}</h4>
+        </div>
+        <div class="modal-body purchase" ng-hide="buyMode">
+            <input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+            <select-permission>
+                <form id="selectPermsissionFrm" name="selectPermsissionFrm" class="row purchase2">
+                    <div id="selectPermissionRightPanel" class="col-lg-8 col-md-8 col-sm-8">
+                        <p class="bluep">סוג רשיון</p>
+                        <div class="selector selector3">
+                            <span ng-click="showCategorySelect = !showCategorySelect">
+                                {{selectedCategory.Name}}
+                                <span ng-show="!selectedCategory">-בחר-</span>
+                            </span>
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                            <ul ng-show="showCategorySelect">
+                                <li ng-repeat="category in permissionCategories | orderBy : 'ViewOrder' track by category.ID" ng-click="categorySelected(category)">
+                                    <a class="cursor-pointer">{{category.Name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-repeat="property in selectedCategory.PermissionProperties | filter : {IsCostLevel:false} | orderBy : 'ViewOrder' track by property.ID"
+                                style="margin-bottom:7px;">
+                            <p class="bluep">{{property.Name}}</p>
+                            <p class="p1" ng-repeat="value in property.PropertyValueViews | orderBy : 'ViewOrder' track by value.ID">
+                                <label class="myradio2">
+                                    <input autocomplete="off" type="radio" ng-change="getPermissionCost()" name="{{property.ID}}" value="{{value.ID}}" ng-model="property.ValueSelected" required>
+                                    <i></i>
+                                </label>
+                                {{value.Name}}
+                            </p>
+                        </div>
+                    </div>
+                    <div ng-init="modalLoaded()" id="selectPermissionLeftPanel" class="col-lg-4 col-md-4 col-sm-4">
+                        <p ng-class="{'hide-price':finalCost === 0}" class="price1 price2" ng-init="finalCost = 0" >
+                            {{finalCost}}
+                            <span class="currency"> &#8362;</span>
+                        </p>
+                        <div style="height:62px;margin-bottom:20px;" id="acceptBtnContainer">
+                            <div ng-show="isCompleted">
+                                <a target="_blank" href="/File/PurchaseAgreement?musicID={{music.ID}}&musicID&cost={{finalCost}}&reference=&permission={{strPermission}}" class="btn agreebtn">הסכם</a>
+                                <p class="p1">
+                                    <label class="mycheckbox">
+                                        <input autocomplete="off" type="checkbox" ng-model="acceptAgreement">
+                                        <i></i>
+                                    </label>
+                                    הנני מאשר/ת שקראתי את ההסכם
+                                </p>
+                            </div>
+                        </div>
+                        <a id="purchaseContinueBtn" ng-class="{disabled:!isValid(),continue:!isValid(),'continue2':isValid()}" class="btn" ng-click="continueToBuy()">המשך</a>
+                    </div>
+                </form>
+            </select-permission>
+        </div>
+        <div class="modal-body" ng-show="buyMode && !buyOkMode">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="greyArea" style="height:450px">
+                        <p style="color: rgba(6, 131, 190, 0.81);">סוג רשיון</p>
+                        <p>{{selectedCategory.Name}}</p>
+                            
+                        <div ng-repeat="property in selectedCategory.PermissionProperties | filter : {IsCostLevel:false} | orderBy : 'ViewOrder' track by property.ID">
+                            <p style="color: rgba(6, 131, 190, 0.81);">{{property.Name}}</p>
+                            <p class="p1" ng-repeat="value in property.PropertyValueViews | orderBy : 'ViewOrder' track by value.ID">
+                                
+                                {{value.ID == property.ValueSelected ? value.Name : ''}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="modalPurchase">
+                        <iframe id="peleIFrmae" ng-src="{{IframeSrc | EmbedUrl}}" style="width:100%; height:300px; border:none"></iframe>
+                        <div class="row">
+                            <div class="col-lg-7 ng-binding" style="color:red;">
+                                {{pelecardErr}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-9 col-lg-2">
+                                <button class="btn reset3" ng-click="buyMode = false " style="width:100px">חזור</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body" ng-show="buyOkMode">
+            <p class="thanksNewAuction">
+                תודה שקנית! <span ng-show="isPhonePurchase">להשלמת העסקה ניצור איתך קשר בשעות הקרובות.</span>
+            </p>
+        </div>
+    </div>
+</script>
+</div>

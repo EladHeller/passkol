@@ -1,0 +1,44 @@
+@font-face {
+						font-family:'-pauza-black';
+													src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-black-webfont.eot');
+							src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-black-webfont.eot?#iefix') format('embedded-opentype'),
+																			url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-black-webfont.woff') format('woff')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-black-webfont.ttf') format('truetype')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-black-webfont.svg#-pauza-black') format('svg')
+						;
+						font-weight:normal;
+						font-style:normal;
+					}
+									@font-face {
+						font-family:'-pauza-bold';
+													src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-bold-webfont.eot');
+							src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-bold-webfont.eot?#iefix') format('embedded-opentype'),
+																			url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-bold-webfont.woff') format('woff')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-bold-webfont.ttf') format('truetype')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-bold-webfont.svg#-pauza-bold') format('svg')
+						;
+						font-weight:normal;
+						font-style:normal;
+					}
+									@font-face {
+						font-family:'-pauza-book';
+													src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-book-webfont.eot');
+							src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-book-webfont.eot?#iefix') format('embedded-opentype'),
+																			url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-book-webfont.woff') format('woff')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-book-webfont.ttf') format('truetype')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-book-webfont.svg#-pauza-book') format('svg')
+						;
+						font-weight:normal;
+						font-style:normal;
+					}
+									@font-face {
+						font-family:'-pauza-light';
+													src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-light-webfont.eot');
+							src:url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-light-webfont.eot?#iefix') format('embedded-opentype'),
+																			url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-light-webfont.woff') format('woff')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-light-webfont.ttf') format('truetype')
+																			,url('https://www.fontef.com/new_web/wp-content/uploads/font-family/pauzafot-light-webfont.svg#-pauza-light') format('svg')
+						;
+						font-weight:normal;
+						font-style:normal;
+					}

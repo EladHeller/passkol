@@ -1,0 +1,130 @@
+﻿@using PaskolProd.Views.Helpers
+
+<h1> עריכת פרופיל</h1>
+<input autocomplete="off" id="antiForgeryToken" type="hidden" ng-model="antiForgeryToken" ng-init="antiForgeryToken='@AjaxAFToken.GetAntiForgeryToken()'" />
+<div class="innercontent">
+    <div class="row editprofile">
+        <div class="col-lg-5 col-md-5 col-md-5">
+            <div class="row" style="margin-bottom:10px !important">
+                <div class="col-lg-9">
+                    <div class="icon-addon">
+                        <a ng-show="focus === 'nfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="UserName=''"></a>
+                        <input autocomplete="off" class="form-control greyinput blackFocus" ng-focus="focus='nfocus'" ng-model="UserName" ng-init="UserName ='@Model.UserName'" />
+                    </div>
+                    <div ng-show="focus === 'nfocus'">
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="UserName=OriginalUserName">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updateName()">עדכן</a>
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="NameInvalid">
+                                {{NameInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p>שם מלא</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:10px !important">
+                <div class="col-lg-9">
+                    <div class="icon-addon">
+                        <a ng-show="focus === 'mfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="email=''"></a>
+                        <input autocomplete="off" class="form-control greyinput blackFocus" ng-focus="focus='mfocus'" ng-model="email" ng-init="email ='@Model.Email'" />
+                    </div>
+                    <div ng-show="focus==='mfocus'">
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="email=OriginalEmail">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updateEmail()">עדכן</a>
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="EmailInvalid">
+                                {{EmailInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p>דוא"ל</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:10px !important">
+                <div class="col-lg-9">
+                    <div class="icon-addon">
+                        <a ng-show="focus === 'phfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="PhoneNumber=''"></a>
+                        <input autocomplete="off" ng-focus="focus='phfocus'" class="blackFocus form-control greyinput" ng-model="PhoneNumber" ng-init="PhoneNumber ='@Model.PhoneNumber'" />
+                    </div>
+                    <div ng-show="focus === 'phfocus'">
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="PhoneNumbe=OriginalPhoneNumbe">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updatePhoneNumber()">עדכן</a>
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="PhoneInvalid">
+                                {{PhoneInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p>טלפון</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:10px !important">
+                <div class="col-lg-9">
+                    <div class="icon-addon">
+                        <a ng-show="focus === 'cnfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="CompanyName=''"></a>
+                        <input autocomplete="off" ng-focus="focus='cnfocus'" class="blackFocus form-control greyinput" ng-model="CompanyName" ng-init="CompanyName ='@Model.CompanyName'" />
+                    </div>
+                    <div ng-show="focus === 'cnfocus'">
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px">
+                                <a class="blackButton" ng-click="CompanyName=OriginalCompanyName">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updateCompanyName()">עדכן</a>
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="CompanyNameInvalid">
+                                {{CompanyNameInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p>שם חברה</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:10px !important">
+                <div class="col-lg-9">
+                    <div class="icon-addon">
+                        <a ng-show="focus==='passfocus'" class="fa fa-times-circle" style="color:#b3b3b3" ng-click="Password=''"></a>
+                        <input autocomplete="off" ng-focus="focus='passfocus'" type="password" ng-model="Password" class="blackFocus form-control greyinput" />
+                    </div>
+                    <div ng-show="focus==='passfocus'">
+                        <div class="row" style="padding-top: 5px;">
+                            <div class="col-lg-2" style="margin-right:5px;">
+                                <a class="blackButton" ng-click="Password=OriginalPassword">בטל</a>
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="blueButton" ng-click="updatePassword()">עדכן</a>
+                            </div>
+                            <div class="col-lg-7" style="color:red" ng-show="PasswordInvalid">
+                                {{PasswordInvalidMsg}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p>סיסמה</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

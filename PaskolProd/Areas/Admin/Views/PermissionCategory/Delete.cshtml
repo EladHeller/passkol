@@ -1,0 +1,31 @@
+﻿@model Model.PermissionsCategory
+
+@{
+    ViewBag.Title = "מחיקת קטגוריית רשיון";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>מחיקה</h2>
+
+<h3>האם אתה בטוח שברצונך למחוק את הקטגוריה?</h3>
+<div>
+    <hr />
+    <h3>
+        <strong> @Html.DisplayNameFor(model => model.Name) : </strong>
+        @Html.DisplayFor(model => model.Name)
+    </h3>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input autocomplete="off" type="submit" value="מחק" class="btn btn-default" />
+            <br />
+            <br/>
+            <p><a href="/Admin/PermissionCategory?sortDesc=@(ViewBag.SortDesc.ToString())&sortByName=@(ViewBag.sortByName.ToString())" class="btn btn-default">חזור לרשימה</a></p>
+        </div>
+    }
+</div>
+
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")

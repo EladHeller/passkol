@@ -1,0 +1,102 @@
+﻿@using Model;
+
+@model PaskolProd.Models.TagViewModel
+
+@{ 
+    ViewBag.Title = "ניהול קטגוריות תיוג";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+<h2>ניהול קטגוריות תיוג</h2>
+
+<hr />
+<ol class="breadcrumb">
+    @if (Model.Level > 0)
+    {
+        <li><a href="~/Admin/tags">ראשי</a></li>
+        if (Model.Level > TagLevel.Root)
+        {
+            <li>@Html.ActionLink(Model.ParentTag.Name, "Index", new { id = Model.ParentTagID})</li>
+        }
+        <li class="active">@Model.Name</li>
+    }
+    else
+    {
+        <li class="active">ראשי</li>
+    }
+</ol>
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-@(ViewBag.Success ? "success" : "danger") alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @if (ViewBag.Success)
+        {
+            <span>הפעולה בוצעה בהצלחה</span>
+        }
+        else
+        {
+            <span>@ViewBag.Message</span>
+        }
+    </div>
+}
+<p>
+    @Html.ActionLink("הוסף חדש", "Create", new { parentId = Model.NullableID, parentLevel = Model.Level, sortByName = Model.SortByName, sortDesc = Model.SortDesc }, htmlAttributes: new { @class = "btn btn-primary" })
+</p>
+<div class="row">
+    <div class="col-lg-7 col-lg-offset-5">
+        <table class="table table-striped">
+            <tr>
+                <th class="col-lg-1">
+                    @Html.ActionLink("שם", "Index", new { id = Model.NullableID, sortByName = true, sortDesc = (Model.SortByName && !Model.SortDesc) })
+                </th>
+                <th class="col-lg-1">
+                    @Html.ActionLink("סדר תצוגה","Index",new { id = Model.NullableID, sortByName = false, sortDesc = (!Model.SortByName && !Model.SortDesc)})
+                </th>
+                <th class="col-lg-1">
+                    @Html.DisplayNameFor(model => model.IsPublicTag)
+                </th>
+
+                <th class="col-lg-1">פעולות</th>
+            </tr>
+
+            @foreach (var item in Model.TagList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ViewOrder)
+                    </td>
+                    <td>
+                        @if (item.IsPublicTag)
+                        {
+                            <span>פעיל</span>
+                        }
+                        else
+                        {
+                            <span>לא פעיל</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Level != TagLevel.Bottom && !item.IsDynamic)
+                        {
+                            @Html.ActionLink("נהל", "Index", new { id = item.ID})
+                            <span>|</span>
+                        }
+                        <a href="/Admin/Tags/Edit/?id=@(item.ID)&sortByName=@(Model.SortByName.ToString())&sortDesc=@(Model.SortDesc.ToString())">ערוך</a>
+                        @if (item.IsCanDelete)
+                        {
+                            <span>|</span>
+                            <a href="/Admin/Tags/Delete/?id=@(item.ID)&sortByName=@(Model.SortByName.ToString())&sortDesc=@(Model.SortDesc.ToString())">מחק</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+@if (Model.Level > 0)
+{
+    <a href="/Admin/Tags/?id=@Model.ParentTagID" class="btn btn-default">חזור לרשימה</a>
+}

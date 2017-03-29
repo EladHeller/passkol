@@ -1,0 +1,166 @@
+﻿
+@using PagedList.Mvc
+@using Model.Logs
+@{
+    ViewBag.Title = "רכישת תוכן שלא הושלמה";
+    Layout = "~/Areas/Admin/Views/Shared/ReportingLayout.cshtml";
+    ViewBag.MainCat = "תהליכים פתוחים";
+    ViewBag.SubCat = "רכישת תוכן שלא הושלמה";
+}
+@model IEnumerable<NCPurchase>
+
+<div class="row well" style="margin-top:10px; direction: ltr;">
+    @using (Html.BeginForm("PurchasesNotCompleted", "Reports", FormMethod.Get))
+    {
+        <div class="col-lg-1">
+            <input autocomplete="off" type="submit" value="סנן" class="btn btn-success" placeholder="סנן" />
+        </div>
+        <div class="col-lg-3 col-lg-offset-5">
+            <div class="input-group input-daterange">
+                <input autocomplete="off" id="StartDate" name="StartDate" type="date" class="form-control" value="@(ViewBag.StartDate.ToString("yyyy-MM-dd"))">
+                <span class="input-group-addon" name="dateBetweenRange">עד</span>
+                <input autocomplete="off" id="EndDate" name="EndDate" type="date" class="form-control" value="@(ViewBag.EndDate.ToString("yyyy-MM-dd"))">
+            </div>
+        </div>
+
+    }
+    <div class="col-lg-1">
+        <button id="WeekDate" class="btn btn-default">שבוע אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="MonthDate" class="btn btn-default">חודש אחרון</button>
+    </div>
+    <div class="col-lg-1">
+        <button id="YearDate" class="btn btn-default">שנה אחרונה</button>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>תאריך</th>
+            <th>שם</th>
+            <th>טלפון</th>
+            <th>מייל</th>
+            <th>שם אמן</th>
+            <th>שם יצירה</th>
+            <th>רשיון</th>
+            <th>מחיר</th>
+            <th>הערה</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="11" class="text-center">אין רשומות</td>
+        </tr>
+    }
+    else
+    {
+        foreach (NCPurchase p in Model)
+        {
+            using (Html.BeginForm("PurchasesNotCompleted", "Reports", FormMethod.Post))
+            {
+                <input autocomplete="off" type="hidden" id="HStartDate" name="StartDate" type="date" class="form-control" value="@(ViewBag.StartDate.ToString("yyyy-MM-dd"))">
+                <input autocomplete="off" type="hidden" id="HEndDate" name="EndDate" type="date" class="form-control" value="@(ViewBag.EndDate.ToString("yyyy-MM-dd"))">
+                <input autocomplete="off" type="hidden" name="Id" value="@p.Id" />
+                <input autocomplete="off" type="hidden" name="action" />
+                <tr>
+                    <td>@p.DateTime</td>
+                    @if (p.Purchase.Customer != null)
+                    {
+                        <td>@p.Purchase.Customer.UserName</td>
+                        <td>@p.Purchase.Customer.PhoneNumber</td>
+                        <td>@p.Purchase.Customer.Email</td>
+
+                    }
+                    else {
+                <td></td>
+                <td></td>
+                <td></td> }
+
+                    @if (p.Purchase.Music != null)
+                    {
+                        <td>@p.Purchase.Music.Artist.User.UserName</td>
+                        <td>@p.Purchase.Music.HebrewName</td>
+                    }
+                    else {
+                <td></td>
+                <td></td>}
+
+                    @if (p.Purchase.Permision != null)
+                    {
+                        <td>
+                            <table class="table table-bordered">
+                                @foreach (Model.PermissionPropertyValue propery in p.Purchase.Permision.PropertyValues)
+                                {
+                                    <tr>
+                                        <th>@propery.PermissionProperty.Name</th>
+                                        <th>@propery.Name</th>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                        <td>@p.Purchase.Permision.PermissionCost</td>
+                    }
+                    else {
+                <td></td>
+                <td></td>}
+
+                    <th>
+                        <input autocomplete="off" type="text" name="note" value="@p.Note" class="form-control" />
+                    </th>
+                    <th>
+                        <button type="submit" class="btn btn-success" onsubmit="$('#HStartDate').val($('#StartDate').val());
+                                                        $('#HEndDate').val($('#EndDate').val());">שמור</button>
+                        <button type="submit" class="btn btn-danger" onclick="javascripts:document.getElementsByName('action')[0].value = 0">מחק</button>
+                    </th>
+                </tr>
+            }
+        }
+    }
+    </tbody>
+</table>
+<div class="col-lg-offset-1">
+    @if (Model.Count() > 0)
+    {
+        <span>עמוד @ViewBag.Page מתוך @ViewBag.TotalPages</span>
+        <div class="pagination-container">
+            <ul class="pagination">
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="PagedList-skipToNext">
+                        @Html.ActionLink(">>", "Index", new { PageIndex = ViewBag.Page + 1 })
+                    </li>
+                }
+                @for (int i = ViewBag.TotalPages; i > 0; i--)
+                {
+
+                    if ((i) == ViewBag.Page)
+                    {
+                        <li class="active">
+                            <a>@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(i.ToString(), "Index", new { PageIndex = i })
+                        </li>
+                    }
+                }
+
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="PagedList-skipToPrevious">
+                        @Html.ActionLink("<<", "Index", new { PageIndex = ViewBag.Page - 1 })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+

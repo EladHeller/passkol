@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "איך זה עובד";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<info-page>
+    <div class="container-fluid container-innersearch2">
+        <div class="innersearch">
+            <h1 class="morepadding">איך זה עובד?</h1>
+        </div>
+    </div>
+    <div class="container-fluid container-innercontent2">
+        <div class="innercontent">
+            <ol class="breadcrumb">
+                <li><a href="/">עמוד הבית</a></li>
+                <li class="active">איך זה עובד?</li>
+            </ol>
+
+            <div class="subtitle">
+                מערכת פסקול היא כלי עבודה המחבר בין יוצרים ויצירות לבין מפיקים, במאים, פרסומאים, מנהלי
+
+                מותגים, אנשי שיווק, עורכים, חברות, ופרטיים. פסקול נותנת לך רישיון ישירות מהיוצר בלחיצת
+
+                כפתור.
+            </div>
+            <div class="row steps">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <img alt="" src="~/TemplatesContent/images/step1.png">
+                    <p>האמן מעלה את היצירות המוזיקליות שלו ומגדיר את תנאי המכירה.</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <img alt="" src="~/TemplatesContent/images/steparrow.png">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <img alt="" src="~/TemplatesContent/images/step2.png">
+                    <p>צוות פסקול מתייג את המוזיקה ומשייך אותה לתחומים ולקטגוריות רלוונטיות.</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <img alt="" src="~/TemplatesContent/images/steparrow.png">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <img alt="" src="~/TemplatesContent/images/step3.png">
+                    <p>רוכש התוכן מחפש תוכן רלוונטי ברפרטואר פסקול ורוכש רישיון שימוש.</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <img alt="" src="~/TemplatesContent/images/steparrow.png">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <img alt="" src="~/TemplatesContent/images/step4.png">
+                    <p>האמן מקבל את התשלום בעבור רישיון השימוש.</p>
+                </div>
+            </div>
+
+            <div class="row uploadoptions">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    רוכש תוכן?
+                    <a href="/search">
+                        <div class="row" id="megasearch3">
+                            <div class="col-lg-1 col-md-1 col-sm-1">
+                                <span class="megasearchbtn2 glyphicon glyphicon-search"></span>
+                            </div>
+                            <div class="col-lg-11 col-md-11 col-sm-11">
+                                <input autocomplete="off" type="text" class="form-control innersearchinput cursor-pointer" value="" placeholder="חפש במאגר פסקול, הקלד מילות חיפוש">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    אמן?
+                    <a ng-click="uploadContent()" class="btn uploadoption2 cursor-pointer">העלה תוכן למערכת פסקול<span class="glyphicon glyphicon-circle-arrow-up"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</info-page>

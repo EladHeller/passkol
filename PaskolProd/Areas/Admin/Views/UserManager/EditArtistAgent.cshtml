@@ -1,0 +1,126 @@
+﻿@model PaskolProd.Models.ArtistAgentEditView
+
+@{
+    ViewBag.Title = "עדכון מנהל אמנים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>פרטי מנהל אמנים</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-6" style="direction:rtl; text-align:right">
+            <div class="form-horizontal">
+             
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserID)
+                <input autocomplete="off" type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+                   
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+                  
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+                 
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RegisteredDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.RegisteredDate, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.RegisteredDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                  
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                 <div class="col-md-10">
+                    @if (Model.Artists != null)
+                    {
+
+                        @Html.DropDownList("Artists", new SelectList(Model.Artists.Select(a => a)), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Artists, "", new { @class = "text-danger" })
+
+                    }
+                    else { <p>אין אמנים</p>}
+                </div>
+                    @Html.LabelFor(model => model.Artists, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                 
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+              
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                   
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input autocomplete="off" type="submit" value="שמור" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a href="@ViewBag.ReturnURL" class="btn btn-default">חזרה לרשימה</a>
+    </div>
+}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -1,0 +1,126 @@
+﻿@using Model.Auctions;
+@using PaskolProd.Models.Helper;
+@using Model.Helper;
+
+@model IEnumerable<Auction>
+
+
+@{
+    ViewBag.Title = "מכרזים";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>מכרזים</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>שם מכרז </th>
+        <th>רוכש </th>
+        <th>
+            @Html.ActionLink("תאריך פתיחה", "Index",
+               new
+               {
+                   sortOrder = ViewBag.OpenDateSP,
+               })
+        </th>
+        <th>
+            @Html.ActionLink("תאריך סיום", "Index",
+               new
+               {
+                   sortOrder = ViewBag.CloseSP,
+               })
+        </th>
+        <th>
+            @Html.ActionLink("תאריך בחירת זוכה", "Index",
+               new
+               {
+                   sortOrder = ViewBag.PickWinnerDateSP,
+               })
+        </th>
+        <th>סקיצות</th>
+        <th>
+            @Html.ActionLink("סטאטוס", "Index",
+               new
+               {
+                   sortOrder = ViewBag.StatusSP,
+               })
+        </th>
+        <th>הערה</th>
+        <th>#</th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="9" class="text-center">אין מכרזים</td>
+        </tr>
+    }
+    else
+    {
+        foreach (Auction au in Model)
+        {
+            <tr>
+                <td>@au.AuctionName</td>
+                <td>@au.Customer.UserName</td>
+                <td style="direction:ltr">@au.OpenDate</td>
+                <td style="direction:ltr">@au.CloseDate</td>
+                <td style="direction:ltr">@au.PickWinnerDate</td>
+                <td>@au.Sketches.Count</td>
+                <td>@au.AuctionStatus.ToDescription()</td>
+                <td>@au.AuctionNote</td>
+                <td>
+                    @if (au.AuctionStatus == AuctionStatus.ConfirmWating)
+                    {
+                        <a href="/Admin/Auction/Confirm?Id=@au.AuctionId" class="btn btn-default">אשר</a>
+                    }
+                    else
+                    {
+                        <a href="/Admin/Auction/Watch?Id=@au.AuctionId" class="btn btn-default">צפה</a>
+                    }
+                </td>
+            </tr>
+
+        }
+    }
+</table>
+<div class="col-lg-offset-1">
+    @if (Model.Count() > 0)
+    {
+        <span>עמוד @ViewBag.Page מתוך @ViewBag.TotalPages</span>
+        <div class="pagination-container">
+            <ul class="pagination">
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="PagedList-skipToNext">
+                        @Html.ActionLink(">>", "Index", new { PageIndex = ViewBag.Page + 1 })
+                    </li>
+                }
+                @for (int i = ViewBag.TotalPages; i > 0; i--)
+                {
+
+                    if ((i) == ViewBag.Page)
+                    {
+                        <li class="active">
+                            <a>@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(i.ToString(), "Index", new { PageIndex = i })
+                        </li>
+                    }
+                }
+
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="PagedList-skipToPrevious">
+                        @Html.ActionLink("<<", "Index", new { PageIndex = ViewBag.Page - 1 })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/PaskolManager")
+}

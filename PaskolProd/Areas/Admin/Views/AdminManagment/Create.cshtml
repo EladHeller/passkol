@@ -1,0 +1,83 @@
+﻿@model PaskolProd.Models.ManagersCreateView
+@using Model.Helper
+@{
+    ViewBag.Title = "יצירת מנהל";
+    Layout = "~/Areas/Admin/Views/Shared/ManagerLayout.cshtml";
+}
+
+<h2>יצירת מנהל</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-6">
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.UserID)
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="row admin-managmant-role-container">
+                    @foreach (EnumKeyVal role in ViewBag.Roles)
+                    {
+
+                        <div class="col-md-10">
+                            <div class="input-group" style="direction: ltr;text-align:left">
+                                <input autocomplete="off" type="text" class="form-control" disabled placeholder="@role.Value">
+                                <span class="input-group-addon">
+                                    <input autocomplete="off" class="admin-managmant-role-checkbox" type="checkbox" name="Roles" value="@role.Key" @(ViewData.ModelState["Roles"] !=null &&ViewData.ModelState["Roles"].Value.RawValue!= null &&(ViewData.ModelState["Roles"].Value.RawValue as string[]).Contains(role.Key) ? "checked" : "")>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input autocomplete="off" type="submit" value="צור מנהל" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            <a href="/Admin/AdminManagment/" class="btn btn-default">חזרה לרשימה</a>    
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

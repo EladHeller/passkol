@@ -1,0 +1,56 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="purchase.template">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">&times;</button>
+        <h4 class="modal-title">שיתוף יצירה</h4>
+    </div>
+    <div class="modal-body padding36">
+        <h4>{{music.HebrewName}}</h4>
+        <h5>{{music.ArtistName}}</h5>
+        <a ng-class="{disabled : !shareMusicMailForm.$valid}" class="btn sharelink  cursor-pointer" ng-click="shareInMail()">
+            <span style="float:right">
+                <span class="glyphicon glyphicon-envelope"></span>
+                <span>שתף את היצירה בדוא"ל</span>
+            </span>
+        </a>
+        <form class="sharebyemail" name="shareMusicMailForm">
+            <div class="form-group">
+                <label>כתובת הדוא"ל שלך:</label>
+                <input autocomplete="off" type="email" name="myMail" class="form-control greyinput" ng-pattern="/^.*@@\w*\..*$/" ng-model="UserMail" required="required">
+            </div>
+            <div role="alert" ng-show="shareMusicMailForm.myMail.$dirty">
+                <span class="error" ng-show="shareMusicMailForm.myMail.$error.required">
+                    שדה חובה!
+                </span>
+                <span class="error" ng-show="shareMusicMailForm.myMail.$error.email || shareMusicMailForm.myMail.$error.pattern">
+                    דוא"ל לא תקין!
+                </span>
+            </div>
+            <div class="form-group">
+                <label>כתובת הדוא"ל של החבר:</label>
+                <input autocomplete="off" type="email" class="form-control greyinput" name="friendMail" ng-pattern="/^.*@@\w*\..*$/" ng-model="FriendMail" required="required">
+            </div>
+            <div role="alert" ng-show="shareMusicMailForm.friendMail.$dirty">
+                <span class="error" ng-show="shareMusicMailForm.friendMail.$error.required">
+                    שדה חובה!
+                </span>
+                <span class="error" ng-show="shareMusicMailForm.friendMail.$error.email || shareMusicMailForm.friendMail.$error.pattern">
+                    דוא"ל לא תקין!
+                </span>
+            </div>
+            <div class="form-group">
+                <label>הוסף הערות (לא חובה):</label>
+                <textarea class="form-control greyinput" ng-model="Comments"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="mycheckbox">
+                    <input autocomplete="off" type="checkbox" ng-init="SendCopy = true" ng-model="SendCopy">
+                    <i></i>
+                </label>שלח העתק לדוא"ל שלי
+                <a ng-class="{disabled : !shareMusicMailForm.$valid}" class="btn send cursor-pointer" ng-click="shareInMail()">שלח</a>
+                <a ng-click="close()" class="btn cancelsend cursor-pointer">בטל</a>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</script>

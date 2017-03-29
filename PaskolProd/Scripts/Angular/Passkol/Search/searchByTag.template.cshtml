@@ -1,0 +1,110 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<script type="text/ng-template" id="searchByTag.template">
+    <div ng-switch="layout">
+        <div class="container-fluid " ng-class="{'container-homesearch':indexMode, 'container-innersearch':searchMode}">
+            <div ng-class="{'homesearch':indexMode, 'innersearch':searchMode}">
+                <div ng-switch-when="indexMode">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="" data-target="#LoginModal" data-toggle="modal" id="artistlogin">כניסת אמנים<span class="fa fa-chevron-left"></span></a>
+                    }
+
+                    <div id="homeheadings">
+                        <h1>ברוכים הבאים לפסקול</h1>
+                        <h2>עולם חדש של זכויות יוצרים במרחק הקלקה</h2>
+                    </div>
+                </div>
+                <div ng-switch-when="searchMode">
+                    <h1>מצא מוזיקה</h1>
+                </div>
+                <div class="row" id="megasearch">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                        <a ng-click="reloadSearch()" class="megasearchbtn glyphicon glyphicon-search cursor-pointer"></a>
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11" id="searches">
+                        <select multiple id="autoCompleteTag" name="autoCompleteTag" data-placeholder="חפש במאגר פסקול, בחר מילות חיפוש או הקלד מתוך הקבוצות שלהלן"></select>
+                        <input autocomplete="off" id="searchTextBox" ng-model="searchText" placeholder="הקלד טקסט חיפוש" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" ng-class="{'container-homecontent':indexMode, 'container-innercontent':searchMode}">
+            <div ng-class="{'homecontent':indexMode, 'innercontent':searchMode}">
+                <h3>
+                    <span ng-show="!selectedTag">קבוצות <small>(להצגת התגיות לחץ על הקבוצה המבוקשת)</small></span>
+                    <span ng-show="selectedTag"><a class="cancel-btn" ng-click="tagClick()">&times;</a> <span>{{selectedTag.hirarychyStr}}</span></span>
+                </h3>
+                <div ng-show="!selectedTag" class="filters2">
+                    <span ng-repeat="tag in tags | filter:tagsFilter | orderBy : 'ViewOrder' track by tag.ID"
+                          ng-click="tagClick(tag)">
+                        {{tag.Name}}
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+                <div ng-show="selectedTag" class="filters" ng-init="selctedSecondTag = {}">
+                    <span ng-repeat="tag in tags | filter:tagsFilter | orderBy : 'ViewOrder' track by tag.ID"
+                          ng-class="{filter3:selctedSecondTag.tag !== tag,
+                                    filter2:selctedSecondTag.tag === tag,
+                                    'filter-no-border':tag.isSelected,
+                                    'filter2-blue':selctedSecondTag.tag === tag}">
+                        <label class="mycheckbox"><input autocomplete="off" type="checkbox" ng-model="tag.isSelected" ng-change="tagSelectCheked(tag)"><i></i></label>
+                        <span ng-show="!tag.TagList.length">
+                            {{tag.Name}}
+                        </span>
+                        <span class="cursor-pointer" ng-click="selctedSecondTag.tag = tag" ng-show="tag.TagList.length && selctedSecondTag.tag !== tag">
+                            {{tag.Name}}
+                            <span class="fa fa-angle-down"></span>
+                        </span>
+                        <span class="cursor-pointer" ng-click="selctedSecondTag.tag = undefined" ng-show="tag.TagList.length && selctedSecondTag.tag === tag">
+                            {{tag.Name}}
+                            <span class="fa fa-angle-up"></span>
+                        </span>
+                    </span>
+                    <div class="clearfix"></div>
+                        <span ng-repeat="tag in selctedSecondTag.tag.TagList | orderBy : 'ViewOrder' track by tag.ID"
+                              ng-class="{'filter-no-border':tag.isSelected}"
+                              class="filter2">
+                            <label class="mycheckbox"><input autocomplete="off" type="checkbox" ng-model="tag.isSelected" ng-change="tagSelectCheked(tag)"><i></i></label>
+                            {{tag.Name}}
+                        </span>
+                </div>
+                <div ng-switch-when="searchMode">
+                    <music-results></music-results>
+                    <sync-video ng-show="showVideoSync && showAudioPlayer"></sync-video>
+                </div>
+                <div ng-switch-when="indexMode">
+                    <div class="text-center subtitle">פסקול הינה זירה לשיתוף <span>אמנים</span> המוכרים רישיון שימוש ליצירותיהם <span>ורוכשי תוכן</span> המחפשים יצירות עבור שימוש מסחרי.</div>
+                    <div class="row steps">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <img alt="" src="/TemplatesContent/images/step1.png">
+                            <p>האמן מעלה את היצירות המוזיקליות שלו ומגדיר את תנאי המכירה.</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <img alt="" src="/TemplatesContent/images/steparrow.png">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <img alt="" src="/TemplatesContent/images/step2.png">
+                            <p>צוות פסקול מתייג את המוזיקה ומשייך אותה לתחומים ולקטגוריות רלוונטיות.</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <img alt="" src="/TemplatesContent/images/steparrow.png">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <img alt="" src="/TemplatesContent/images/step3.png">
+                            <p>רוכש התוכן מחפש תוכן רלוונטי מקטלוג פסקול ורוכש את הזכויות לשימוש בתוכן.</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <img alt="" src="/TemplatesContent/images/steparrow.png">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <img alt="" src="/TemplatesContent/images/step4.png">
+                            <p>האמן מקבל את התשלום בעבור רישיון השימוש.</p>
+                        </div>
+                    </div>
+                    <a href="" data-target="#RegsterModal" data-toggle="modal" class="btn center-block register2">להרשמה <span>חינם</span> לחץ כאן</a>
+                </div>
+            </div>
+        </div>
+        <passkol-player></passkol-player>
+    </div>
+</script>
